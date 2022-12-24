@@ -12,6 +12,23 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
   }
 
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+
+  p {
+    font-size: 1rem;
+    font-weight: lighter;
+    line-height: 2;
+    letter-spacing: .05rem;
+  }
+
   a {
     color: inherit;
     text-decoration: none;

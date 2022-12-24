@@ -1,88 +1,111 @@
-import styled, {keyframes} from "styled-components"
+import styled from "styled-components"
 import {SideBorder} from "../../General/SideBorder";
+import SectionContainer from "./index";
+
+// Svg Buttons
+import SVGLink from "../../General/SVGLink";
+import Github from "&/asset/svg/github.svg";
+import Twitter from "&/asset/svg/twitter.svg";
+import LinkedIn from "&/asset/svg/linkedin.svg";
+import {motion} from "framer-motion";
 
 export default function About() {
+    const titles = ["01- About Me, Hey I'm Devin!", "01- About Me, I Enjoy: Research", "01- About Me, I Enjoy: Anime", "01- About Me, I Enjoy: Hentai"]
 
+    return <SectionContainer titles={titles}>
+        <AboutContainer>
+            <ProfileContainer
+                initial={{x: "-150%", opacity: 0}}
+                animate={{x: 0, opacity: 1}}
+                transition={{duration: 2}}
+            >
+                <ProfileImage src="https://picsum.photos/200"/>
 
-    return <AboutContainer>
-        <ProfileContainer>
-            <ProfileImage src="https://picsum.photos/200"/>
-            <ProfileLinks>
-                <p>Github</p>
-                <p>Github</p>
-                <p>Github</p>
-            </ProfileLinks>
-        </ProfileContainer>
+                <ProfileText>Devin DeMatto</ProfileText>
 
-        <DescContainer>
-            <Section>
-                <h1>Professional Background</h1>
-                <p>I have always been passionate about programming and have been
-                    fortunate enough to turn that
-                    passion
-                    into
-                    a career. I am currently working on my Bachelors in Computer Science Engineering at Michigan
-                    State
-                    University and am looking for more experience in the way of internships and co-ops.</p>
-            </Section>
+                <ProfileLinks>
+                    <SVGLink href={""}><Github/></SVGLink>
+                    <SVGLink href={""}><Twitter/></SVGLink>
+                    <SVGLink href={""}><LinkedIn/></SVGLink>
+                </ProfileLinks>
+            </ProfileContainer>
 
-            <Section>
-                <h1>Interests</h1>
-                <p>I am a passionate and driven individual with a strong interest in technology and programming. In
-                    my
-                    free
-                    time, I enjoy playing video games and working on side projects to learn new technologies. I am
-                    always
-                    looking for ways to challenge myself and grow personally and professionally, and I am excited to
-                    see
-                    what the future holds. Thank you for visiting my website and learning more about me.</p>
-            </Section>
-        </DescContainer>
-    </AboutContainer>
+            <DescContainer
+                initial={{y: "100%", opacity: 0}}
+                animate={{y: 0, opacity: 1}}
+                transition={{duration: 2}}
+            >
+                <Section>
+                    <h2>Professional Background</h2>
+                    <p>I have always been passionate about programming and have been
+                        fortunate enough to turn that
+                        passion
+                        into
+                        a career. I am currently working on my Bachelors in Computer Science Engineering at Michigan
+                        State
+                        University and am looking for more experience in the way of internships and co-ops.</p>
+                </Section>
+
+                <Section>
+                    <h2>Interests</h2>
+                    <p>I am a passionate and driven individual with a strong interest in technology and programming. In
+                        my
+                        free
+                        time, I enjoy playing video games and working on side projects to learn new technologies. I am
+                        always
+                        looking for ways to challenge myself and grow personally and professionally, and I am excited to
+                        see
+                        what the future holds. Thank you for visiting my website and learning more about me.</p>
+                </Section>
+            </DescContainer>
+        </AboutContainer>
+    </SectionContainer>
 }
 
 // Main section
 const AboutContainer = styled.section`
-  width: 100%;
-  height: 500px;
-  padding: 1rem 5rem;
-  gap: 2.5rem;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 1rem;
 
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
 `;
 
-
 // Profile section
-const ProfileContainer = styled.div`
-  height: 100%;
-
+const ProfileContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
-
   gap: 1rem;
-  padding: 1rem;
-  align-items: stretch;
 `;
 
 const ProfileImage = styled.img`
-  width: 200px;
-  height: auto;
+  max-width: 200px;
+  max-height: 200px;
+  margin: 0 auto;
 `;
 
-const ProfileLinks = styled.div`
-  display: flex;
-  flex-direction: column;
+const ProfileText = styled.h2`
+  font-size: 1.5rem;
+  margin: 0 auto;
+`;
+
+const ProfileLinks = styled(SideBorder)`
+  padding: .5rem;
+  margin: 0 auto;
+  width: 75%;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(1, 1fr);
   gap: 1rem;
 `;
 
 
 // Description section
 const DescContainer = styled(SideBorder)`
-  height: 100%;
-  width: 80%;
   padding: 1rem;
 
   display: flex;
@@ -95,15 +118,4 @@ const Section = styled.section`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-
-  h1 {
-    font-size: 1.5rem;
-    font-weight: 600;
-  }
-
-  p {
-    font-size: 1.5rem;
-    font-weight: lighter;
-    line-height: 1.5;
-  }
 `;
