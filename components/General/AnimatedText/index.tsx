@@ -65,7 +65,7 @@ export default function Index(props: IAnimatedText) {
 
 
 // Styled Components
-export const TextContainer = styled.div`
+export const TextContainer = styled.span`
   display: flex;
   flex-direction: row;
 `;

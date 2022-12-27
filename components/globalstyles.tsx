@@ -45,6 +45,13 @@ const GlobalStyle = createGlobalStyle`
     -o-user-drag: none;
     user-drag: none;
   }
+
+
+  @property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
 `
 
 export default GlobalStyle

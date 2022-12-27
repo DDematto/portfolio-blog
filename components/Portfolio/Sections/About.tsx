@@ -1,16 +1,16 @@
 import styled from "styled-components"
-import {SideBorder} from "../../General/SideBorder";
+import {motion} from "framer-motion";
+import {AnimatedDIV, AnimatedIMG} from "../../General/AnimatedContainers";
 import SectionContainer from "./index";
+import profilePic from "../../../public/DevinDeMatto.jpg";
+import GitHub from "../../Icons/Github";
+import Twitter from "../../Icons/Twitter";
+import LinkedIn from "../../Icons/LinkedIn";
 
 // Svg Buttons
-import SVGLink from "../../General/SVGLink";
-import Github from "&/asset/svg/github.svg";
-import Twitter from "&/asset/svg/twitter.svg";
-import LinkedIn from "&/asset/svg/linkedin.svg";
-import {motion} from "framer-motion";
 
 export default function About() {
-    const titles = ["01- About Me, Hey I'm Devin!", "01- About Me, I Enjoy: Research", "01- About Me, I Enjoy: Anime", "01- About Me, I Enjoy: Hentai"]
+    const titles = ["01- About Me, Hey I'm Devin!", "01- About Me, I Enjoy: Games"]
 
     return <SectionContainer titles={titles}>
         <AboutContainer>
@@ -19,14 +19,14 @@ export default function About() {
                 animate={{x: 0, opacity: 1}}
                 transition={{duration: 2}}
             >
-                <ProfileImage src="https://picsum.photos/200"/>
+                <ProfileImage src={profilePic} width={200} height={200} alt="Picture of Devin DeMatto"/>
 
                 <ProfileText>Devin DeMatto</ProfileText>
 
                 <ProfileLinks>
-                    <SVGLink href={""}><Github/></SVGLink>
-                    <SVGLink href={""}><Twitter/></SVGLink>
-                    <SVGLink href={""}><LinkedIn/></SVGLink>
+                    <GitHub width={64} height={64}/>
+                    <Twitter width={64} height={64}/>
+                    <LinkedIn width={64} height={64}/>
                 </ProfileLinks>
             </ProfileContainer>
 
@@ -81,7 +81,7 @@ const ProfileContainer = styled(motion.div)`
   gap: 1rem;
 `;
 
-const ProfileImage = styled.img`
+const ProfileImage = styled(AnimatedIMG)`
   max-width: 200px;
   max-height: 200px;
   margin: 0 auto;
@@ -92,20 +92,18 @@ const ProfileText = styled.h2`
   margin: 0 auto;
 `;
 
-const ProfileLinks = styled(SideBorder)`
+const ProfileLinks = styled.div`
   padding: .5rem;
   margin: 0 auto;
-  width: 75%;
 
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(1, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
 `;
 
 
 // Description section
-const DescContainer = styled(SideBorder)`
+const DescContainer = styled(AnimatedDIV)`
   padding: 1rem;
 
   display: flex;
