@@ -1,30 +1,37 @@
-import {motion, useAnimation} from "framer-motion";
-import {useEffect} from "react";
-import {useInView} from "react-intersection-observer";
+import {motion} from "framer-motion";
 import styled from "styled-components"
 import {default as AnimatedText, TextContainer} from "../../General/AnimatedText";
 
 export default function SectionContainer({titles, children}: any) {
-    const controls = useAnimation();
-    const [ref, inView] = useInView();
-
-    useEffect(() => {
-        if (inView) controls.start("visible");
-    }, [controls, inView]);
+    // const controls = useAnimation();
+    // const [ref, inView] = useInView();
+    // const [hasAnimated, setHasAnimated] = useState(false);
+    //
+    // useEffect(() => {
+    //     if (inView) {
+    //         controls.start("visible");
+    //         setHasAnimated(true);
+    //     }
+    //     return () => controls.stop();
+    //
+    // }, [controls, inView, hasAnimated]);
 
     const variants = {
-        hidden: {opacity: 0, y: 20},
-        visible: {opacity: 1, y: 0}
+        hidden: {opacity: 0, translateY: 20},
+        visible: {opacity: 1, translateY: 0}
     }
 
     return <Container
-        ref={ref}
-        animate={controls}
+        key={titles[0]}
         initial="hidden"
+        whileInView="visible"
         variants={variants}
+        viewport={{once: true}}
         transition={{duration: 2}}>
         <AnimatedText sentences={titles} symbol={"|"}/>
+
         {children}
+
     </Container>
 }
 

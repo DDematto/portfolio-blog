@@ -1,5 +1,8 @@
+import SectionContainer from "./index";
+
 export default function Projects() {
-    return <>
-        <h1>Projects</h1>
-    </>
+    const titles = ["02- Projects"]
+
+    return <SectionContainer titles={titles}>
+    </SectionContainer>
 }
