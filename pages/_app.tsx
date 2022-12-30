@@ -5,7 +5,7 @@ import Navigation from "../components/Navigation";
 import {Fira_Code} from '@next/font/google'
 import Script from 'next/script';
 import Head from 'next/head';
-
+import {Analytics} from '@vercel/analytics/react';
 
 const theme: DefaultTheme = {
     colors: {
@@ -30,6 +30,7 @@ export default function App({Component, pageProps}: AppProps) {
         <Script
             src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}`}
             async/>
+        <Analytics/>
         <GlobalStyle/>
         <Layout className={roboto.className}>
             <Navigation/>

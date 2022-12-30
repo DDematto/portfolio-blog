@@ -133,8 +133,7 @@ export default function Contact() {
         <AnimatedDIV>
             <p>
                 Thank you for visiting my website! I hope you have enjoyed learning more about me and my skills and
-                experience. If you have any questions or would like to get in touch with me, please don not hesitate
-                to
+                experience. If you have any questions or would like to get in touch with me, please do not hesitate to
                 reach out using the form below. I am always happy to connect with like-minded professionals and
                 discuss
                 potential opportunities. I look forward to hearing from you!
