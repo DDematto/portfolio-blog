@@ -1,7 +1,7 @@
 import {CircleInner, CircleOutline, Icon, SocialLink, SVG} from "./iconstyles";
 
 export default function Twitter({width, height}: { width: number, height: number }) {
-    return <SocialLink color="#1DA1F2" href="" whileHover={{
+    return <SocialLink color="#1DA1F2" whileHover={{
         scale: 1,
         transition: {duration: .5},
     }}>

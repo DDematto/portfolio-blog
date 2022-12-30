@@ -1,7 +1,7 @@
 import {CircleInner, CircleOutline, Icon, SocialLink, SVG} from "./iconstyles";
 
 export default function LinkedIn({width, height}: { width: number, height: number }) {
-    return <SocialLink color="#2d76b0" href="" whileHover={{
+    return <SocialLink color="#2d76b0" whileHover={{
         scale: 1,
         transition: {duration: .5},
     }}>
