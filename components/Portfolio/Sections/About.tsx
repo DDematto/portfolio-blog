@@ -32,7 +32,8 @@ export default function About() {
                 <ProfileLinks>
                     <a href="https://github.com/DDematto"><GitHub width={64} height={64}/></a>
                     <a href="https://twitter.com/DevinDematto"><Twitter width={64} height={64}/></a>
-                    <a href="#"><LinkedIn width={64} height={64}/></a>
+                    <a href="https://www.linkedin.com/in/devin-dematto-60a48718b/"><LinkedIn width={64}
+                                                                                             height={64}/></a>
                 </ProfileLinks>
             </ProfileContainer>
 
