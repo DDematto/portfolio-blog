@@ -1,7 +1,7 @@
 import {motion} from "framer-motion";
 import styled from "styled-components";
 
-export const SocialLink = styled(motion.a)<{ color: string }>`
+export const SocialLink = styled(motion.div)<{ color: string }>`
   color: ${props => props.color};
 
   --highlight-icon-color: white;

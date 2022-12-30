@@ -2,9 +2,9 @@ import styled from "styled-components";
 
 // Portfolio Sections
 import About from "./Sections/About";
+import Contact from "./Sections/Contact";
 import Projects from "./Sections/Projects";
-import Skills from "./Sections/Skills"
-import Contact from "./Sections/Contact"
+import Skills from "./Sections/Skills";
 
 export default function Portfolio() {
     return <PortfolioLayout>

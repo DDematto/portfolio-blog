@@ -2,7 +2,7 @@ import {CircleInner, CircleOutline, Icon, SocialLink, SVG} from "./iconstyles"
 
 export default function GitHub({width, height}: { width: number, height: number }) {
 
-    return <SocialLink color="#6e5494" href="" whileHover={{
+    return <SocialLink color="#6e5494" whileHover={{
         scale: 1,
         transition: {duration: .5},
     }}>

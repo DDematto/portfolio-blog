@@ -7,9 +7,9 @@ import styled from "styled-components";
 export const AnimatedDIV = styled(motion.div)`
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
+  padding: 1rem;
 
   border: 1px solid;
-
   --angle: 0deg;
   border-image: linear-gradient(var(--angle), white, #111, white) 1;
   animation: 15s rotate ease-in-out infinite;

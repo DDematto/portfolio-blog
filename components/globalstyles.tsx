@@ -8,6 +8,10 @@ const GlobalStyle = createGlobalStyle`
     color: white;
   }
 
+  .grecaptcha-badge {
+    visibility: hidden;
+  }
+
   h1, h2, h3, h4, h5, h6, p {
     margin: 0;
     user-select: none;
@@ -54,5 +58,7 @@ const GlobalStyle = createGlobalStyle`
     inherits: false;
   }
 `
+
+
 
 export default GlobalStyle
