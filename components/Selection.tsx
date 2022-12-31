@@ -21,8 +21,8 @@ const SelectContainer = styled(motion.select)`
   margin-top: auto;
 
 
-  color: white;
-  background: #111;
+  color: ${({theme}) => theme.text.primary};
+  background: ${({theme}) => theme.colors.background};
   outline: none;
   font-size: 1rem;
 `

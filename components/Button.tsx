@@ -5,7 +5,7 @@ export const SubmitButton = styled.button<{ disabled: boolean }>`
   height: 2rem;
   outline: none;
   background: #111;
-  color: white;
+  color: ${({theme}) => theme.text.primary};
 
   padding: 0.5rem;
 

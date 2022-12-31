@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import {motion} from "framer-motion";
-import {AnimatedDIV, AnimatedIMG} from "../../General/AnimatedContainers";
+import {AnimatedDIV, AnimatedIMG} from "../../AnimatedContainers";
 import SectionContainer from "./index";
 import profilePic from "../../../public/DevinDeMatto.jpg";
 import GitHub from "components/Icons/Github";
@@ -30,10 +30,10 @@ export default function About() {
                 <ProfileText>Devin DeMatto</ProfileText>
 
                 <ProfileLinks>
-                    <a href="https://github.com/DDematto"><GitHub width={64} height={64}/></a>
-                    <a href="https://twitter.com/DevinDematto"><Twitter width={64} height={64}/></a>
-                    <a href="https://www.linkedin.com/in/devin-dematto-60a48718b/"><LinkedIn width={64}
-                                                                                             height={64}/></a>
+                    <a target="new" href="https://github.com/DDematto"><GitHub size={64}/></a>
+                    <a target="new" href="https://twitter.com/DevinDematto"><Twitter size={64}/></a>
+                    <a target="new" href="https://www.linkedin.com/in/devin-dematto-60a48718b/"><LinkedIn
+                        size={64}/></a>
                 </ProfileLinks>
             </ProfileContainer>
 
@@ -109,7 +109,6 @@ const ProfileLinks = styled.div`
 const DescContainer = styled(AnimatedDIV)`
   display: flex;
   flex-direction: column;
-  color: white;
   gap: 2rem;
 `
 

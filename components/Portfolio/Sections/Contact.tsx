@@ -1,14 +1,16 @@
 import {useEffect, useState} from "react";
 import styled from "styled-components";
 import SectionContainer from ".";
-import {AnimatedDIV} from "../../General/AnimatedContainers";
-import Input from "components/General/Input";
-import Selection from "../../General/Selection";
+import {AnimatedDIV} from "../../AnimatedContainers";
+import Input from "components/Input";
+import Selection from "../../Selection";
 import {GiPartyHat, GiPartyPopper} from "react-icons/gi";
 import {MdReportProblem} from "react-icons/md";
 import {AnimatePresence, motion} from "framer-motion";
-import {SubmitButton} from "components/General/Button";
+import {SubmitButton} from "components/Button";
 import axios from 'axios';
+import {useInView} from "react-intersection-observer";
+import CopyText from "../../CopyText";
 
 const initialForm = {
     phone: {data: "+1", err: "", color: "white"},
@@ -123,24 +125,25 @@ export default function Contact() {
     }, [data]);
 
     // Form Animation
+    const {ref, inView} = useInView({triggerOnce: true, threshold: 0.3});
     const variants = {
         hidden: {opacity: 0, scale: 0, transition: {duration: 1.5}},
-        visible: {opacity: 1, scale: 1, transition: {duration: 1.5}},
+        visible: {opacity: 1, scale: 1, transition: {duration: 1}},
         exit: {opacity: 0, scale: 0, transition: {duration: 1.5}},
     }
 
-    return <SectionContainer titles={titles}>
+    return <SectionContainer titles={titles} height="90vh">
         <AnimatedDIV>
             <p>
                 Thank you for visiting my website! I hope you have enjoyed learning more about me and my skills and
                 experience. If you have any questions or would like to get in touch with me, please do not hesitate to
                 reach out using the form below. I am always happy to connect with like-minded professionals and
                 discuss
-                potential opportunities. I look forward to hearing from you!
+                potential opportunities. I look forward to hearing from you! <CopyText text="devindematto@gmail.com"/>
             </p>
         </AnimatedDIV>
 
-        <Container>
+        <Container ref={ref}>
             <AnimatePresence mode='wait'>
 
                 {response &&
@@ -157,7 +160,7 @@ export default function Contact() {
                     </Response>
                 }
 
-                {!response &&
+                {inView && !response &&
                     <Form key="f" onSubmit={onSubmit} variants={variants} initial="hidden" animate="visible"
                           exit="exit">
                         <HorizontalContainer>

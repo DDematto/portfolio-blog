@@ -19,5 +19,5 @@ const Container = styled.nav`
   justify-content: space-between;
   align-items: center;
   padding: 0 2rem;
-  background-color: #111;
+  background-color: ${({theme}) => theme.colors.background};
 `

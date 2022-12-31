@@ -56,7 +56,7 @@ const Container = styled.div<{ color: string }>`
     outline: none;
     padding: 0.5rem;
     font-size: 1rem;
-    color: #fff;
+    color: ${({theme}) => theme.text.primary};
 
     background: #111;
     -moz-box-shadow: 0 0 3px ${({color}) => color};
@@ -65,7 +65,7 @@ const Container = styled.div<{ color: string }>`
   }
 
   > input::placeholder, textarea::placeholder {
-    color: white;
+    color: ${({theme}) => theme.text.primary};
   }
 `;
 
@@ -77,7 +77,7 @@ const Horizontal = styled.div`
 `
 
 const Label = styled.label`
-  color: white;
+  color: ${({theme}) => theme.text.primary};
 `;
 
 const Error = styled(motion.h6)`

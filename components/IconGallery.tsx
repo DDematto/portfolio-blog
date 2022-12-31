@@ -4,7 +4,7 @@ import styled from "styled-components"
 import {AnimatedDIV} from "./AnimatedContainers";
 
 export default function IconGallery({Icons}: { Icons: { name: string, SVG: JSX.Element, color: string }[] }) {
-    const {ref, inView} = useInView({triggerOnce: true, threshold: 0.2, delay: 100});
+    const {ref, inView} = useInView({triggerOnce: true, threshold: 0.5});
 
     return <Container ref={ref}>
         {inView && Icons.map((icon, i) =>

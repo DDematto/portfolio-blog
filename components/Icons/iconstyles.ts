@@ -3,13 +3,10 @@ import styled from "styled-components";
 
 export const SocialLink = styled(motion.div)<{ color: string }>`
   color: ${props => props.color};
-
-  --highlight-icon-color: white;
-  --default-color: white;
 `
 
 export const CircleOutline = styled.circle`
-  stroke: var(--default-color);
+  stroke: ${({theme}) => theme.colors.secondary};
   transform-origin: 50% 50%;
   transition: all .2s;
 `;
@@ -20,7 +17,7 @@ export const CircleInner = styled.circle`
 `;
 
 export const Icon = styled.path`
-  fill: var(--default-color);
+  fill: ${({theme}) => theme.colors.secondary};
   transition: all .2s;
 `;
 
@@ -41,7 +38,7 @@ export const SVG = styled.svg<{ width: number, height: number }>`
     }
 
     ${Icon} {
-      fill: var(--highlight-icon-color);
+      fill: ${({theme}) => theme.colors.secondary};
       transition: all .45s;
     }
   }

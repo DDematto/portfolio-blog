@@ -1,13 +1,36 @@
 import {createGlobalStyle} from 'styled-components'
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle<{ theme: any }>`
   html, body {
     padding: 0;
     margin: 0;
-    background-color: #111;
-    color: white;
+
+    // @ts-ignore
+    background-color: ${({theme}) => theme.colors.background};
+    color: ${({theme}) => theme.text.primary};
+
+    --scrollbarBG: ${({theme}) => theme.colors.background};
+    --thumbBG: #90A4AE;
+    scrollbar-width: thin;
+    scrollbar-color: var(--thumbBG) var(--scrollbarBG);
   }
 
+  body::-webkit-scrollbar {
+    width: 11px;
+  }
+
+  body::-webkit-scrollbar-track {
+    background: var(--scrollbarBG);
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background-color: var(--thumbBG);
+    border-radius: 6px;
+    border: 3px solid var(--scrollbarBG);
+  }
+
+
+  // Removes ReCAPTCHA badge
   .grecaptcha-badge {
     visibility: hidden;
   }
@@ -58,7 +81,6 @@ const GlobalStyle = createGlobalStyle`
     inherits: false;
   }
 `
-
 
 
 export default GlobalStyle

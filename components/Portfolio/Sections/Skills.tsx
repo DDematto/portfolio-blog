@@ -1,9 +1,9 @@
 import SectionContainer from "./index";
-import {AnimatedDIV} from "../../General/AnimatedContainers";
+import {AnimatedDIV} from "../../AnimatedContainers";
 import styled from "styled-components";
 import {useState} from "react";
 import {motion} from "framer-motion";
-import VerticalList from "../../General/VerticalList";
+import VerticalList from "../../VerticalList";
 
 // Icon Imports
 import {
@@ -33,7 +33,7 @@ import {AiFillHtml5} from "react-icons/ai";
 import {IoLogoCss3} from "react-icons/io";
 import {TbBrandNextjs} from "react-icons/tb";
 import {FaGitSquare} from "react-icons/fa";
-import IconGallery from "../../General/IconGallery";
+import IconGallery from "../../IconGallery";
 
 export default function Skills() {
     const titles = ["03 - Skills - Languages", "03 - Skills - Frameworks", "03 - Skills - Tools", "03 - Skills - Databases", "03 - Skills - Other"];

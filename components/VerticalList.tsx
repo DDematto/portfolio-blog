@@ -1,11 +1,9 @@
 import {motion} from "framer-motion";
 import {useEffect, useRef, useState} from "react";
-import {useInView} from "react-intersection-observer";
 import styled from "styled-components";
 
 export default function VerticalList(props: { items: string[], grabCurrentItem: any }) {
     const {items, grabCurrentItem} = props;
-    const {ref, inView} = useInView({triggerOnce: true, threshold: 0.2, delay: 100});
 
     const [y, setY] = useState(0);
     const initialRef = useRef<HTMLButtonElement>(null);
@@ -32,9 +30,9 @@ export default function VerticalList(props: { items: string[], grabCurrentItem: 
         setY(buttonY);
     }
 
-    return <ParentContainer ref={ref} onMouseMove={(e) => navEnterLogic(e)} onMouseLeave={() => navLeaveLogic()}>
+    return <ParentContainer onMouseMove={(e) => navEnterLogic(e)} onMouseLeave={() => navLeaveLogic()}>
         <Item initialRef={initialRef} item={items[0]} i={0} setRef={setItem}/>
-        {inView && items.slice(1).map((item, i) => <Item key={item} item={item} i={i + 1} setRef={setItem}/>)}
+        {items.slice(1).map((item, i) => <Item key={item} item={item} i={i + 1} setRef={setItem}/>)}
 
         <Selector style={{left: 0, top: y}}/>
         <Selector style={{right: 0, top: y}}/>
@@ -49,11 +47,11 @@ const ParentContainer = styled.nav`
 
   padding: 1rem;
 
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${({theme}) => theme.colors.primary};
   backdrop-filter: blur(10px);
 
-  border-top: 1px solid white;
-  border-bottom: 1px solid white;
+  border-top: 1px solid ${({theme}) => theme.colors.secondary};;
+  border-bottom: 1px solid ${({theme}) => theme.colors.secondary};;
 `
 
 
@@ -90,14 +88,14 @@ const ButtonContainer = styled(motion.button)`
 
   cursor: pointer;
   background-color: transparent;
-  color: white;
+  color: ${({theme}) => theme.text.primary};
 `
 
 const Selector = styled.div`
   position: absolute;
   width: 3px;
   height: 40px;
-  background-color: white;
+  background: ${({theme}) => theme.colors.secondary};
 
   transition: all 0.5s ease;
 `
