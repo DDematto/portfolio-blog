@@ -1,12 +1,12 @@
 import {CircleInner, CircleOutline, Icon, SocialLink, SVG} from "./iconstyles"
 
-export default function GitHub({width, height}: { width: number, height: number }) {
+export default function GitHub({size}: { size: number }) {
 
-    return <SocialLink color="#6e5494" href="" whileHover={{
+    return <SocialLink color="#6e5494" whileHover={{
         scale: 1,
         transition: {duration: .5},
     }}>
-        <SVG viewBox="0 0 600 600" width={width} height={height}>
+        <SVG viewBox="0 0 600 600" width={size} height={size}>
             <title>Github</title>
             <g fill="none" fillRule="evenodd">
                 <CircleOutline stroke="#000" strokeWidth="20" cx="300" cy="300" r="262.5"/>

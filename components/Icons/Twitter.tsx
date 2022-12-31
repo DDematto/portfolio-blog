@@ -1,11 +1,11 @@
 import {CircleInner, CircleOutline, Icon, SocialLink, SVG} from "./iconstyles";
 
-export default function Twitter({width, height}: { width: number, height: number }) {
-    return <SocialLink color="#1DA1F2" href="" whileHover={{
+export default function Twitter({size}: { size: number }) {
+    return <SocialLink color="#1DA1F2" whileHover={{
         scale: 1,
         transition: {duration: .5},
     }}>
-        <SVG viewBox="0 0 64 64" width={width} height={height}>
+        <SVG viewBox="0 0 64 64" width={size} height={size}>
             <title>Twitter</title>
             <g fill="none" fillRule="evenodd">
                 <CircleOutline stroke="#111" strokeWidth="2" cx="32" cy="32" r="28"/>

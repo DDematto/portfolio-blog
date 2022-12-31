@@ -1,40 +1,43 @@
 import styled from "styled-components"
 import {motion} from "framer-motion";
-import {AnimatedDIV, AnimatedIMG} from "../../General/AnimatedContainers";
+import {AnimatedDIV, AnimatedIMG} from "../../AnimatedContainers";
 import SectionContainer from "./index";
 import profilePic from "../../../public/DevinDeMatto.jpg";
-import GitHub from "../../Icons/Github";
-import Twitter from "../../Icons/Twitter";
-import LinkedIn from "../../Icons/LinkedIn";
+import GitHub from "components/Icons/Github";
+import LinkedIn from "components/Icons/LinkedIn";
+import Twitter from "components/Icons/Twitter";
 
 // Svg Buttons
 
 export default function About() {
     const titles = ["01- About Me, Hey I'm Devin!", "01- About Me, I Enjoy: Games"]
 
+    const profileVariants = {
+        hidden: {opacity: 0, x: "-20vw", transition: {duration: 1}},
+        visible: {opacity: 1, x: 0, transition: {duration: 1}}
+    }
+
+    const DescVariants = {
+        hidden: {opacity: 0, y: "20vh", transition: {duration: 1}},
+        visible: {opacity: 1, y: 0, transition: {duration: 1}}
+    }
+
     return <SectionContainer titles={titles}>
         <AboutContainer>
-            <ProfileContainer
-                initial={{x: "-150%", opacity: 0}}
-                animate={{x: 0, opacity: 1}}
-                transition={{duration: 2}}
-            >
+            <ProfileContainer variants={profileVariants} initial="hidden" animate="visible">
                 <ProfileImage src={profilePic} width={200} height={200} alt="Picture of Devin DeMatto"/>
 
                 <ProfileText>Devin DeMatto</ProfileText>
 
                 <ProfileLinks>
-                    <GitHub width={64} height={64}/>
-                    <Twitter width={64} height={64}/>
-                    <LinkedIn width={64} height={64}/>
+                    <a target="new" href="https://github.com/DDematto"><GitHub size={64}/></a>
+                    <a target="new" href="https://twitter.com/DevinDematto"><Twitter size={64}/></a>
+                    <a target="new" href="https://www.linkedin.com/in/devin-dematto-60a48718b/"><LinkedIn
+                        size={64}/></a>
                 </ProfileLinks>
             </ProfileContainer>
 
-            <DescContainer
-                initial={{y: "100%", opacity: 0}}
-                animate={{y: 0, opacity: 1}}
-                transition={{duration: 2}}
-            >
+            <DescContainer variants={DescVariants} initial="hidden" animate="visible">
                 <Section>
                     <h2>Professional Background</h2>
                     <p>I have always been passionate about programming and have been
@@ -104,11 +107,8 @@ const ProfileLinks = styled.div`
 
 // Description section
 const DescContainer = styled(AnimatedDIV)`
-  padding: 1rem;
-
   display: flex;
   flex-direction: column;
-  color: white;
   gap: 2rem;
 `
 

@@ -17,16 +17,16 @@ export default function NavLink(props: IStyledLink) {
 }
 
 const Style = styled(Link)`
-  color: #0075e0;
+  color: ${({theme}) => theme.text.highlight};
   text-decoration: none;
   transition: all 0.2s ease-in-out;
 
   &:hover {
-    color: #40a9ff;
+    color: ${({theme}) => theme.text.secondary};;
   }
 
   &:focus {
-    color: #40a9ff;
+    color: ${({theme}) => theme.text.secondary};;
     outline: none;
     border: 0;
   }
