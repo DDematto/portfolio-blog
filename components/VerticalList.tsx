@@ -41,6 +41,7 @@ export default function VerticalList(props: { items: string[], grabCurrentItem: 
 
 
 const ParentContainer = styled.nav`
+  position: relative;
   display: flex;
   justify-content: space-around;
   flex-direction: column;

@@ -3,6 +3,7 @@ import {default as AnimatedText, TextContainer} from "../../AnimatedText";
 
 
 interface SectionContainerProps {
+    id: string;
     titles: string[],
     children: React.ReactNode
     height?: string
@@ -10,9 +11,9 @@ interface SectionContainerProps {
 
 
 export default function SectionContainer(props: SectionContainerProps) {
-    const {titles, children, height} = props;
+    const {titles, children, height, id} = props;
 
-    return <Container height={height || "90vh"}>
+    return <Container height={height || "90vh"} id={id}>
         <AnimatedText sentences={titles} symbol={"|"}/>
         {children}
     </Container>
@@ -22,6 +23,7 @@ const Container = styled.div<{ height: string }>`
   padding: 0 2rem;
   width: 100%;
   min-height: ${({height}) => height};
+  scroll-margin-top: 6rem;
 
   display: flex;
   flex-direction: column;

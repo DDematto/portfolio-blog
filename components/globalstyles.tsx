@@ -2,8 +2,11 @@ import {createGlobalStyle} from 'styled-components'
 
 const GlobalStyle = createGlobalStyle<{ theme: any }>`
   html, body {
-    padding: 0;
+    padding: 50px 0 0 0;
     margin: 0;
+
+    --scroll-behavior: smooth !important;
+    scroll-behavior: smooth !important;
 
     // @ts-ignore
     background-color: ${({theme}) => theme.colors.background};

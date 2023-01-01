@@ -11,7 +11,7 @@ export default function NavLink(props: IStyledLink) {
     const {title, href} = props;
 
     // @ts-ignore
-    return <Style href={href} passHref>
+    return <Style scroll={true} href={href}>
         {title}
     </Style>
 }
@@ -20,6 +20,8 @@ const Style = styled(Link)`
   color: ${({theme}) => theme.text.highlight};
   text-decoration: none;
   transition: all 0.2s ease-in-out;
+  font-style: italic;
+
 
   &:hover {
     color: ${({theme}) => theme.text.secondary};;

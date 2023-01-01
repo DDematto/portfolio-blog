@@ -127,12 +127,12 @@ export default function Contact() {
     // Form Animation
     const {ref, inView} = useInView({triggerOnce: true, threshold: 0.3});
     const variants = {
-        hidden: {opacity: 0, scale: 0, transition: {duration: 1.5}},
+        hidden: {opacity: 0, scale: 0.8, transition: {duration: 1.5}},
         visible: {opacity: 1, scale: 1, transition: {duration: 1}},
-        exit: {opacity: 0, scale: 0, transition: {duration: 1.5}},
+        exit: {opacity: 0, scale: 0.8, transition: {duration: 1.5}},
     }
 
-    return <SectionContainer titles={titles} height="90vh">
+    return <SectionContainer titles={titles} height="80vh" id="contact">
         <AnimatedDIV>
             <p>
                 Thank you for visiting my website! I hope you have enjoyed learning more about me and my skills and
