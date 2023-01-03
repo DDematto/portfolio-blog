@@ -1,59 +1,69 @@
 import Link from 'next/link'
 import {useRouter} from 'next/router'
 import {motion} from "framer-motion";
-import {useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import styled, {css} from "styled-components";
-import Image from 'next/image'
 
+const categories = ["about", "skills", "education", "contact"];
 
 export default function Navigation() {
-    const categories = ["about", "skills", "education", "contact"];
-
     const router = useRouter();
     const [active, setActive] = useState("about");
     const [progress, setProgress] = useState(0);
     const navRef = useRef<HTMLDivElement>(null);
     const wrapperRef = useRef<HTMLDivElement>(null);
+    const styleRef = useRef<{ left: string, width: string }>({left: '0', width: '0'});
+
+    // Category Logic
+    const categoryLogic = useCallback(() => {
+        let sum = 0;
+        let activeSection = "about";
+
+        // grab the section data
+        const sections = categories.map((section) => {
+            const sectionEl = document.getElementById(section)!;
+            const scrollPosition = window.scrollY + window.innerHeight;
+            const sectionTop = sectionEl.offsetTop;
+            const sectionBottom = sectionTop + sectionEl.offsetHeight;
+
+            // create a normalized value of the scrollPosition between 0 and 1 for each section (Progress Bar)
+            const value = Math.min(Math.max((scrollPosition - sectionTop) / (sectionBottom - sectionTop), 0), 1);
+            return {name: section, value};
+        });
+
+        // Calculate the progress bar value, and get the active section
+        sections.forEach((section) => {
+            sum += section.value
+            if (section.value > 0.5) {
+                activeSection = section.name;
+            }
+        });
+
+        setProgress(sum * (wrapperRef.current?.offsetWidth! / sections.length));
+        setActive(activeSection);
+    }, []);
 
     useEffect(() => {
-        const categoryLogic = () => {
-            let sum = 0;
-            let activeSection = "about";
-
-            // grab the section data
-            const sections = categories.map((section) => {
-                const sectionEl = document.getElementById(section)!;
-                const scrollPosition = window.scrollY + window.innerHeight;
-                const sectionTop = sectionEl.offsetTop;
-                const sectionBottom = sectionTop + sectionEl.offsetHeight;
-
-                // create a normalized value of the scrollPosition between 0 and 1 for each section (Progress Bar)
-                const value = Math.min(Math.max((scrollPosition - sectionTop) / (sectionBottom - sectionTop), 0), 1);
-                return {name: section, value};
-            });
-
-            // Calculate the progress bar value, and get the active section
-            sections.forEach((section) => {
-                sum += section.value
-                if (section.value > 0.5) {
-                    activeSection = section.name;
-                }
-            });
-
-            setProgress(sum * (wrapperRef.current?.offsetWidth! / sections.length));
-            setActive(activeSection);
-        };
-
-        if (router.pathname !== "/") {
-            setActive("projects");
-            return setProgress(0);
-        }
-
         categoryLogic();
 
         window.addEventListener("scroll", categoryLogic);
         return () => window.removeEventListener("scroll", categoryLogic);
+    }, []);
+
+    // Reset the progress bar when the user clicks on a different page
+    useEffect(() => {
+        if (router.pathname === "/") return;
+
+        setActive("projects");
+        setProgress(0);
     }, [router.pathname]);
+
+    useEffect(() => {
+        styleRef.current = {
+            left: `${wrapperRef.current?.getBoundingClientRect().left}px`,
+            width: `${progress}px`
+        };
+    }, [progress]);
 
     const variants = {
         hidden: {y: -65, transition: {duration: 0.1}},
@@ -61,8 +71,6 @@ export default function Navigation() {
     }
 
     return <Nav ref={navRef} variants={variants} animate="visible" initial='hidden'>
-        <p>Logo</p>
-        {/*<StyledLogo priority placeholder='blur' src={logoPic} width={96} height={96} alt="Picture of Logo"/>*/}
         <Wrapper ref={wrapperRef}>
             <SectionLink id="about" title="01 - About" active={active == "about"}/>
             <SectionLink id="skills" title="02 - Skills" active={active == "skills"}/>
@@ -70,7 +78,7 @@ export default function Navigation() {
             <SectionLink id="contact" title="04 - Contact" active={active == "contact"}/>
         </Wrapper>
         <LinkStyled scroll={true} href='/projects' active={active == "projects" ? 1 : 0}>Projects</LinkStyled>
-        <Line style={{left: wrapperRef.current?.getBoundingClientRect().left, width: `${progress}px`}}/>
+        <Line style={styleRef.current}/>
     </Nav>
 }
 
@@ -83,13 +91,12 @@ const Nav = styled(motion.nav)`
   min-height: 80px;
   background-color: ${({theme}) => theme.colors.background};
   border-bottom: 1px solid ${({theme}) => theme.colors.secondary};
-  padding: 0 2rem;
   z-index: 1000;
 
   display: flex;
   align-items: center;
   justify-content: space-around;
-  gap: 5rem;
+
 
   @media (max-width: 768px) {
     padding: 0;
@@ -116,23 +123,14 @@ const Line = styled(motion.div)`
   }
 `
 
-const StyledLogo = styled(Image)`
-  width: 50px;
-  height: 50px;
-
-  @media (max-width: 600px) {
-    display: none;
-  }
-`
 
 const Wrapper = styled.div`
-  width: 100%;
+  width: 80%;
   display: inline-flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   text-align: center;
-  gap: 2rem;
 
   & > * {
     width: 100%;
@@ -147,7 +145,6 @@ const Wrapper = styled.div`
 
     gap: 1rem;
   }
-
 
   @media (max-width: 400px) {
     display: flex;
@@ -171,6 +168,7 @@ const LinkStyled = styled(Link)<{ active: number }>`
   font-style: italic;
   white-space: nowrap;
   outline: none;
+  text-align: center;
   border: 0;
 
   &:hover, &:focus {

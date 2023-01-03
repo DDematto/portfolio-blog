@@ -76,7 +76,6 @@ export const TextContainer = styled.span`
   flex-wrap: wrap;
   overflow: hidden;
   white-space: nowrap;
-  text-overflow: ellipsis;
 
   h1 {
     font-size: 1.5rem;
