@@ -2,7 +2,7 @@ import styled from "styled-components";
 import GitHub from "./Icons/Github";
 import Twitter from "./Icons/Twitter";
 import LinkedIn from "./Icons/LinkedIn";
-import CopyText from "./CopyText";
+import CopyText, {CopyTextStyle} from "./CopyText";
 import {AiFillHeart} from "react-icons/ai";
 
 export default function Footer() {
@@ -22,16 +22,12 @@ export default function Footer() {
 }
 
 const Container = styled.div`
+  width: 100%;
   height: 5rem;
-  padding-top: 1rem;
-  padding-right: 1rem;
-  padding-left: 1rem;
+  padding: 1rem;
 
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  gap: 2rem;
-  align-items: flex-end;
 
   font-size: 0.9rem;
   background: ${({theme}) => theme.colors.primary};
@@ -49,6 +45,12 @@ const Container = styled.div`
       width: 1.5rem;
     }
   }
+
+  @media (max-width: 660px) {
+    span {
+      display: none;
+    }
+  }
 `
 
 const ProfileLinks = styled.div`
@@ -57,6 +59,7 @@ const ProfileLinks = styled.div`
   align-items: center;
   height: 100%;
   gap: 1rem;
+  margin: 0 auto;
 `
 
 const Info = styled.div`
@@ -66,5 +69,9 @@ const Info = styled.div`
   align-items: center;
   height: 100%;
   gap: 0.5rem;
+
+  @media (max-width: 660px) {
+    display: none;
+  }
 `
 

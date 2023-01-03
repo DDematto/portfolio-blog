@@ -18,7 +18,7 @@ export default function VerticalList(props: { items: string[], grabCurrentItem: 
     const navEnterLogic = (e: any) => {
         if (e.target.tagName !== "BUTTON") return;
 
-        const buttonY = (e.target.getBoundingClientRect().y - e.target.parentElement.getBoundingClientRect().y) + 10;
+        const buttonY = (e.target.getBoundingClientRect().y - e.target.parentElement.getBoundingClientRect().y);
 
         setY(buttonY);
     }
@@ -26,7 +26,7 @@ export default function VerticalList(props: { items: string[], grabCurrentItem: 
     const navLeaveLogic = () => {
         if (!item.ref.current) return;
 
-        const buttonY = (item.ref.current.getBoundingClientRect().y - item.ref.current!.parentElement!.getBoundingClientRect().y) + 10;
+        const buttonY = (item.ref.current.getBoundingClientRect().y - item.ref.current!.parentElement!.getBoundingClientRect().y);
         setY(buttonY);
     }
 
@@ -41,11 +41,13 @@ export default function VerticalList(props: { items: string[], grabCurrentItem: 
 
 
 const ParentContainer = styled.nav`
+  position: relative;
   display: flex;
   justify-content: space-around;
   flex-direction: column;
 
   padding: 1rem;
+  gap: 2rem;
 
   background-color: ${({theme}) => theme.colors.primary};
   backdrop-filter: blur(10px);

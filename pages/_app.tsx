@@ -1,12 +1,13 @@
 import type {AppProps} from 'next/app'
 import styled, {DefaultTheme, ThemeProvider} from 'styled-components'
 import GlobalStyle from "../components/globalstyles";
-import Navigation from "../components/Navigation";
 import {Fira_Code} from '@next/font/google'
 import Script from 'next/script';
 import Head from 'next/head';
 import {Analytics} from '@vercel/analytics/react';
 import Footer from 'components/Footer';
+import {AnimatePresence} from 'framer-motion';
+import Navigation from 'components/Navigation';
 
 const theme: DefaultTheme = {
     colors: {
@@ -32,6 +33,7 @@ export default function App({Component, pageProps}: AppProps) {
         <Head>
             <title>Devin DeMatto | Portfolio</title>
             <meta name="description" content={content}/>
+            <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
             <link rel="shortcut icon" href="/images/favicon.ico"/>
             <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png"/>
             <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png"/>
@@ -43,9 +45,11 @@ export default function App({Component, pageProps}: AppProps) {
         <Analytics/>
         <GlobalStyle/>
         <Layout className={roboto.className}>
-            <Navigation/>
-            <Component {...pageProps} />
-            <Footer/>
+            <AnimatePresence mode='wait'>
+                <Navigation key='navigation'/>
+                <Component {...pageProps} />
+                <Footer key='footer'/>
+            </AnimatePresence>
         </Layout>
     </ThemeProvider>
 }
@@ -53,5 +57,4 @@ export default function App({Component, pageProps}: AppProps) {
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 `

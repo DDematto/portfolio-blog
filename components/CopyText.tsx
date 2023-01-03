@@ -1,15 +1,15 @@
 import styled from "styled-components"
 
 export default function CopyText({message, text}: { message?: string, text: string }) {
-    return <Style onClick={() => {
+    return <CopyTextStyle onClick={() => {
         navigator.clipboard.writeText(text)
     }}>
         {message || text}
-    </Style>
+    </CopyTextStyle>
 }
 
 
-const Style = styled.button`
+export const CopyTextStyle = styled.button`
   background: none;
   border: none;
   padding: 0;

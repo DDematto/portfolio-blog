@@ -2,7 +2,7 @@ import styled from "styled-components"
 import {motion} from "framer-motion";
 import {AnimatedDIV, AnimatedIMG} from "../../AnimatedContainers";
 import SectionContainer from "./index";
-import profilePic from "../../../public/DevinDeMatto.jpg";
+import profilePic from "../../../public/images/DevinDeMatto.jpg";
 import GitHub from "components/Icons/Github";
 import LinkedIn from "components/Icons/LinkedIn";
 import Twitter from "components/Icons/Twitter";
@@ -10,7 +10,7 @@ import Twitter from "components/Icons/Twitter";
 // Svg Buttons
 
 export default function About() {
-    const titles = ["01- About Me, Hey I'm Devin!", "01- About Me, I Enjoy: Games"]
+    const titles = ["01 - About Me, Hey I'm Devin!", "01 - About Me, I Enjoy: Games"]
 
     const profileVariants = {
         hidden: {opacity: 0, x: "-20vw", transition: {duration: 1}},
@@ -22,10 +22,11 @@ export default function About() {
         visible: {opacity: 1, y: 0, transition: {duration: 1}}
     }
 
-    return <SectionContainer titles={titles}>
+    return <SectionContainer titles={titles} id="about">
         <AboutContainer>
             <ProfileContainer variants={profileVariants} initial="hidden" animate="visible">
-                <ProfileImage src={profilePic} width={200} height={200} alt="Picture of Devin DeMatto"/>
+                <ProfileImage priority placeholder='blur' src={profilePic} width={200} height={200}
+                              alt="Picture of Devin DeMatto"/>
 
                 <ProfileText>Devin DeMatto</ProfileText>
 
@@ -96,12 +97,15 @@ const ProfileText = styled.h2`
 `;
 
 const ProfileLinks = styled.div`
+  width: 80%;
   padding: .5rem;
   margin: 0 auto;
 
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
   gap: 1rem;
+
+  grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
 `;
 
 

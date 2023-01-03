@@ -3,7 +3,6 @@ import styled from "styled-components";
 import SectionContainer from ".";
 import {AnimatedDIV} from "../../AnimatedContainers";
 import Input from "components/Input";
-import Selection from "../../Selection";
 import {GiPartyHat, GiPartyPopper} from "react-icons/gi";
 import {MdReportProblem} from "react-icons/md";
 import {AnimatePresence, motion} from "framer-motion";
@@ -127,12 +126,12 @@ export default function Contact() {
     // Form Animation
     const {ref, inView} = useInView({triggerOnce: true, threshold: 0.3});
     const variants = {
-        hidden: {opacity: 0, scale: 0, transition: {duration: 1.5}},
+        hidden: {opacity: 0, scale: 0.8, transition: {duration: 1.5}},
         visible: {opacity: 1, scale: 1, transition: {duration: 1}},
-        exit: {opacity: 0, scale: 0, transition: {duration: 1.5}},
+        exit: {opacity: 0, scale: 0.8, transition: {duration: 1.5}},
     }
 
-    return <SectionContainer titles={titles} height="90vh">
+    return <SectionContainer titles={titles} height="80vh" id="contact">
         <AnimatedDIV>
             <p>
                 Thank you for visiting my website! I hope you have enjoyed learning more about me and my skills and
@@ -166,7 +165,7 @@ export default function Contact() {
                         <HorizontalContainer>
                             <Input label="Name" value={name} onChange={(e) => nameInput(e)}/>
                             <Input type="email" label="Email" value={email} onChange={(e) => emailInput(e)}/>
-                            <Selection name={"inquiry"} options={options} onChange={(e) => inquiryInput(e)}/>
+                            <Input label="Inquiry" isSelect={options} onChange={(e) => inquiryInput(e)}/>
                             <Input type="tel" label="Phone Number" value={phone} onChange={(e) => phoneInput(e)}
                                    optional/>
                         </HorizontalContainer>
@@ -186,12 +185,10 @@ export default function Contact() {
 
 // Styled Components
 const Container = styled(AnimatedDIV)`
-  height: 20rem;
   width: 100%;
 `;
 
 const Form = styled(motion.form)`
-  height: 100%;
 
   display: flex;
   flex-direction: column;
@@ -203,9 +200,15 @@ const Form = styled(motion.form)`
 
 const HorizontalContainer = styled.div`
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  grid-gap: 1rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+
 `;
 
 const Response = styled(motion.div)`

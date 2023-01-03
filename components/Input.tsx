@@ -2,16 +2,17 @@ import {AnimatePresence, motion} from "framer-motion";
 import styled from "styled-components";
 
 interface InputProps {
-    value: { data: string, err: string, color: string };
+    value?: { data: string, err: string, color: string };
     label: string;
     type?: string;
     isTextArea?: boolean;
+    isSelect?: string[];
     optional?: boolean;
     onChange?: (e: any) => void;
 }
 
 export default function Input(props: InputProps) {
-    const {isTextArea, label, value, onChange, optional, type} = props;
+    const {isTextArea, label, value, onChange, optional, type, isSelect} = props;
     const typeCheck = type || "text"
 
     const grow = (e: any) => {
@@ -25,32 +26,36 @@ export default function Input(props: InputProps) {
         exit: {opacity: 0, transition: {duration: 0.5}}
     }
 
-    return <Container color={value.color}>
+    return <Container color={value?.color || ""}>
         <Horizontal>
             <Label>{label} </Label>
             {optional && <h6>(Optional)</h6>}
             <AnimatePresence>
-                {value.err &&
-                    <Error initial="initial" animate="animate" exit="exit" variants={errorVariant}>{value.err}</Error>}
+                {value?.err &&
+                    <Error initial="initial" animate="animate" exit="exit"
+                           variants={errorVariant}>{value?.err || ""}</Error>}
             </AnimatePresence>
         </Horizontal>
 
-        {!isTextArea &&
-            <Field type={typeCheck} placeholder={"Enter " + label} value={value.data} onChange={onChange}/>}
+        {!isTextArea && !isSelect &&
+            <Field type={typeCheck} placeholder={"Enter " + label} value={value?.data || ""} onChange={onChange}/>}
         {isTextArea &&
-            <TextArea placeholder={"Enter " + label} value={value.data} onChange={onChange}
+            <TextArea placeholder={"Enter " + label} value={value?.data || ""} onChange={onChange}
                       onKeyDown={(e) => grow(e)}/>}
+        {isSelect && <select onChange={onChange}>
+            {isSelect.map((option, index) => <option key={index}>{option}</option>)}
+        </select>}
 
     </Container>
 }
 
-const Container = styled.div<{ color: string }>`
+const Container = styled.div<{ color?: string }>`
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
 
-  > input, textarea {
+  > input, textarea, select {
     border: 1px solid ${({color}) => color};
     transition: border 500ms ease-out;
     outline: none;
