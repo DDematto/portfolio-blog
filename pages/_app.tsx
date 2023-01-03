@@ -7,6 +7,7 @@ import Head from 'next/head';
 import {Analytics} from '@vercel/analytics/react';
 import Footer from 'components/Footer';
 import {AnimatePresence} from 'framer-motion';
+import Navigation from 'components/Navigation';
 
 const theme: DefaultTheme = {
     colors: {
@@ -44,7 +45,7 @@ export default function App({Component, pageProps}: AppProps) {
         <GlobalStyle/>
         <Layout className={roboto.className}>
             <AnimatePresence mode='wait'>
-                {/*<Navigation key='navigation'/>*/}
+                <Navigation key='navigation'/>
                 <Component {...pageProps} />
                 <Footer key='footer'/>
             </AnimatePresence>

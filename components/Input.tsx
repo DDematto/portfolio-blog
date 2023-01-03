@@ -42,9 +42,9 @@ export default function Input(props: InputProps) {
         {isTextArea &&
             <TextArea placeholder={"Enter " + label} value={value?.data || ""} onChange={onChange}
                       onKeyDown={(e) => grow(e)}/>}
-        {isSelect && <Select onChange={onChange}>
+        {isSelect && <select onChange={onChange}>
             {isSelect.map((option, index) => <option key={index}>{option}</option>)}
-        </Select>}
+        </select>}
 
     </Container>
 }
@@ -55,7 +55,7 @@ const Container = styled.div<{ color?: string }>`
   flex-direction: column;
   gap: 0.25rem;
 
-  > input, textarea {
+  > input, textarea, select {
     border: 1px solid ${({color}) => color};
     transition: border 500ms ease-out;
     outline: none;
@@ -97,13 +97,4 @@ const TextArea = styled.textarea`
   resize: none;
   overflow: hidden;
   min-height: 6rem;
-`
-
-const Select = styled.select`
-  height: 100%;
-
-  color: ${({theme}) => theme.text.primary};
-  background: ${({theme}) => theme.colors.background};
-  outline: none;
-  font-size: 1rem;
 `

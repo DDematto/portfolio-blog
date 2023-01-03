@@ -4,7 +4,6 @@ import {motion} from "framer-motion";
 import {useEffect, useRef, useState} from "react";
 import styled, {css} from "styled-components";
 import Image from 'next/image'
-import logoPic from "../public/images/logo.png";
 
 
 export default function Navigation() {
@@ -62,7 +61,8 @@ export default function Navigation() {
     }
 
     return <Nav ref={navRef} variants={variants} animate="visible" initial='hidden'>
-        <StyledLogo priority placeholder='blur' src={logoPic} width={96} height={96} alt="Picture of Logo"/>
+        <p>Logo</p>
+        {/*<StyledLogo priority placeholder='blur' src={logoPic} width={96} height={96} alt="Picture of Logo"/>*/}
         <Wrapper ref={wrapperRef}>
             <SectionLink id="about" title="01 - About" active={active == "about"}/>
             <SectionLink id="skills" title="02 - Skills" active={active == "skills"}/>
