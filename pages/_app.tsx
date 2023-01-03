@@ -1,7 +1,6 @@
 import type {AppProps} from 'next/app'
 import styled, {DefaultTheme, ThemeProvider} from 'styled-components'
 import GlobalStyle from "../components/globalstyles";
-import Navigation from "../components/Navigation";
 import {Fira_Code} from '@next/font/google'
 import Script from 'next/script';
 import Head from 'next/head';
@@ -45,7 +44,7 @@ export default function App({Component, pageProps}: AppProps) {
         <GlobalStyle/>
         <Layout className={roboto.className}>
             <AnimatePresence mode='wait'>
-                <Navigation key='navigation'/>
+                {/*<Navigation key='navigation'/>*/}
                 <Component {...pageProps} />
                 <Footer key='footer'/>
             </AnimatePresence>

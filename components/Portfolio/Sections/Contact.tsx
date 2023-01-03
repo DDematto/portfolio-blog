@@ -3,7 +3,6 @@ import styled from "styled-components";
 import SectionContainer from ".";
 import {AnimatedDIV} from "../../AnimatedContainers";
 import Input from "components/Input";
-import Selection from "../../Selection";
 import {GiPartyHat, GiPartyPopper} from "react-icons/gi";
 import {MdReportProblem} from "react-icons/md";
 import {AnimatePresence, motion} from "framer-motion";
@@ -166,7 +165,7 @@ export default function Contact() {
                         <HorizontalContainer>
                             <Input label="Name" value={name} onChange={(e) => nameInput(e)}/>
                             <Input type="email" label="Email" value={email} onChange={(e) => emailInput(e)}/>
-                            <Selection name={"inquiry"} options={options} onChange={(e) => inquiryInput(e)}/>
+                            <Input label="Inquiry" isSelect={options} onChange={(e) => inquiryInput(e)}/>
                             <Input type="tel" label="Phone Number" value={phone} onChange={(e) => phoneInput(e)}
                                    optional/>
                         </HorizontalContainer>

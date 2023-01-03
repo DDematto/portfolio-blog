@@ -11,7 +11,6 @@ export default function Navigation() {
     const categories = ["about", "skills", "education", "contact"];
 
     const router = useRouter();
-    const [isInitial, setIsInitial] = useState(true);
     const [active, setActive] = useState("about");
     const [progress, setProgress] = useState(0);
     const navRef = useRef<HTMLDivElement>(null);
@@ -51,14 +50,11 @@ export default function Navigation() {
             return setProgress(0);
         }
 
-        if (isInitial) {
-            categoryLogic();
-            setIsInitial(false);
-        }
+        categoryLogic();
 
         window.addEventListener("scroll", categoryLogic);
         return () => window.removeEventListener("scroll", categoryLogic);
-    }, [router.pathname, isInitial]);
+    }, [router.pathname]);
 
     const variants = {
         hidden: {y: -65, transition: {duration: 0.1}},
