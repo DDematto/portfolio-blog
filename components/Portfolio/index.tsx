@@ -1,17 +1,21 @@
+import dynamic from 'next/dynamic';
 import styled from "styled-components";
 
 // Portfolio Sections
 import About from "./Sections/About";
-import Contact from "./Sections/Contact";
-import Skills from "./Sections/Skills";
-import Education from "./Sections/Education";
+
+
+const SkillsSection = dynamic(() => import('./Sections/Skills'), {ssr: false});
+const EducationSection = dynamic(() => import('./Sections/Education'), {ssr: false});
+const ContactSection = dynamic(() => import('./Sections/Contact'), {ssr: false});
+
 
 export default function Portfolio() {
     return <PortfolioLayout>
         <About/>
-        <Skills/>
-        <Education/>
-        <Contact/>
+        <SkillsSection/>
+        <EducationSection/>
+        <ContactSection/>
     </PortfolioLayout>
 }
 

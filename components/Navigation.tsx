@@ -12,7 +12,6 @@ export default function Navigation() {
     const [progress, setProgress] = useState(0);
     const navRef = useRef<HTMLDivElement>(null);
     const wrapperRef = useRef<HTMLDivElement>(null);
-    const styleRef = useRef<{ left: string, width: string }>({left: '0', width: '0'});
 
     // Category Logic
     const categoryLogic = useCallback(() => {
@@ -21,7 +20,9 @@ export default function Navigation() {
 
         // grab the section data
         const sections = categories.map((section) => {
-            const sectionEl = document.getElementById(section)!;
+            const sectionEl = document.getElementById(section);
+            if (!sectionEl) return;
+
             const scrollPosition = window.scrollY + window.innerHeight;
             const sectionTop = sectionEl.offsetTop;
             const sectionBottom = sectionTop + sectionEl.offsetHeight;
@@ -33,6 +34,7 @@ export default function Navigation() {
 
         // Calculate the progress bar value, and get the active section
         sections.forEach((section) => {
+            if (!section) return;
             sum += section.value
             if (section.value > 0.5) {
                 activeSection = section.name;
@@ -58,13 +60,6 @@ export default function Navigation() {
         setProgress(0);
     }, [router.pathname]);
 
-    useEffect(() => {
-        styleRef.current = {
-            left: `${wrapperRef.current?.getBoundingClientRect().left}px`,
-            width: `${progress}px`
-        };
-    }, [progress]);
-
     const variants = {
         hidden: {y: -65, transition: {duration: 0.1}},
         visible: {y: 0, transition: {duration: 0.1}},
@@ -78,7 +73,10 @@ export default function Navigation() {
             <SectionLink id="contact" title="04 - Contact" active={active == "contact"}/>
         </Wrapper>
         <LinkStyled scroll={true} href='/projects' active={active == "projects" ? 1 : 0}>Projects</LinkStyled>
-        <Line style={styleRef.current}/>
+        <Line style={{
+            left: `${wrapperRef.current?.getBoundingClientRect().left}px`,
+            width: `${progress}px`
+        }}/>
     </Nav>
 }
 
