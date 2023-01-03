@@ -24,6 +24,7 @@ const Container = styled.div<{ height: string }>`
   width: 100%;
   min-height: ${({height}) => height};
   scroll-margin-top: 6rem;
+  margin-bottom: 3rem;
 
   display: flex;
   flex-direction: column;
@@ -34,4 +35,10 @@ const Container = styled.div<{ height: string }>`
     border-bottom: 1px solid ${({theme}) => theme.colors.secondary};
     padding-bottom: 0.5rem;
   }
+
+
+  @media (max-width: 400px) {
+    scroll-margin-top: 14rem;
+  }
+
 `

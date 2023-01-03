@@ -186,7 +186,6 @@ export default function Contact() {
 
 // Styled Components
 const Container = styled(AnimatedDIV)`
-  height: 20rem;
   width: 100%;
 `;
 
@@ -203,9 +202,16 @@ const Form = styled(motion.form)`
 
 const HorizontalContainer = styled.div`
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
+  height: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  grid-gap: 1rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+
 `;
 
 const Response = styled(motion.div)`

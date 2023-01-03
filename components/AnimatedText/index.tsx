@@ -58,7 +58,11 @@ export default function Index(props: IAnimatedText) {
     }, [delay, delayTime, sentences.length]);
 
     return <TextContainer>
-        <h1>{text}</h1>
+        {/* Loop through each character and return a h1 wrap of that character include spaces */}
+        {text.split('').map((char, index) => {
+            return <h1 key={index}>{char === ' ' ? '\u00A0' : char}</h1>
+        })}
+
         <Cursor symbol={symbol || "|"}/>
     </TextContainer>
 }
@@ -68,6 +72,17 @@ export default function Index(props: IAnimatedText) {
 export const TextContainer = styled.span`
   display: flex;
   flex-direction: row;
+
+  flex-wrap: wrap;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    font-style: italic;
+  }
 `;
 
 

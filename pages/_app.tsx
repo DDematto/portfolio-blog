@@ -44,10 +44,10 @@ export default function App({Component, pageProps}: AppProps) {
         <Analytics/>
         <GlobalStyle/>
         <Layout className={roboto.className}>
-            <AnimatePresence exitBeforeEnter>
-                <Navigation/>
+            <AnimatePresence mode='wait'>
+                <Navigation key='navigation'/>
                 <Component {...pageProps} />
-                <Footer/>
+                <Footer key='footer'/>
             </AnimatePresence>
         </Layout>
     </ThemeProvider>

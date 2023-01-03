@@ -2,7 +2,6 @@ import {createGlobalStyle} from 'styled-components'
 
 const GlobalStyle = createGlobalStyle<{ theme: any }>`
   html, body {
-    padding: 50px 0 0 0;
     margin: 0;
 
     --scroll-behavior: smooth !important;
@@ -16,6 +15,14 @@ const GlobalStyle = createGlobalStyle<{ theme: any }>`
     --thumbBG: #90A4AE;
     scrollbar-width: thin;
     scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+  }
+
+  body {
+    padding: 120px 0 0 0;
+
+    @media (max-width: 400px) {
+      padding: 250px 0 0 0;
+    }
   }
 
   body::-webkit-scrollbar {

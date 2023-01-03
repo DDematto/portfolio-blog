@@ -25,7 +25,8 @@ export default function About() {
     return <SectionContainer titles={titles} id="about">
         <AboutContainer>
             <ProfileContainer variants={profileVariants} initial="hidden" animate="visible">
-                <ProfileImage src={profilePic} width={200} height={200} alt="Picture of Devin DeMatto"/>
+                <ProfileImage priority placeholder='blur' src={profilePic} width={200} height={200}
+                              alt="Picture of Devin DeMatto"/>
 
                 <ProfileText>Devin DeMatto</ProfileText>
 
@@ -96,12 +97,15 @@ const ProfileText = styled.h2`
 `;
 
 const ProfileLinks = styled.div`
+  width: 80%;
   padding: .5rem;
   margin: 0 auto;
 
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
   gap: 1rem;
+
+  grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
 `;
 
 
