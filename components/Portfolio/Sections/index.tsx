@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import {default as AnimatedText, TextContainer} from "../../AnimatedText";
+import {default as AnimatedText} from "../../AnimatedText";
 
 
 interface SectionContainerProps {
@@ -30,15 +30,7 @@ const Container = styled.div<{ height: string }>`
   flex-direction: column;
   gap: 1rem;
 
-
-  ${TextContainer} {
-    border-bottom: 1px solid ${({theme}) => theme.colors.secondary};
-    padding-bottom: 0.5rem;
-  }
-
-
   @media (max-width: 400px) {
     scroll-margin-top: 14rem;
   }
-
 `

@@ -33,6 +33,7 @@ export default function App({Component, pageProps}: AppProps) {
         <Head>
             <title>Devin DeMatto | Portfolio</title>
             <meta name="description" content={content}/>
+            <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
             <link rel="shortcut icon" href="/images/favicon.ico"/>
             <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png"/>
             <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png"/>
@@ -56,5 +57,4 @@ export default function App({Component, pageProps}: AppProps) {
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 `

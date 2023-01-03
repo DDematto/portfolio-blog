@@ -18,7 +18,7 @@ const GlobalStyle = createGlobalStyle<{ theme: any }>`
   }
 
   body {
-    padding: 120px 0 0 0;
+    padding-top: 120px;
 
     @media (max-width: 400px) {
       padding: 250px 0 0 0;

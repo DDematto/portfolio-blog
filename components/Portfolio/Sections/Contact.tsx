@@ -189,7 +189,6 @@ const Container = styled(AnimatedDIV)`
 `;
 
 const Form = styled(motion.form)`
-  height: 100%;
 
   display: flex;
   flex-direction: column;
@@ -201,7 +200,6 @@ const Form = styled(motion.form)`
 
 const HorizontalContainer = styled.div`
   width: 100%;
-  height: 100%;
 
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));

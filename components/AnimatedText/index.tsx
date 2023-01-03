@@ -60,7 +60,9 @@ export default function Index(props: IAnimatedText) {
     return <TextContainer>
         {/* Loop through each character and return a h1 wrap of that character include spaces */}
         {text.split('').map((char, index) => {
-            return <h1 key={index}>{char === ' ' ? '\u00A0' : char}</h1>
+            return <h1 key={index}>
+                {char === ' ' ? '\u00A0' : char}
+            </h1>
         })}
 
         <Cursor symbol={symbol || "|"}/>
@@ -80,8 +82,10 @@ export const TextContainer = styled.span`
   h1 {
     font-size: 1.5rem;
     font-weight: 400;
-    font-style: italic;
   }
+
+  border-bottom: 1px solid ${({theme}) => theme.colors.secondary};
+  padding-bottom: 0.5rem;
 `;
 
 
