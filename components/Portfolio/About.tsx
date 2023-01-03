@@ -1,8 +1,8 @@
 import styled from "styled-components"
 import {motion} from "framer-motion";
-import {AnimatedDIV, AnimatedIMG} from "../../AnimatedContainers";
+import {AnimatedDIV, AnimatedIMG} from "../AnimatedContainers";
 import SectionContainer from "./index";
-import profilePic from "../../../public/images/DevinDeMatto.jpg";
+import profilePic from "../../public/images/DevinDeMatto.jpg";
 import GitHub from "components/Icons/Github";
 import LinkedIn from "components/Icons/LinkedIn";
 import Twitter from "components/Icons/Twitter";

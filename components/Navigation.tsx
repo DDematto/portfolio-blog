@@ -46,19 +46,17 @@ export default function Navigation() {
     }, []);
 
     useEffect(() => {
-        categoryLogic();
+        if (router.pathname == "/") {
+            categoryLogic();
 
-        window.addEventListener("scroll", categoryLogic);
+            window.addEventListener("scroll", categoryLogic);
+        } else {
+            setActive("projects");
+            setProgress(0);
+        }
+
         return () => window.removeEventListener("scroll", categoryLogic);
-    }, []);
-
-    // Reset the progress bar when the user clicks on a different page
-    useEffect(() => {
-        if (router.pathname === "/") return;
-
-        setActive("projects");
-        setProgress(0);
-    }, [router.pathname]);
+    }, [categoryLogic, router.pathname]);
 
     const variants = {
         hidden: {y: -65, transition: {duration: 0.1}},
@@ -155,7 +153,9 @@ function SectionLink(props: { title: string, id: string, active: boolean }) {
     const {title, id, active} = props;
 
     return <div>
-        <LinkStyled scroll={true} href={`/#${id}`} active={active ? 1 : 0}>{title}</LinkStyled>
+        <LinkStyled scroll={true} href={`/#${id}`} active={active ? 1 : 0}>
+            {title}
+        </LinkStyled>
     </div>
 }
 
@@ -163,11 +163,8 @@ const LinkStyled = styled(Link)<{ active: number }>`
   color: ${({theme}) => theme.text.highlight};
   text-decoration: none;
   transition: all 0.2s ease-in-out;
-  font-style: italic;
   white-space: nowrap;
-  outline: none;
   text-align: center;
-  border: 0;
 
   &:hover, &:focus {
     color: ${({theme}) => theme.text.secondary};;
@@ -176,7 +173,7 @@ const LinkStyled = styled(Link)<{ active: number }>`
   ${({active}) => active && css`
     color: ${({theme}) => theme.text.primary};
     background-color: ${({theme}) => theme.colors.primary};
-    box-shadow: 0 0 0 2px ${({theme}) => theme.colors.secondary};
+    border: 1px solid ${({theme}) => theme.colors.secondary};
     border-radius: 5px;
     padding: 0.5rem 1rem;
   `}

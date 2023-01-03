@@ -7,7 +7,6 @@ const GlobalStyle = createGlobalStyle<{ theme: any }>`
     --scroll-behavior: smooth !important;
     scroll-behavior: smooth !important;
 
-    // @ts-ignore
     background-color: ${({theme}) => theme.colors.background};
     color: ${({theme}) => theme.text.primary};
 
