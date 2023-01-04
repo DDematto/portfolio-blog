@@ -16,14 +16,6 @@ const GlobalStyle = createGlobalStyle<{ theme: any }>`
     scrollbar-color: var(--thumbBG) var(--scrollbarBG);
   }
 
-  body {
-    padding-top: 120px;
-
-    @media (max-width: 400px) {
-      padding: 250px 0 0 0;
-    }
-  }
-
   body::-webkit-scrollbar {
     width: 11px;
   }

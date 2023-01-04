@@ -124,7 +124,7 @@ export default function Contact() {
     }, [data]);
 
     // Form Animation
-    const {ref, inView} = useInView({triggerOnce: true, threshold: 0.6, delay: 200});
+    const {ref, inView} = useInView({triggerOnce: true, threshold: 0.75, delay: 200});
     const variants = {
         hidden: {opacity: 0, scale: 0.8, transition: {duration: 1.5}},
         visible: {opacity: 1, scale: 1, transition: {duration: 1}},

@@ -9,6 +9,7 @@ import Footer from 'components/Footer';
 import Navigation from 'components/Navigation';
 import {useState} from 'react';
 import {AnimatePresence, motion} from 'framer-motion';
+import Transition, {FirstTransition, Type} from "../components/Transition";
 
 const theme: DefaultTheme = {
     colors: {
@@ -29,30 +30,23 @@ const content = "Welcome to my website! I am a software developer with a strong 
     "I have experience working on projects in a variety of industries, and am always eager to learn and grow as a professional. On my website, " +
     "you can learn more about my skills and experience, view my portfolio, and get in touch with me to discuss potential opportunities. Thank you for visiting!"
 
-export enum TransitionType {
-    NONE,
-    INITIAL,
-    PortfolioEnter,
-    ProjectEnter
-}
 
 export default function App({Component, pageProps}: AppProps) {
-    const [transition, setTransition] = useState(TransitionType.INITIAL as TransitionType);
+    const [transition, setTransition] = useState(FirstTransition);
 
     const pageVariant = {
-        initial: {opacity: 0, transition: {duration: 1}},
-        animate: {opacity: 1, transition: {duration: 1}},
-        exit: {opacity: 0, transition: {duration: 1}}
+        initial: {opacity: 0, transition: {duration: 1, delay: 1}},
+        animate: {opacity: 1, transition: {duration: 1, delay: 1}},
+        exit: {opacity: 0, transition: {duration: 1, delay: 1}}
     }
 
     return <ThemeProvider theme={theme}>
         <WebsiteInfo/>
 
-        <button onClick={() => setTransition(TransitionType.NONE)}>End Transition</button>
-        <button onClick={() => setTransition(TransitionType.INITIAL)}>Start Transition</button>
+        <Transition transition={transition} setTransition={setTransition}/>
 
         <AnimatePresence mode='wait'>
-            {transition === TransitionType.NONE &&
+            {transition.type == Type.None &&
                 <Container className={roboto.className} initial="initial" animate="animate" exit="exit"
                            variants={pageVariant}>
                     <Navigation/>
@@ -86,6 +80,7 @@ const WebsiteInfo = () => {
 }
 
 const Container = styled(motion.div)`
+  margin-top: 8rem;
   display: flex;
   flex-direction: column;
 `
