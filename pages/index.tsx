@@ -6,6 +6,7 @@ import Skills from "components/Portfolio/Skills";
 import Education from "components/Portfolio/Education";
 import Contact from "components/Portfolio/Contact";
 
+
 export default function Portfolio() {
     return <PortfolioLayout>
         <About/>
