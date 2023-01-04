@@ -1,16 +1,18 @@
 import {motion} from "framer-motion";
 import {useEffect, useRef, useState} from "react";
+import {useInView} from "react-intersection-observer";
 import styled from "styled-components";
 
 export default function VerticalList(props: { items: string[], grabCurrentItem: any }) {
     const {items, grabCurrentItem} = props;
+    const {ref, inView} = useInView({triggerOnce: true, threshold: 0.25});
 
     const [y, setY] = useState(0);
     const initialRef = useRef<HTMLButtonElement>(null);
     const [item, setItem] = useState({item: items[0], ref: initialRef});
 
     // set initial item ref
-    useEffect(() => navLeaveLogic(), [initialRef]);
+    useEffect(() => navLeaveLogic(), [initialRef, inView]);
 
     // Set local state to the outside component selector
     useEffect(() => grabCurrentItem(item.item), [item])
@@ -30,12 +32,14 @@ export default function VerticalList(props: { items: string[], grabCurrentItem: 
         setY(buttonY);
     }
 
-    return <ParentContainer onMouseMove={(e) => navEnterLogic(e)} onMouseLeave={() => navLeaveLogic()}>
-        <Item initialRef={initialRef} item={items[0]} i={0} setRef={setItem}/>
-        {items.slice(1).map((item, i) => <Item key={item} item={item} i={i + 1} setRef={setItem}/>)}
+    return <ParentContainer ref={ref} onMouseMove={(e) => navEnterLogic(e)} onMouseLeave={() => navLeaveLogic()}>
+        {inView && <>
+            <Item initialRef={initialRef} item={items[0]} i={0} setRef={setItem}/>
+            {items.slice(1).map((item, i) => <Item key={item} item={item} i={i + 1} setRef={setItem}/>)}
 
-        <Selector style={{left: 0, top: y}}/>
-        <Selector style={{right: 0, top: y}}/>
+            <Selector style={{left: 0, top: y}}/>
+            <Selector style={{right: 0, top: y}}/>
+        </>}
     </ParentContainer>
 }
 

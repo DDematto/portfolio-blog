@@ -3,7 +3,6 @@ import {AnimatedDIV} from "../AnimatedContainers";
 import styled from "styled-components";
 import {useState} from "react";
 import {motion} from "framer-motion";
-import VerticalList from "../VerticalList";
 
 // Icon Imports
 import {
@@ -33,7 +32,14 @@ import {AiFillHtml5} from "react-icons/ai";
 import {IoLogoCss3} from "react-icons/io";
 import {TbBrandNextjs} from "react-icons/tb";
 import {FaGitSquare} from "react-icons/fa";
-import IconGallery from "../IconGallery";
+
+
+// Dynamic Imports
+import dynamic from 'next/dynamic'
+
+const IconGallery = dynamic(() => import('../IconGallery'), {ssr: false})
+const VerticalList = dynamic(() => import('../VerticalList'), {ssr: false})
+
 
 export default function Skills() {
     const titles = ["02 - Skills - Languages", "02 - Skills - Frameworks", "02 - Skills - Tools", "02 - Skills - Databases", "02 - Skills - Other"];
@@ -64,6 +70,30 @@ export default function Skills() {
     </SectionContainer>
 }
 
+
+// Styled Components
+const SkillsDesc = styled(AnimatedDIV)`
+  word-spacing: 0.1rem;
+`
+
+const SkillsContainer = styled(motion.div)`
+  min-height: 300px;
+  width: 95%;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: .25fr 1fr;
+  gap: 2rem;
+
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr;
+    padding: 0;
+    width: 100%;
+  }
+`
+
+
+// Icons for IconGallery
 const Icons = (category: string) => {
     switch (category) {
         case "Languages":
@@ -106,24 +136,3 @@ const Icons = (category: string) => {
             ];
     }
 };
-
-// Main Containers for the Skills Section
-const SkillsDesc = styled(AnimatedDIV)`
-  word-spacing: 0.1rem;
-`
-
-const SkillsContainer = styled(motion.div)`
-  min-height: 300px;
-  width: 95%;
-  margin: 0 auto;
-
-  display: grid;
-  grid-template-columns: .25fr 1fr;
-  gap: 2rem;
-
-  @media (max-width: 700px) {
-    grid-template-columns: 1fr;
-    padding: 0;
-    width: 100%;
-  }
-`

@@ -30,7 +30,6 @@ const GlobalStyle = createGlobalStyle<{ theme: any }>`
     border: 3px solid var(--scrollbarBG);
   }
 
-
   // Removes ReCAPTCHA badge
   .grecaptcha-badge {
     visibility: hidden;

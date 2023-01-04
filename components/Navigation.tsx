@@ -165,6 +165,7 @@ const LinkStyled = styled(Link)<{ active: number }>`
   transition: all 0.2s ease-in-out;
   white-space: nowrap;
   text-align: center;
+  outline: 1px solid transparent;
 
   &:hover, &:focus {
     color: ${({theme}) => theme.text.secondary};;

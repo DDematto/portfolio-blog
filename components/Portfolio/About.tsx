@@ -7,8 +7,6 @@ import GitHub from "components/Icons/Github";
 import LinkedIn from "components/Icons/LinkedIn";
 import Twitter from "components/Icons/Twitter";
 
-// Svg Buttons
-
 export default function About() {
     const titles = ["01 - About Me, Hey I'm Devin!", "01 - About Me, I Enjoy: Games"]
 
