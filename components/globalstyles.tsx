@@ -7,7 +7,6 @@ const GlobalStyle = createGlobalStyle<{ theme: any }>`
     --scroll-behavior: smooth !important;
     scroll-behavior: smooth !important;
 
-    // @ts-ignore
     background-color: ${({theme}) => theme.colors.background};
     color: ${({theme}) => theme.text.primary};
 
@@ -15,14 +14,6 @@ const GlobalStyle = createGlobalStyle<{ theme: any }>`
     --thumbBG: #90A4AE;
     scrollbar-width: thin;
     scrollbar-color: var(--thumbBG) var(--scrollbarBG);
-  }
-
-  body {
-    padding-top: 120px;
-
-    @media (max-width: 400px) {
-      padding: 250px 0 0 0;
-    }
   }
 
   body::-webkit-scrollbar {

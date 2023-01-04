@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import styled from "styled-components";
-import SectionContainer from ".";
-import {AnimatedDIV} from "../../AnimatedContainers";
+import SectionContainer from "./index";
+import {AnimatedDIV} from "../AnimatedContainers";
 import Input from "components/Input";
 import {GiPartyHat, GiPartyPopper} from "react-icons/gi";
 import {MdReportProblem} from "react-icons/md";
@@ -9,7 +9,7 @@ import {AnimatePresence, motion} from "framer-motion";
 import {SubmitButton} from "components/Button";
 import axios from 'axios';
 import {useInView} from "react-intersection-observer";
-import CopyText from "../../CopyText";
+import CopyText from "../CopyText";
 
 const initialForm = {
     phone: {data: "+1", err: "", color: "white"},
@@ -124,7 +124,7 @@ export default function Contact() {
     }, [data]);
 
     // Form Animation
-    const {ref, inView} = useInView({triggerOnce: true, threshold: 0.3});
+    const {ref, inView} = useInView({triggerOnce: true, threshold: 0.75, delay: 200});
     const variants = {
         hidden: {opacity: 0, scale: 0.8, transition: {duration: 1.5}},
         visible: {opacity: 1, scale: 1, transition: {duration: 1}},

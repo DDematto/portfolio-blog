@@ -12,7 +12,6 @@ export default function Navigation() {
     const [progress, setProgress] = useState(0);
     const navRef = useRef<HTMLDivElement>(null);
     const wrapperRef = useRef<HTMLDivElement>(null);
-    const styleRef = useRef<{ left: string, width: string }>({left: '0', width: '0'});
 
     // Category Logic
     const categoryLogic = useCallback(() => {
@@ -21,7 +20,9 @@ export default function Navigation() {
 
         // grab the section data
         const sections = categories.map((section) => {
-            const sectionEl = document.getElementById(section)!;
+            const sectionEl = document.getElementById(section);
+            if (!sectionEl) return;
+
             const scrollPosition = window.scrollY + window.innerHeight;
             const sectionTop = sectionEl.offsetTop;
             const sectionBottom = sectionTop + sectionEl.offsetHeight;
@@ -33,6 +34,7 @@ export default function Navigation() {
 
         // Calculate the progress bar value, and get the active section
         sections.forEach((section) => {
+            if (!section) return;
             sum += section.value
             if (section.value > 0.5) {
                 activeSection = section.name;
@@ -44,26 +46,17 @@ export default function Navigation() {
     }, []);
 
     useEffect(() => {
-        categoryLogic();
+        if (router.pathname == "/") {
+            categoryLogic();
 
-        window.addEventListener("scroll", categoryLogic);
+            window.addEventListener("scroll", categoryLogic);
+        } else {
+            setActive("projects");
+            setProgress(0);
+        }
+
         return () => window.removeEventListener("scroll", categoryLogic);
-    }, []);
-
-    // Reset the progress bar when the user clicks on a different page
-    useEffect(() => {
-        if (router.pathname === "/") return;
-
-        setActive("projects");
-        setProgress(0);
-    }, [router.pathname]);
-
-    useEffect(() => {
-        styleRef.current = {
-            left: `${wrapperRef.current?.getBoundingClientRect().left}px`,
-            width: `${progress}px`
-        };
-    }, [progress]);
+    }, [categoryLogic, router.pathname]);
 
     const variants = {
         hidden: {y: -65, transition: {duration: 0.1}},
@@ -78,7 +71,10 @@ export default function Navigation() {
             <SectionLink id="contact" title="04 - Contact" active={active == "contact"}/>
         </Wrapper>
         <LinkStyled scroll={true} href='/projects' active={active == "projects" ? 1 : 0}>Projects</LinkStyled>
-        <Line style={styleRef.current}/>
+        <Line style={{
+            left: `${wrapperRef.current?.getBoundingClientRect().left}px`,
+            width: `${progress}px`
+        }}/>
     </Nav>
 }
 
@@ -157,7 +153,9 @@ function SectionLink(props: { title: string, id: string, active: boolean }) {
     const {title, id, active} = props;
 
     return <div>
-        <LinkStyled scroll={true} href={`/#${id}`} active={active ? 1 : 0}>{title}</LinkStyled>
+        <LinkStyled scroll={true} href={`/#${id}`} active={active ? 1 : 0}>
+            {title}
+        </LinkStyled>
     </div>
 }
 
@@ -165,11 +163,8 @@ const LinkStyled = styled(Link)<{ active: number }>`
   color: ${({theme}) => theme.text.highlight};
   text-decoration: none;
   transition: all 0.2s ease-in-out;
-  font-style: italic;
   white-space: nowrap;
-  outline: none;
   text-align: center;
-  border: 0;
 
   &:hover, &:focus {
     color: ${({theme}) => theme.text.secondary};;
@@ -178,7 +173,7 @@ const LinkStyled = styled(Link)<{ active: number }>`
   ${({active}) => active && css`
     color: ${({theme}) => theme.text.primary};
     background-color: ${({theme}) => theme.colors.primary};
-    box-shadow: 0 0 0 2px ${({theme}) => theme.colors.secondary};
+    border: 1px solid ${({theme}) => theme.colors.secondary};
     border-radius: 5px;
     padding: 0.5rem 1rem;
   `}

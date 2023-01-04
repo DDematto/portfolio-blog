@@ -89,7 +89,7 @@ export const TextContainer = styled.span`
 `;
 
 
-const Cursor = styled.h1<{ symbol: string }>`
+export const Cursor = styled.h1<{ symbol: string }>`
   animation: blink 0.7s infinite;
 
   &:after {

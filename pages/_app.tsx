@@ -6,8 +6,10 @@ import Script from 'next/script';
 import Head from 'next/head';
 import {Analytics} from '@vercel/analytics/react';
 import Footer from 'components/Footer';
-import {AnimatePresence} from 'framer-motion';
 import Navigation from 'components/Navigation';
+import {useState} from 'react';
+import {AnimatePresence, motion} from 'framer-motion';
+import Transition, {FirstTransition, Type} from "../components/Transition";
 
 const theme: DefaultTheme = {
     colors: {
@@ -24,12 +26,42 @@ const theme: DefaultTheme = {
 
 const roboto = Fira_Code({subsets: ['latin']})
 
+const content = "Welcome to my website! I am a software developer with a strong foundation in a variety of programming languages and frameworks. " +
+    "I have experience working on projects in a variety of industries, and am always eager to learn and grow as a professional. On my website, " +
+    "you can learn more about my skills and experience, view my portfolio, and get in touch with me to discuss potential opportunities. Thank you for visiting!"
+
+
 export default function App({Component, pageProps}: AppProps) {
-    const content = "Welcome to my website! I am a software developer with a strong foundation in a variety of programming languages and frameworks. " +
-        "I have experience working on projects in a variety of industries, and am always eager to learn and grow as a professional. On my website, " +
-        "you can learn more about my skills and experience, view my portfolio, and get in touch with me to discuss potential opportunities. Thank you for visiting!"
+    const [transition, setTransition] = useState(FirstTransition);
+
+    const pageVariant = {
+        initial: {opacity: 0, transition: {duration: 1, delay: 1}},
+        animate: {opacity: 1, transition: {duration: 1, delay: 1}},
+        exit: {opacity: 0, transition: {duration: 1, delay: 1}}
+    }
 
     return <ThemeProvider theme={theme}>
+        <WebsiteInfo/>
+
+        <Transition transition={transition} setTransition={setTransition}/>
+
+        <AnimatePresence mode='wait'>
+            {transition.type == Type.None &&
+                <Container className={roboto.className} initial="initial" animate="animate" exit="exit"
+                           variants={pageVariant}>
+                    <Navigation/>
+                    <Component {...pageProps} />
+                    <Footer/>
+                </Container>
+            }
+        </AnimatePresence>
+
+
+    </ThemeProvider>
+}
+
+const WebsiteInfo = () => {
+    return <>
         <Head>
             <title>Devin DeMatto | Portfolio</title>
             <meta name="description" content={content}/>
@@ -44,17 +76,11 @@ export default function App({Component, pageProps}: AppProps) {
             async/>
         <Analytics/>
         <GlobalStyle/>
-        <Layout className={roboto.className}>
-            <AnimatePresence mode='wait'>
-                <Navigation key='navigation'/>
-                <Component {...pageProps} />
-                <Footer key='footer'/>
-            </AnimatePresence>
-        </Layout>
-    </ThemeProvider>
+    </>
 }
 
-const Layout = styled.div`
+const Container = styled(motion.div)`
+  margin-top: 8rem;
   display: flex;
   flex-direction: column;
 `

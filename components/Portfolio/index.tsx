@@ -1,23 +1,36 @@
-import styled from "styled-components";
+import styled from "styled-components"
+import {default as AnimatedText} from "../AnimatedText";
 
-// Portfolio Sections
-import About from "./Sections/About";
-import Contact from "./Sections/Contact";
-import Skills from "./Sections/Skills";
-import Education from "./Sections/Education";
 
-export default function Portfolio() {
-    return <PortfolioLayout>
-        <About/>
-        <Skills/>
-        <Education/>
-        <Contact/>
-    </PortfolioLayout>
+interface SectionContainerProps {
+    id: string;
+    titles: string[],
+    children: React.ReactNode
+    height?: string
 }
 
-const PortfolioLayout = styled.div`
+
+export default function SectionContainer(props: SectionContainerProps) {
+    const {titles, children, height, id} = props;
+
+    return <Container height={height || "90vh"} id={id}>
+        <AnimatedText sentences={titles} symbol={"|"}/>
+        {children}
+    </Container>
+}
+
+const Container = styled.div<{ height: string }>`
+  padding: 0 2rem;
+  width: 100%;
+  min-height: ${({height}) => height};
+  scroll-margin-top: 6rem;
+  margin-bottom: 3rem;
+
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
+  gap: 1rem;
+
+  @media (max-width: 400px) {
+    scroll-margin-top: 14rem;
+  }
+`
