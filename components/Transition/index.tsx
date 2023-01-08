@@ -1,6 +1,6 @@
-import {OrthographicCamera} from '@react-three/drei';
 import {Canvas} from '@react-three/fiber';
 import {AnimatePresence} from "framer-motion";
+import {Suspense} from 'react';
 import styled from "styled-components";
 import FlowField from "./FlowField";
 
@@ -24,12 +24,14 @@ export const FinishedTransition = {type: Type.None, animationComplete: false, me
 
 
 export default function Transition(props: TransitionContainerProps) {
+    // const {transition, setTransition} = props;
 
     return <Container>
         <Canvas>
-            <OrthographicCamera makeDefault left={0} bottom={0} top={100} right={100} near={-1}/>
             <ambientLight intensity={1}/>
-            <FlowField size={{width: 100, height: 100}}/>
+            <Suspense fallback={null}>
+                <FlowField/>
+            </Suspense>
         </Canvas>
 
         {/* On Page Transition Show a Message Box */}

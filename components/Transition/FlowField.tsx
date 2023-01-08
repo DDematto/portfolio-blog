@@ -1,28 +1,35 @@
 import {useMemo, useRef, useState} from "react";
 import {InstancedMesh, Object3D, Vector2} from "three";
-import {Line} from "@react-three/drei";
-import {useFrame} from "@react-three/fiber";
-import {createNoise2D} from 'simplex-noise';
+import {Line, OrthographicCamera} from "@react-three/drei";
+import {useFrame, useThree} from "@react-three/fiber";
+import {createNoise2D} from "simplex-noise";
+
 
 const noise2D = createNoise2D();
-const noiseScale = 40;
-const noiseSpeed = 0.005;
-const noiseStrength = 0.5;
 
+const angleZoom = 100;
+const fieldForce = 100;
 
-export default function FlowField({size: {width, height}}: { size: { width: number, height: number } }) {
-    const pixelSize = 5;
-    const particleCount = 5000;
+const gridSections = 200;
 
-    const [grid] = useState(createGrid(width, height, pixelSize));
+const particleCount = 100;
+const particleSpeed = 100;
+const particleSize = 20;
+
+export default function FlowField() {
+    const {size} = useThree();
+    const {width, height} = size;
+    const [grid] = useState(createGrid(width, height, gridSections));
     const particlesMesh = useRef<InstancedMesh>(null);
 
     // Generate Initial Particle Positions
     const particles = useMemo(() => {
         const temp = [];
         for (let i = 0; i < particleCount; i++) {
+
             temp.push({
-                position: new Vector2(randomRange(0, width), randomRange(0, height)),
+                position: new Vector2(200, 200),
+                prevPosition: new Vector2(200, 200),
                 velocity: new Vector2(0, 0),
                 acceleration: new Vector2(0, 0),
             })
@@ -37,24 +44,36 @@ export default function FlowField({size: {width, height}}: { size: { width: numb
 
     useFrame(() => {
         particles.forEach((particle, i) => {
-            const {position, velocity, acceleration} = particle;
-            const x = Math.floor(position.x / pixelSize) * pixelSize;
-            const y = Math.floor(position.y / pixelSize) * pixelSize;
+            const {position, prevPosition, velocity, acceleration} = particle;
 
-            const direction = grid[x][y];
-            acceleration.set(direction.x, direction.y);
-            acceleration.multiplyScalar(0.1);
+            const gridX = Math.floor(position.x / gridSections) * gridSections;
+            const gridY = Math.floor(position.y / gridSections) * gridSections;
+            const vectorData = grid[200][200];
 
-            velocity.clampLength(0, .25);
+
+            // Move particle based on Vector Data
+            if (vectorData) acceleration.add(vectorData);
             velocity.add(acceleration);
-
             position.add(velocity);
 
+            if (velocity.length() > particleSpeed / 50) {
+                velocity.setLength(particleSpeed / 50);
+            }
+
+            acceleration.multiplyScalar(0);
+
             // Wrap the particle around the edges of the screen
-            if (position.x > width) position.x = 0;
-            if (position.x < 0) position.x = width;
-            if (position.y > height) position.y = 0;
-            if (position.y < 0) position.y = height;
+            if (position.x > width) {
+                prevPosition.x = position.x = 0;
+            } else if (position.x < -particleSize) {
+                prevPosition.x = position.x = width - 1;
+            }
+
+            if (position.y > height) {
+                prevPosition.y = position.y = 0;
+            } else if (position.y < -particleSize) {
+                prevPosition.y = position.y = height - 1;
+            }
 
             // Update the dummy object's position
             dummy.position.set(position.x, position.y, 0);
@@ -65,12 +84,11 @@ export default function FlowField({size: {width, height}}: { size: { width: numb
         particlesMesh.current!.instanceMatrix.needsUpdate = true;
     });
 
-
-    return <>
+    return <OrthographicCamera makeDefault near={-1} left={-50} right={width} bottom={-50} top={height}>
         <group>
             {grid.map((row, x) => {
-                return row.map((direction, y) => {
-                    const pointB = new Vector2(x, y).add(direction);
+                return row.map(([angle, length], y) => {
+                    const pointB = new Vector2(x, y).add(new Vector2(Math.cos(angle), Math.sin(angle)).multiplyScalar(length + 25));
                     return <Line key={`${x}-${y}`} points={[new Vector2(x, y), pointB]} color='white'/>
                 })
             })}
@@ -78,19 +96,20 @@ export default function FlowField({size: {width, height}}: { size: { width: numb
 
         <pointLight distance={40} intensity={8} color="lightblue"/>
         <instancedMesh ref={particlesMesh} args={[null, null, particleCount] as any}>
-            <sphereGeometry args={[0.25, 8, 8]}/>
+            <sphereGeometry args={[particleSize, 8, 8]}/>
             <meshBasicMaterial color='red'/>
         </instancedMesh>
-    </>;
+    </OrthographicCamera>;
 }
 
 
 // create a 2D grid of vectors with directions being set by Perlin noise
-const createGrid = (width: number, height: number, pixelSize: number) => {
-    const grid: Vector2[][] = [];
-    for (let x = 0; x <= width; x += pixelSize) {
+const createGrid = (width: number, height: number, gridSection: number): any[][] => {
+    const grid: any[][] = [];
+
+    for (let x = 0; x <= width; x += gridSection) {
         grid[x] = [];
-        for (let y = 0; y <= height; y += pixelSize) {
+        for (let y = 0; y <= height; y += gridSection) {
             grid[x][y] = generateVector(x, y);
         }
     }
@@ -99,21 +118,9 @@ const createGrid = (width: number, height: number, pixelSize: number) => {
 
 
 // Generates the perlin noise at a particular point in the grid
-const generateVector = (x: number, y: number) => {
-    const direction = new Vector2();
+const generateVector = (x: number, y: number): any => {
+    let angle = noise2D(x / angleZoom / 5, y / angleZoom / 5) * Math.PI * 2;
+    let length = noise2D(x / 50 + 40000, y / 50 + 40000) * fieldForce / 20;
 
-    // Use Perlin noise to generate a wave-like pattern
-    const noise = noise2D(x / 50, y / 50);
-    const gradient = noise2D(y / 50, x / 50);
-    direction.x = -gradient;
-    direction.y = noise;
-
-    // Normalize the vector to ensure it has a length of 1
-    direction.normalize();
-    return direction;
-}
-
-
-const randomRange = (min: number, max: number) => {
-    return Math.random() * (max - min) + min;
+    return [angle, length];
 }
