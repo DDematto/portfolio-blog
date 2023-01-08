@@ -1,9 +1,7 @@
 import styled from "styled-components"
 
 export default function CopyText({message, text}: { message?: string, text: string }) {
-    return <CopyTextStyle onClick={() => {
-        navigator.clipboard.writeText(text)
-    }}>
+    return <CopyTextStyle onClick={() => navigator.clipboard.writeText(text)}>
         {message || text}
     </CopyTextStyle>
 }

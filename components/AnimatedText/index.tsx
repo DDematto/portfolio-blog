@@ -65,7 +65,7 @@ export default function Index(props: IAnimatedText) {
             </h1>
         })}
 
-        <Cursor symbol={symbol || "|"}/>
+        <Cursor symbol={symbol || "\u00A0|"}/>
     </TextContainer>
 }
 

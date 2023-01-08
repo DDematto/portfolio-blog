@@ -1,14 +1,15 @@
 import {motion} from "framer-motion";
 import styled from "styled-components"
-import {FinishedTransition, TransitionContainerProps} from "./index";
-import {Action, initialState, reducer} from "../AnimatedText/animatedreducer";
+import {FinishedTransition, TransitionContainerProps} from "../Transition";
+import {Action, initialState, reducer} from "./animatedreducer";
 import {useEffect, useReducer} from "react";
-import {Cursor, TextContainer} from "../AnimatedText";
+import {Cursor, TextContainer} from "./index";
 
 interface IMessageProps extends TransitionContainerProps {
     message: string
     click?: boolean
 }
+
 
 export function Message(props: IMessageProps) {
     const {transition, setTransition, message, click} = props;
@@ -46,9 +47,9 @@ export function Message(props: IMessageProps) {
     }, [click, setTransition, transition]);
 
     const transitionVariant = {
-        initial: {opacity: 0, transition: {duration: 0.1}},
-        animate: {opacity: 1, transition: {duration: 0.1}},
-        exit: {opacity: 0, transition: {duration: 0.1}}
+        initial: {opacity: 0, transition: {duration: 1}},
+        animate: {opacity: 1, transition: {duration: 1}},
+        exit: {opacity: 0, transition: {duration: 1}}
     }
 
     return <Container variants={transitionVariant} initial="initial" animate="animate" exit='exit'>

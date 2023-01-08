@@ -1,8 +1,8 @@
-import {Canvas} from "@react-three/fiber";
+import {OrthographicCamera} from '@react-three/drei';
+import {Canvas} from '@react-three/fiber';
 import {AnimatePresence} from "framer-motion";
-import {useEffect} from "react";
 import styled from "styled-components";
-import {Message} from "./Message";
+import FlowField from "./FlowField";
 
 export interface TransitionContainerProps {
     transition: typeof FirstTransition
@@ -22,30 +22,22 @@ export const FirstTransition = {
 
 export const FinishedTransition = {type: Type.None, animationComplete: false, messageComplete: false}
 
+
 export default function Transition(props: TransitionContainerProps) {
-    const {transition, setTransition} = props;
-
-    useEffect(() => {
-        const {type, animationComplete, messageComplete} = transition;
-        if (type == Type.FirstLoad) return;
-
-        if (animationComplete && messageComplete) {
-            setTransition(FinishedTransition);
-        }
-
-    }, [setTransition, transition]);
 
     return <Container>
         <Canvas>
-            {/*  Generation of Brain Neurons and Axons Generate more on scroll etc  */}
-            {/* As Page Transitions Change Background Changes go Here {HomeEnter, ProjectEnter, etc...}   */}
+            <OrthographicCamera makeDefault left={0} bottom={0} top={100} right={100} near={-1}/>
+            <ambientLight intensity={1}/>
+            <FlowField size={{width: 100, height: 100}}/>
         </Canvas>
 
+        {/* On Page Transition Show a Message Box */}
         <AnimatePresence mode='wait'>
-            {transition.type === Type.FirstLoad &&
-                <Message key='loadMessage' message="Welcome to my Site" transition={transition}
-                         setTransition={setTransition} click/>
-            }
+            {/*{transition.type === Type.FirstLoad &&*/}
+            {/*    <Message key='loadMessage' message="Welcome to my Site" transition={transition}*/}
+            {/*             setTransition={setTransition} click/>*/}
+            {/*}*/}
         </AnimatePresence>
     </Container>
 }
@@ -56,10 +48,11 @@ const Container = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: black;
-
+  background: ${props => props.theme.colors.primary};
 
   & > * {
-    background: black;
+    background: ${props => props.theme.colors.primary};
   }
 `
+
+
