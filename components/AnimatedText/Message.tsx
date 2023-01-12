@@ -54,9 +54,10 @@ export function Message(props: IMessageProps) {
 
     return <Container variants={transitionVariant} initial="initial" animate="animate" exit='exit'>
         <TextContainer>
-            {text.split('').map((char, index) => {
+            {text.split(' ').map((char, index) => {
                 return <h1 key={index}>
-                    {char === ' ' ? '\u00A0' : char}
+                    {index != 0 && "\u00A0"}
+                    {char}
                 </h1>
             })}
 
@@ -69,38 +70,35 @@ export function Message(props: IMessageProps) {
 
 
 const Container = styled(motion.div)`
+  // center the container on the page, horizontally and vertically
+  // however make the container be able to expand based on text size
+  // so that the text is always centered
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 35%;
-  height: 15%;
+  width: fit-content;
+  height: fit-content;
   padding: 1rem;
 
-  border-radius: 10px;
-  border: 1px solid white;
-  background-color: black;
-
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr;
-  grid-gap: 1rem;
-  justify-items: center;
+  // center the text in the container
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  gap: 1rem;
 
-  z-index: 1;
+  border-radius: 1rem;
+  border: 1px solid ${({theme}) => theme.colors.secondary};
 
+  transition: all 1s ease-in-out;
 
-  & > h2 {
-    font-size: 1.4rem;
+  * > h1 {
+    font-size: 2rem;
   }
 
-  ${TextContainer} {
-    border: none;
-
-    & > h1 {
-      font-size: 2rem;
-    }
+  > h2 {
+    font-size: 1rem;
   }
 `
 

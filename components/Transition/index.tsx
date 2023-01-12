@@ -3,6 +3,7 @@ import {AnimatePresence} from "framer-motion";
 import {Suspense} from 'react';
 import styled from "styled-components";
 import FlowField from "./FlowField";
+import {Message} from "../AnimatedText/Message";
 
 export interface TransitionContainerProps {
     transition: typeof FirstTransition
@@ -24,22 +25,22 @@ export const FinishedTransition = {type: Type.None, animationComplete: false, me
 
 
 export default function Transition(props: TransitionContainerProps) {
-    // const {transition, setTransition} = props;
+    const {transition, setTransition} = props;
 
     return <Container>
-        <Canvas>
-            <ambientLight intensity={1}/>
-            <Suspense fallback={null}>
-                <FlowField/>
-            </Suspense>
-        </Canvas>
+        {/*<Canvas>*/}
+        {/*    <ambientLight intensity={1}/>*/}
+        {/*    <Suspense fallback={null}>*/}
+        {/*        <FlowField/>*/}
+        {/*    </Suspense>*/}
+        {/*</Canvas>*/}
 
         {/* On Page Transition Show a Message Box */}
         <AnimatePresence mode='wait'>
-            {/*{transition.type === Type.FirstLoad &&*/}
-            {/*    <Message key='loadMessage' message="Welcome to my Site" transition={transition}*/}
-            {/*             setTransition={setTransition} click/>*/}
-            {/*}*/}
+            {transition.type === Type.FirstLoad &&
+                <Message key='loadMessage' message="Welcome to my Site" transition={transition}
+                         setTransition={setTransition} click/>
+            }
         </AnimatePresence>
     </Container>
 }

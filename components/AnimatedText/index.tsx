@@ -59,9 +59,10 @@ export default function Index(props: IAnimatedText) {
 
     return <TextContainer>
         {/* Loop through each character and return a h1 wrap of that character include spaces */}
-        {text.split('').map((char, index) => {
+        {text.split(' ').map((char, index) => {
             return <h1 key={index}>
-                {char === ' ' ? '\u00A0' : char}
+                {index != 0 && "\u00A0"}
+                {char}
             </h1>
         })}
 
