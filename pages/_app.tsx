@@ -80,7 +80,11 @@ const WebsiteInfo = () => {
 }
 
 const Container = styled(motion.div)`
-  margin-top: 8rem;
+  margin-top: 10rem;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 700px) {
+    margin-top: 14rem;
+  }
 `

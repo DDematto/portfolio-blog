@@ -1,64 +1,38 @@
+import {AnimationState, TextState} from "./state";
+import {reducer} from "./reducer";
 import {useEffect, useReducer} from "react";
 import styled from "styled-components";
-import {Action, IAnimatedText, initialState, reducer} from "./animatedreducer";
+import {Cursor} from "./Cursor";
 
-// Default Time Values
-const DEF_TYPE_SPEED = 75;
-const DEF_DELETE_TIME = 150;
-const DEF_DELAY_TIME = 3000;
+interface IAnimatedText {
+    defaultText: string;
+    sentences: string[];
+}
 
-export default function Index(props: IAnimatedText) {
-    const {sentences, characterTypeSpeed, characterDeleteSpeed, delayTime, symbol} = props;
-    initialState.sentences = sentences;
+export default function AnimatedText(props: IAnimatedText) {
+    const {defaultText, sentences} = props;
+    const [state, dispatch] = useReducer(reducer, TextState);
+    const {text, animation} = state;
 
-    // Access the state and dispatch function from the reducer
-    const [state, dispatch] = useReducer(reducer, initialState);
-    const {text, sentenceIndex, letterIndex, direction, delay} = state;
-
+    // Check if The Viewport is too small to display the text
     useEffect(() => {
-        if (delay) return;
-        let interval: any = null;
+    }, []);
 
-        // Typing, then delete
-        if (direction === Action.TYPING) {
-            interval = setInterval(() => {
-                dispatch({type: Action.ADD_LETTER});
-                if (letterIndex + 1 === sentences[sentenceIndex].length) {
-                    dispatch({type: Action.DELETING});
-                }
-            }, characterTypeSpeed || DEF_TYPE_SPEED);
-        }
-
-        // Delete, then move to next sentence
-        if (direction === Action.DELETING) {
-            interval = setInterval(() => {
-                dispatch({type: Action.DELETE_LETTER});
-
-                const nextSentenceIndex = (sentenceIndex + 1) % sentences.length;
-                const nextSentence = sentences[nextSentenceIndex];
-                if (letterIndex === 0 || text === nextSentence.slice(0, text.length)) {
-                    dispatch({type: Action.TYPING});
-                }
-            }, characterDeleteSpeed || DEF_DELETE_TIME);
-        }
-
-        return () => clearInterval(interval);
-    }, [characterDeleteSpeed, characterTypeSpeed, letterIndex, sentenceIndex, sentences, text, delay, direction, sentences.length]);
-
-
-    // Adds a Timer before the current sentence gets removed
+    // Animated Text Logic
     useEffect(() => {
-        if (!delay || sentences.length == 1) return;
+    }, []);
 
-        const timeout = setTimeout(() => {
-            dispatch({type: Action.SET_DELAY, payload: false})
-        }, delayTime || DEF_DELAY_TIME);
+    // Delay between sentences
+    useEffect(() => {
+        if(animation !== AnimationState.Stopped) return;
 
-        return () => clearTimeout(timeout);
-    }, [delay, delayTime, sentences.length]);
+
+
+
+    }, []);
+
 
     return <TextContainer>
-        {/* Loop through each character and return a h1 wrap of that character include spaces */}
         {text.split(' ').map((char, index) => {
             return <h1 key={index}>
                 {index != 0 && "\u00A0"}
@@ -66,18 +40,17 @@ export default function Index(props: IAnimatedText) {
             </h1>
         })}
 
-        <Cursor symbol={symbol || "\u00A0|"}/>
+        <Cursor symbol="|"/>
     </TextContainer>
 }
 
-
-// Styled Components
 export const TextContainer = styled.span`
   display: flex;
   flex-direction: row;
+  justify-content: left;
 
   flex-wrap: wrap;
-  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 
   h1 {
@@ -87,19 +60,4 @@ export const TextContainer = styled.span`
 
   border-bottom: 1px solid ${({theme}) => theme.colors.secondary};
   padding-bottom: 0.5rem;
-`;
-
-
-export const Cursor = styled.h1<{ symbol: string }>`
-  animation: blink 0.7s infinite;
-
-  &:after {
-    content: "${({symbol}) => symbol}";
-  }
-
-  @keyframes blink {
-    50% {
-      opacity: 0;
-    }
-  }
 `;

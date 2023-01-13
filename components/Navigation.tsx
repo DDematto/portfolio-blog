@@ -94,11 +94,7 @@ const Nav = styled(motion.nav)`
   justify-content: space-around;
 
 
-  @media (max-width: 768px) {
-    padding: 0;
-  }
-
-  @media (max-width: 400px) {
+  @media (max-width: 700px) {
     flex-direction: column;
     gap: 1rem;
     padding-top: 1rem;
@@ -132,19 +128,10 @@ const Wrapper = styled.div`
     width: 100%;
   }
 
-  // when media is small enough, change the flex-direction to column
-  @media (max-width: 800px) {
-    display: grid;
-
-    align-items: center;
-    grid-template-columns: repeat(2, 1fr);
-
-    gap: 1rem;
-  }
-
-  @media (max-width: 400px) {
+  @media (max-width: 700px) {
     display: flex;
     flex-direction: column;
+    gap: 1rem;
   }
 `
 

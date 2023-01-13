@@ -1,20 +1,21 @@
 import styled from "styled-components"
-import {default as AnimatedText} from "../AnimatedText";
+import {default as AnimatedText} from "../OldAnimatedText/animatedText";
 
 
 interface SectionContainerProps {
     id: string;
     titles: string[],
+    defaultText: string,
     children: React.ReactNode
-    height?: string
+    height?: string,
 }
 
 
 export default function SectionContainer(props: SectionContainerProps) {
-    const {titles, children, height, id} = props;
+    const {titles, children, height, id, defaultText} = props;
 
     return <Container height={height || "90vh"} id={id}>
-        <AnimatedText sentences={titles} symbol={"|"}/>
+        <AnimatedText sentences={titles} defaultText={defaultText} symbol={"|"}/>
         {children}
     </Container>
 }

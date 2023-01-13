@@ -3,7 +3,7 @@ import {AnimatePresence} from "framer-motion";
 import {Suspense} from 'react';
 import styled from "styled-components";
 import FlowField from "./FlowField";
-import {Message} from "../AnimatedText/Message";
+import {Message} from "../OldAnimatedText/Message";
 
 export interface TransitionContainerProps {
     transition: typeof FirstTransition

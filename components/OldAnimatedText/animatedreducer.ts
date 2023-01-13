@@ -4,15 +4,19 @@ export enum Action {
     ADD_LETTER,
     DELETE_LETTER,
     SET_DELAY,
+    STOP,
+    PLAY,
 }
 
 interface IState {
     text: string,
     sentences: string[],
+    defaultText: string,
     sentenceIndex: number,
     letterIndex: number,
     direction: Action,
     delay: boolean,
+    stop: boolean,
 }
 
 
@@ -50,6 +54,17 @@ export const reducer = (state: IState, action: any) => {
                 ...state,
                 delay: payload
             }
+        case Action.STOP:
+            return {
+                ...state,
+                text: state.defaultText,
+                stop: true
+            }
+        case Action.PLAY:
+            return {
+                ...state,
+                stop: false
+            }
         default:
             return state
     }
@@ -58,17 +73,21 @@ export const reducer = (state: IState, action: any) => {
 // React Component for the animated text //
 export interface IAnimatedText {
     sentences: string[],
+    defaultText: string,
     characterTypeSpeed?: number,
     characterDeleteSpeed?: number,
     delayTime?: number,
     symbol?: string
+    stop: boolean
 }
 
 export const initialState: IState = {
     text: '',
     sentences: [],
+    defaultText: '',
     sentenceIndex: 0,
     letterIndex: 0,
     direction: Action.TYPING,
-    delay: false
+    delay: false,
+    stop: false,
 }

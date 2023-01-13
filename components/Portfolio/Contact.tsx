@@ -50,7 +50,7 @@ export default function Contact() {
         exit: {opacity: 0, scale: 0.8, transition: {duration: 1.5}},
     }
 
-    return <SectionContainer titles={titles} height="80vh" id="contact">
+    return <SectionContainer titles={titles} defaultText="04 - Contact" height="80vh" id="contact">
         <AnimatedDIV>
             <p>
                 Thank you for visiting my website! I hope you have enjoyed learning more about me and my skills and

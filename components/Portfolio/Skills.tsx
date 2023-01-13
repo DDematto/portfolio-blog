@@ -51,7 +51,7 @@ export default function Skills() {
         visible: {opacity: 1, transition: {duration: 1}}
     }
 
-    return <SectionContainer titles={titles} id="skills">
+    return <SectionContainer defaultText="02 - Skills" titles={titles} id="skills">
         <SkillsDesc variants={skillVariants} initial="hidden" animate="visible">
             <p>I am always looking for new ways to challenge myself and improve as a software developer. This includes
                 staying up-to-date with the latest technologies and frameworks, as well as seeking out opportunities to

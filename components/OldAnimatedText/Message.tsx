@@ -3,7 +3,7 @@ import styled from "styled-components"
 import {FinishedTransition, TransitionContainerProps} from "../Transition";
 import {Action, initialState, reducer} from "./animatedreducer";
 import {useEffect, useReducer} from "react";
-import {Cursor, TextContainer} from "./index";
+import AnimatedText, {Cursor, TextContainer} from "./animatedText";
 
 interface IMessageProps extends TransitionContainerProps {
     message: string
@@ -15,7 +15,7 @@ export function Message(props: IMessageProps) {
     const {transition, setTransition, message, click} = props;
     initialState.sentences = [message];
 
-    // Access the state and dispatch function from the reducer (AnimatedText)
+    // Access the state and dispatch function from the reducer (OldAnimatedText)
     const [state, dispatch] = useReducer(reducer, initialState);
     const {text, letterIndex, sentences, sentenceIndex} = state;
 
@@ -61,7 +61,7 @@ export function Message(props: IMessageProps) {
                 </h1>
             })}
 
-            <Cursor symbol={"\u00A0|"}/>
+            <Cursor symbol={"|"}/>
         </TextContainer>
 
         {click && transition.messageComplete && transition.animationComplete && <Click/>}
@@ -91,14 +91,13 @@ const Container = styled(motion.div)`
   border-radius: 1rem;
   border: 1px solid ${({theme}) => theme.colors.secondary};
 
-  transition: all 1s ease-in-out;
-
-  * > h1 {
-    font-size: 2rem;
-  }
-
   > h2 {
     font-size: 1rem;
+    text-align: center;
+  }
+
+  ${TextContainer} {
+    justify-content: center;
   }
 `
 
