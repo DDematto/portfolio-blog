@@ -6,10 +6,10 @@ import Script from 'next/script';
 import Head from 'next/head';
 import {Analytics} from '@vercel/analytics/react';
 import Footer from 'components/Footer';
-import Navigation from 'components/Navigation';
 import {useState} from 'react';
 import {AnimatePresence, motion} from 'framer-motion';
-import Transition, {FirstTransition, Type} from "../components/Transition";
+import {transitionState} from "../components/Transition";
+import Navigation from 'components/Navigation';
 
 const theme: DefaultTheme = {
     colors: {
@@ -32,7 +32,7 @@ const content = "Welcome to my website! I am a software developer with a strong 
 
 
 export default function App({Component, pageProps}: AppProps) {
-    const [transition, setTransition] = useState(FirstTransition);
+    const [transition, setTransition] = useState(transitionState);
 
     const pageVariant = {
         initial: {opacity: 0, transition: {duration: 1, delay: 1}},
@@ -43,20 +43,25 @@ export default function App({Component, pageProps}: AppProps) {
     return <ThemeProvider theme={theme}>
         <WebsiteInfo/>
 
-        <Transition transition={transition} setTransition={setTransition}/>
+        {/*<Transition transition={transition} setTransition={setTransition}/>*/}
+
+        {/*<Suspense fallback={null}>*/}
+        {/*    <Canvas>*/}
+        {/*        <ambientLight intensity={1}/>*/}
+        {/*        <FlowField/>*/}
+        {/*    </Canvas>*/}
+        {/*</Suspense>*/}
 
         <AnimatePresence mode='wait'>
-            {transition.type == Type.None &&
-                <Container className={roboto.className} initial="initial" animate="animate" exit="exit"
-                           variants={pageVariant}>
-                    <Navigation/>
-                    <Component {...pageProps} />
-                    <Footer/>
-                </Container>
-            }
+            {/*{transition.type == Type.None &&*/}
+            <Container className={roboto.className} initial="initial" animate="animate" exit="exit"
+                       variants={pageVariant}>
+                <Navigation/>
+                <Component {...pageProps} />
+                <Footer/>
+            </Container>
+            {/*}*/}
         </AnimatePresence>
-
-
     </ThemeProvider>
 }
 
@@ -85,6 +90,6 @@ const Container = styled(motion.div)`
   flex-direction: column;
 
   @media (max-width: 700px) {
-    margin-top: 14rem;
+    margin-top: 12rem;
   }
 `

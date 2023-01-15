@@ -1,9 +1,9 @@
-import {AnimationState, TextState} from "./state";
+import {AnimationDirection, AnimationState, TextState} from "./state";
 import {TextActions} from "./actions";
 
 interface action {
-    payload: any,
-    type: TextActions
+    type: TextActions,
+    payload?: any,
 }
 
 export const reducer = (state: typeof TextState, action: action) => {
@@ -13,35 +13,28 @@ export const reducer = (state: typeof TextState, action: action) => {
         case TextActions.Play:
             return {
                 ...state,
-                animation: AnimationState.Playing,
+                curState: AnimationState.Play,
             }
         case TextActions.Stop:
             return {
                 ...state,
-                animation: AnimationState.Stopped,
+                curState: AnimationState.Stop,
             }
         case TextActions.ResponsiveDefault:
             return {
                 ...state,
-                animation: AnimationState.Stopped,
+                text: state.defaultText,
+                sentenceIndex: 0,
+                letterIndex: state.defaultText.length,
+                direction: AnimationDirection.Typing,
+                curState: AnimationState.Stop,
             }
-        case TextActions.NextSentence:
+        case TextActions.setInfo:
             return {
                 ...state,
-                currentSentence: state.currentSentence + 1,
-            }
-        case TextActions.Typing:
-            return {
-                ...state,
-                animation: AnimationState.Typing,
-            }
-        case TextActions.Deleting:
-            return {
-                ...state,
-                animation: AnimationState.Deleting,
+                ...payload,
             }
         default:
             return state;
     }
-
 }

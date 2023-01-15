@@ -1,17 +1,19 @@
 export enum AnimationState {
-    Playing,
-    Stopped,
+    Stop,
+    Play,
+}
 
+export enum AnimationDirection {
     Typing,
     Deleting,
 }
 
-
 export const TextState = {
+    curState: AnimationState.Play,
     text: '',
-    default: '',
-    sentences: [],
-    currentSentence: 0,
-    currentLetter: 0,
-    animation: AnimationState.Stopped,
+    defaultText: '',
+    sentences: [] as string[],
+    sentenceIndex: 0,
+    letterIndex: 0,
+    direction: AnimationDirection.Typing as AnimationDirection | null,
 }

@@ -20,7 +20,7 @@ export default function About() {
         visible: {opacity: 1, y: 0, transition: {duration: 1}}
     }
 
-    return <SectionContainer titles={titles} defaultText="01- About" id="about">
+    return <SectionContainer titles={titles} defaultText="01 - About Me" id="about">
         <AboutContainer>
             <ProfileContainer variants={profileVariants} initial="hidden" animate="visible">
                 <ProfileImage priority placeholder='blur' src={profilePic} width={200} height={200}

@@ -26,7 +26,7 @@ export default function Contact() {
     const [data, setData] = useState(initialForm);
     const [isError, setIsError] = useState(true);
 
-    const {ref, inView} = useInView({triggerOnce: true, threshold: 0.75, delay: 200});
+    const {ref, inView} = useInView({triggerOnce: true, threshold: 0.75});
 
     useEffect(() => {
         setData(initialForm);

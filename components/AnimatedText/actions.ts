@@ -3,7 +3,5 @@ export enum TextActions {
     Stop,
     ResponsiveDefault,
 
-    NextSentence,
-    Typing,
-    Deleting,
+    setInfo,
 }

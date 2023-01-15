@@ -36,7 +36,7 @@ export default function Navigation() {
         sections.forEach((section) => {
             if (!section) return;
             sum += section.value
-            if (section.value > 0.5) {
+            if (section.value > (window.innerWidth >= 700 ? 0.5 : 0.2)) {
                 activeSection = section.name;
             }
         });
@@ -58,10 +58,7 @@ export default function Navigation() {
         return () => window.removeEventListener("scroll", categoryLogic);
     }, [categoryLogic, router.pathname]);
 
-    const variants = {
-        hidden: {y: -65, transition: {duration: 0.1}},
-        visible: {y: 0, transition: {duration: 0.1}},
-    }
+    const variants = {hidden: {y: -65, transition: {duration: 0.1}}, visible: {y: 0, transition: {duration: 0.1}}}
 
     return <Nav ref={navRef} variants={variants} animate="visible" initial='hidden'>
         <Wrapper ref={wrapperRef}>
@@ -96,7 +93,7 @@ const Nav = styled(motion.nav)`
 
   @media (max-width: 700px) {
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
     padding-top: 1rem;
     padding-bottom: 1rem;
   }
@@ -104,17 +101,13 @@ const Nav = styled(motion.nav)`
 
 const Line = styled(motion.div)`
   position: absolute;
-  bottom: 0;
-  height: 10px;
-  background-color: rgba(255, 255, 255, 0.1);
+  bottom: 2px;
+  height: 2px;
+  border-radius: 2px;
+  background-color: white;
   backdrop-filter: blur(10px);
   z-index: -1;
-
-  @media (max-width: 800px) {
-    display: none;
-  }
 `
-
 
 const Wrapper = styled.div`
   width: 80%;
@@ -129,9 +122,12 @@ const Wrapper = styled.div`
   }
 
   @media (max-width: 700px) {
-    display: flex;
+    margin-top: 0.5rem;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
   }
 `
 
