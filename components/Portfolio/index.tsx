@@ -1,20 +1,31 @@
+import {Cursor} from "components/AnimatedText/Cursor";
 import styled from "styled-components"
-import {default as AnimatedText} from "../AnimatedText";
+import useAnimatedText from "../AnimatedText";
 
 
 interface SectionContainerProps {
     id: string;
     titles: string[],
+    defaultText: string,
     children: React.ReactNode
-    height?: string
+    height?: string,
 }
 
-
 export default function SectionContainer(props: SectionContainerProps) {
-    const {titles, children, height, id} = props;
+    const {titles, defaultText, children, height, id} = props;
+    const {state: {text}} = useAnimatedText({titles, defaultTxt: defaultText});
 
     return <Container height={height || "90vh"} id={id}>
-        <AnimatedText sentences={titles} symbol={"|"}/>
+        <TextContainer>
+            {text.split(' ').map((char: string, index: number) => {
+                return <h1 key={char + index}>
+                    {index != 0 && "\u00A0"}
+                    {char}
+                </h1>
+            })}
+
+            <Cursor symbol="|"/>
+        </TextContainer>
         {children}
     </Container>
 }
@@ -30,7 +41,25 @@ const Container = styled.div<{ height: string }>`
   flex-direction: column;
   gap: 1rem;
 
-  @media (max-width: 400px) {
-    scroll-margin-top: 14rem;
+  @media (max-width: 700px) {
+    scroll-margin-top: 15rem;
   }
 `
+
+export const TextContainer = styled.span`
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+
+  flex-wrap: wrap;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+
+  border-bottom: 1px solid ${({theme}) => theme.colors.secondary};
+  padding-bottom: 0.5rem;
+`;

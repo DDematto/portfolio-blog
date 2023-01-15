@@ -6,10 +6,10 @@ import Script from 'next/script';
 import Head from 'next/head';
 import {Analytics} from '@vercel/analytics/react';
 import Footer from 'components/Footer';
-import Navigation from 'components/Navigation';
-import {useState} from 'react';
 import {AnimatePresence, motion} from 'framer-motion';
-import Transition, {FirstTransition, Type} from "../components/Transition";
+import Navigation from 'components/Navigation';
+import Transition, {transitionState, Type} from "../components/Transition";
+import {useState} from 'react';
 
 const theme: DefaultTheme = {
     colors: {
@@ -30,9 +30,8 @@ const content = "Welcome to my website! I am a software developer with a strong 
     "I have experience working on projects in a variety of industries, and am always eager to learn and grow as a professional. On my website, " +
     "you can learn more about my skills and experience, view my portfolio, and get in touch with me to discuss potential opportunities. Thank you for visiting!"
 
-
 export default function App({Component, pageProps}: AppProps) {
-    const [transition, setTransition] = useState(FirstTransition);
+    const [transition, setTransition] = useState(transitionState);
 
     const pageVariant = {
         initial: {opacity: 0, transition: {duration: 1, delay: 1}},
@@ -45,6 +44,11 @@ export default function App({Component, pageProps}: AppProps) {
 
         <Transition transition={transition} setTransition={setTransition}/>
 
+        {/*    <Canvas>*/}
+        {/*        <ambientLight intensity={1}/>*/}
+        {/*        <FlowField/>*/}
+        {/*    </Canvas>*/}
+
         <AnimatePresence mode='wait'>
             {transition.type == Type.None &&
                 <Container className={roboto.className} initial="initial" animate="animate" exit="exit"
@@ -55,8 +59,6 @@ export default function App({Component, pageProps}: AppProps) {
                 </Container>
             }
         </AnimatePresence>
-
-
     </ThemeProvider>
 }
 
@@ -80,7 +82,11 @@ const WebsiteInfo = () => {
 }
 
 const Container = styled(motion.div)`
-  margin-top: 8rem;
+  margin-top: 10rem;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 700px) {
+    margin-top: 12rem;
+  }
 `

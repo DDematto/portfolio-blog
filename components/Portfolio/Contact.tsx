@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {Suspense, useEffect, useState} from "react";
 import styled from "styled-components";
 import SectionContainer from "./index";
 import {AnimatedDIV} from "../AnimatedContainers";
@@ -9,8 +9,9 @@ import {useInView} from "react-intersection-observer";
 import CopyText from "../CopyText";
 import dynamic from "next/dynamic";
 
-// Dynamic  import of Form
-const Form = dynamic(() => import("../Form"), {ssr: false});
+// dynamic imports
+const FormLazy = dynamic(() => import("../Form"), {ssr: false, suspense: true});
+
 
 const initialForm = {
     phone: {data: "+1", err: "", color: "white"},
@@ -26,7 +27,7 @@ export default function Contact() {
     const [data, setData] = useState(initialForm);
     const [isError, setIsError] = useState(true);
 
-    const {ref, inView} = useInView({triggerOnce: true, threshold: 0.75, delay: 200});
+    const {ref, inView} = useInView({triggerOnce: true, threshold: 0.75});
 
     useEffect(() => {
         setData(initialForm);
@@ -50,7 +51,7 @@ export default function Contact() {
         exit: {opacity: 0, scale: 0.8, transition: {duration: 1.5}},
     }
 
-    return <SectionContainer titles={titles} height="80vh" id="contact">
+    return <SectionContainer titles={titles} defaultText="04 - Contact" height="80vh" id="contact">
         <AnimatedDIV>
             <p>
                 Thank you for visiting my website! I hope you have enjoyed learning more about me and my skills and
@@ -79,7 +80,9 @@ export default function Contact() {
                 }
 
                 {inView && !response &&
-                    <Form data={data} setData={setData} setResponse={setResponse} isError={isError}/>
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <FormLazy data={data} setData={setData} setResponse={setResponse} isError={isError}/>
+                    </Suspense>
                 }
 
             </AnimatePresence>

@@ -1,104 +1,73 @@
+import {AnimationDirection, AnimationState, TextState} from "./state";
+import {TextActions} from "./actions";
+import {reducer} from "./reducer";
 import {useEffect, useReducer} from "react";
-import styled from "styled-components";
-import {Action, IAnimatedText, initialState, reducer} from "./animatedreducer";
 
-// Default Time Values
-const DEF_TYPE_SPEED = 75;
-const DEF_DELETE_TIME = 150;
-const DEF_DELAY_TIME = 3000;
+export default function useAnimatedText({titles, defaultTxt}: { titles: string[], defaultTxt: string }) {
+    const [state, dispatch] = useReducer(reducer, {...TextState, sentences: titles, defaultText: defaultTxt});
+    const {curState, text, sentences, sentenceIndex, letterIndex, direction, defaultText}: typeof TextState = state;
 
-export default function Index(props: IAnimatedText) {
-    const {sentences, characterTypeSpeed, characterDeleteSpeed, delayTime, symbol} = props;
-    initialState.sentences = sentences;
+    // wrapper for dispatch
+    const play = () => dispatch({type: TextActions.Play})
+    const stop = () => dispatch({type: TextActions.Stop});
+    const setResponsive = () => dispatch({type: TextActions.ResponsiveDefault});
+    const setInfo = (payload: any) => dispatch({type: TextActions.setInfo, payload});
 
-    // Access the state and dispatch function from the reducer
-    const [state, dispatch] = useReducer(reducer, initialState);
-    const {text, sentenceIndex, letterIndex, direction, delay} = state;
-
+    // Check for window resize and setResponsive if window is too small
     useEffect(() => {
-        if (delay) return;
-        let interval: any = null;
-
-        // Typing, then delete
-        if (direction === Action.TYPING) {
-            interval = setInterval(() => {
-                dispatch({type: Action.ADD_LETTER});
-                if (letterIndex + 1 === sentences[sentenceIndex].length) {
-                    dispatch({type: Action.DELETING});
-                }
-            }, characterTypeSpeed || DEF_TYPE_SPEED);
+        const handleResize = () => {
+            if (window.innerWidth < 768) {
+                setResponsive();
+            } else {
+                play();
+            }
         }
 
-        // Delete, then move to next sentence
-        if (direction === Action.DELETING) {
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [])
+
+    // Animated Text Logic
+    useEffect(() => {
+        if (curState === AnimationState.Stop) return;
+        let interval: any = null;
+
+        if (direction === AnimationDirection.Typing) {
             interval = setInterval(() => {
-                dispatch({type: Action.DELETE_LETTER});
+                setInfo({letterIndex: letterIndex + 1, text: text + sentences[sentenceIndex][letterIndex]});
+                if (letterIndex + 1 === sentences[sentenceIndex].length) {
+                    setInfo({direction: AnimationDirection.Deleting, curState: AnimationState.Stop});
+                }
+            }, 100);
+        } else if (direction === AnimationDirection.Deleting) {
+            interval = setInterval(() => {
+                setInfo({
+                    letterIndex: letterIndex - 1,
+                    text: sentences[sentenceIndex].slice(0, letterIndex - 1)
+                });
 
                 const nextSentenceIndex = (sentenceIndex + 1) % sentences.length;
                 const nextSentence = sentences[nextSentenceIndex];
                 if (letterIndex === 0 || text === nextSentence.slice(0, text.length)) {
-                    dispatch({type: Action.TYPING});
+                    setInfo({direction: AnimationDirection.Typing, sentenceIndex: nextSentenceIndex});
                 }
-            }, characterDeleteSpeed || DEF_DELETE_TIME);
+            }, 100);
         }
 
         return () => clearInterval(interval);
-    }, [characterDeleteSpeed, characterTypeSpeed, letterIndex, sentenceIndex, sentences, text, delay, direction, sentences.length]);
+    }, [curState, letterIndex, sentenceIndex, defaultText, direction, sentences, state, text]);
 
-
-    // Adds a Timer before the current sentence gets removed
+    // Delay the start of the animation
     useEffect(() => {
-        if (!delay || sentences.length == 1) return;
+        if (curState === AnimationState.Play || text == defaultText) return;
 
         const timeout = setTimeout(() => {
-            dispatch({type: Action.SET_DELAY, payload: false})
-        }, delayTime || DEF_DELAY_TIME);
+            dispatch({type: TextActions.Play});
+        }, 3000);
 
         return () => clearTimeout(timeout);
-    }, [delay, delayTime, sentences.length]);
+    }, [curState, defaultText, text]);
 
-    return <TextContainer>
-        {/* Loop through each character and return a h1 wrap of that character include spaces */}
-        {text.split('').map((char, index) => {
-            return <h1 key={index}>
-                {char === ' ' ? '\u00A0' : char}
-            </h1>
-        })}
-
-        <Cursor symbol={symbol || "|"}/>
-    </TextContainer>
+    return {state, play, stop, setResponsive, setInfo}
 }
-
-
-// Styled Components
-export const TextContainer = styled.span`
-  display: flex;
-  flex-direction: row;
-
-  flex-wrap: wrap;
-  overflow: hidden;
-  white-space: nowrap;
-
-  h1 {
-    font-size: 1.5rem;
-    font-weight: 400;
-  }
-
-  border-bottom: 1px solid ${({theme}) => theme.colors.secondary};
-  padding-bottom: 0.5rem;
-`;
-
-
-export const Cursor = styled.h1<{ symbol: string }>`
-  animation: blink 0.7s infinite;
-
-  &:after {
-    content: "${({symbol}) => symbol}";
-  }
-
-  @keyframes blink {
-    50% {
-      opacity: 0;
-    }
-  }
-`;
