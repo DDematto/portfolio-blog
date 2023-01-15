@@ -7,10 +7,7 @@ import {MdReportProblem} from "react-icons/md";
 import {AnimatePresence, motion} from "framer-motion";
 import {useInView} from "react-intersection-observer";
 import CopyText from "../CopyText";
-import dynamic from "next/dynamic";
-
-// Dynamic  import of Form
-const Form = dynamic(() => import("../Form"), {ssr: false});
+import Form from "../Form";
 
 const initialForm = {
     phone: {data: "+1", err: "", color: "white"},

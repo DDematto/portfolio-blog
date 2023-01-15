@@ -32,13 +32,8 @@ import {AiFillHtml5} from "react-icons/ai";
 import {IoLogoCss3} from "react-icons/io";
 import {TbBrandNextjs} from "react-icons/tb";
 import {FaGitSquare} from "react-icons/fa";
-
-
-// Dynamic Imports
-import dynamic from 'next/dynamic'
-
-const IconGallery = dynamic(() => import('../IconGallery'), {ssr: false})
-const VerticalList = dynamic(() => import('../VerticalList'), {ssr: false})
+import VerticalList from "../VerticalList";
+import IconGallery from "../IconGallery";
 
 
 export default function Skills() {
@@ -64,7 +59,6 @@ export default function Skills() {
 
         <SkillsContainer variants={skillVariants} initial="hidden" animate="visible">
             <VerticalList items={categories} grabCurrentItem={setCategory}/>
-
             <IconGallery Icons={Icons(category) || []}/>
         </SkillsContainer>
     </SectionContainer>
