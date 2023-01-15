@@ -25,7 +25,7 @@
     "eslint": "8.30.0",
     "eslint-config-next": "^12.0.4",
     "framer-motion": "^8.0.1",
-    "next": "13.0.7",
+    "next": "^13.1.2",
     "nextjs-routes": "^1.0.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
