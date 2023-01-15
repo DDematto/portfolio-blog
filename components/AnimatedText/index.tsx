@@ -18,7 +18,7 @@ export default function useAnimatedText({titles, defaultTxt}: { titles: string[]
         const handleResize = () => {
             if (window.innerWidth < 768) {
                 setResponsive();
-            } else if (curState === AnimationState.Stop) {
+            } else {
                 play();
             }
         }
@@ -26,7 +26,7 @@ export default function useAnimatedText({titles, defaultTxt}: { titles: string[]
         handleResize();
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, [curState])
+    }, [])
 
     // Animated Text Logic
     useEffect(() => {
@@ -37,8 +37,7 @@ export default function useAnimatedText({titles, defaultTxt}: { titles: string[]
             interval = setInterval(() => {
                 setInfo({letterIndex: letterIndex + 1, text: text + sentences[sentenceIndex][letterIndex]});
                 if (letterIndex + 1 === sentences[sentenceIndex].length) {
-                    setInfo({direction: AnimationDirection.Deleting});
-                    stop()
+                    setInfo({direction: AnimationDirection.Deleting, curState: AnimationState.Stop});
                 }
             }, 100);
         } else if (direction === AnimationDirection.Deleting) {
@@ -59,6 +58,7 @@ export default function useAnimatedText({titles, defaultTxt}: { titles: string[]
         return () => clearInterval(interval);
     }, [curState, letterIndex, sentenceIndex, defaultText, direction, sentences, state, text]);
 
+    // Delay the start of the animation
     useEffect(() => {
         if (curState === AnimationState.Play || text == defaultText) return;
 
