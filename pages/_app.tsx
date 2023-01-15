@@ -8,6 +8,8 @@ import {Analytics} from '@vercel/analytics/react';
 import Footer from 'components/Footer';
 import {AnimatePresence, motion} from 'framer-motion';
 import Navigation from 'components/Navigation';
+import Transition, {transitionState, Type} from "../components/Transition";
+import {useState} from 'react';
 
 const theme: DefaultTheme = {
     colors: {
@@ -29,6 +31,8 @@ const content = "Welcome to my website! I am a software developer with a strong 
     "you can learn more about my skills and experience, view my portfolio, and get in touch with me to discuss potential opportunities. Thank you for visiting!"
 
 export default function App({Component, pageProps}: AppProps) {
+    const [transition, setTransition] = useState(transitionState);
+
     const pageVariant = {
         initial: {opacity: 0, transition: {duration: 1, delay: 1}},
         animate: {opacity: 1, transition: {duration: 1, delay: 1}},
@@ -38,18 +42,22 @@ export default function App({Component, pageProps}: AppProps) {
     return <ThemeProvider theme={theme}>
         <WebsiteInfo/>
 
+        <Transition transition={transition} setTransition={setTransition}/>
+
         {/*    <Canvas>*/}
         {/*        <ambientLight intensity={1}/>*/}
         {/*        <FlowField/>*/}
         {/*    </Canvas>*/}
 
         <AnimatePresence mode='wait'>
-            <Container className={roboto.className} initial="initial" animate="animate" exit="exit"
-                       variants={pageVariant}>
-                <Navigation/>
-                <Component {...pageProps} />
-                <Footer/>
-            </Container>
+            {transition.type == Type.None &&
+                <Container className={roboto.className} initial="initial" animate="animate" exit="exit"
+                           variants={pageVariant}>
+                    <Navigation/>
+                    <Component {...pageProps} />
+                    <Footer/>
+                </Container>
+            }
         </AnimatePresence>
     </ThemeProvider>
 }
