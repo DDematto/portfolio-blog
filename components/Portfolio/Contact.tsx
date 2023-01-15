@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {Suspense, useEffect, useState} from "react";
 import styled from "styled-components";
 import SectionContainer from "./index";
 import {AnimatedDIV} from "../AnimatedContainers";
@@ -7,7 +7,11 @@ import {MdReportProblem} from "react-icons/md";
 import {AnimatePresence, motion} from "framer-motion";
 import {useInView} from "react-intersection-observer";
 import CopyText from "../CopyText";
-import Form from "../Form";
+import dynamic from "next/dynamic";
+
+// dynamic imports
+const FormLazy = dynamic(() => import("../Form"), {ssr: false, suspense: true});
+
 
 const initialForm = {
     phone: {data: "+1", err: "", color: "white"},
@@ -76,7 +80,9 @@ export default function Contact() {
                 }
 
                 {inView && !response &&
-                    <Form data={data} setData={setData} setResponse={setResponse} isError={isError}/>
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <FormLazy data={data} setData={setData} setResponse={setResponse} isError={isError}/>
+                    </Suspense>
                 }
 
             </AnimatePresence>

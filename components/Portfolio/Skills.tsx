@@ -1,7 +1,7 @@
 import SectionContainer from "./index";
 import {AnimatedDIV} from "../AnimatedContainers";
 import styled from "styled-components";
-import {useState} from "react";
+import {Suspense, useState} from "react";
 import {motion} from "framer-motion";
 
 // Icon Imports
@@ -32,9 +32,11 @@ import {AiFillHtml5} from "react-icons/ai";
 import {IoLogoCss3} from "react-icons/io";
 import {TbBrandNextjs} from "react-icons/tb";
 import {FaGitSquare} from "react-icons/fa";
-import VerticalList from "../VerticalList";
-import IconGallery from "../IconGallery";
+import dynamic from "next/dynamic";
 
+// dynamic imports
+const VerticalListLazy = dynamic(() => import("../VerticalList"), {ssr: false, suspense: true});
+const IconGalleryLazy = dynamic(() => import("../IconGallery"), {ssr: false, suspense: true});
 
 export default function Skills() {
     const titles = ["02 - Skills - Languages", "02 - Skills - Frameworks", "02 - Skills - Tools", "02 - Skills - Databases", "02 - Skills - Other"];
@@ -58,8 +60,10 @@ export default function Skills() {
         </SkillsDesc>
 
         <SkillsContainer variants={skillVariants} initial="hidden" animate="visible">
-            <VerticalList items={categories} grabCurrentItem={setCategory}/>
-            <IconGallery Icons={Icons(category) || []}/>
+            <Suspense fallback={<div>Loading...</div>}>
+                <VerticalListLazy items={categories} grabCurrentItem={setCategory}/>
+                <IconGalleryLazy Icons={Icons(category) || []}/>
+            </Suspense>
         </SkillsContainer>
     </SectionContainer>
 }
