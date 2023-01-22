@@ -10,6 +10,8 @@ import {AnimatePresence, motion} from 'framer-motion';
 import Navigation from 'components/Navigation';
 import Transition, {transitionState, Type} from "../components/Transition";
 import {useState} from 'react';
+import {Canvas} from '@react-three/fiber';
+import FlowField from 'components/Canvas/FlowField';
 
 const theme: DefaultTheme = {
     colors: {
@@ -44,10 +46,10 @@ export default function App({Component, pageProps}: AppProps) {
 
         <Transition transition={transition} setTransition={setTransition}/>
 
-        {/*    <Canvas>*/}
-        {/*        <ambientLight intensity={1}/>*/}
-        {/*        <FlowField/>*/}
-        {/*    </Canvas>*/}
+        <Canvas>
+            <ambientLight intensity={1}/>
+            <FlowField/>
+        </Canvas>
 
         <AnimatePresence mode='wait'>
             {transition.type == Type.None &&

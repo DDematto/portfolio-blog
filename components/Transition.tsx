@@ -31,8 +31,9 @@ export default function Transition(props: { transition: typeof transitionState, 
 
 const MessageBox = (props: { messages: string[], setTransition: any }) => {
     const {messages, setTransition} = props;
-    const [timer, setTimer] = useState(3);
+    const [timer, setTimer] = useState(5);
 
+    // Countdown timer
     useEffect(() => {
         if (timer <= 0) return setTransition({...transitionState, messageComplete: true});
 
@@ -41,7 +42,6 @@ const MessageBox = (props: { messages: string[], setTransition: any }) => {
         }, 1000);
         return () => clearInterval(interval);
     }, [setTransition, timer]);
-
 
     const containerVariants = {initial: {opacity: 0}, animate: {opacity: 1}, exit: {opacity: 0}};
     const messageVariants = {initial: {opacity: 0, y: -20}, animate: {opacity: 1, y: 0}};
