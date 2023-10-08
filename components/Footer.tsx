@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import GitHub from "./Icons/Github";
-import Twitter from "./Icons/Twitter";
+import X from "./Icons/X";
 import LinkedIn from "./Icons/LinkedIn";
-import CopyText, {CopyTextStyle} from "./CopyText";
+import CopyText from "./CopyText";
 import {AiFillHeart} from "react-icons/ai";
 
 export default function Footer() {
@@ -11,7 +11,7 @@ export default function Footer() {
 
         <ProfileLinks>
             <a target="new" href="https://github.com/DDematto"><GitHub size={48}/></a>
-            <a target="new" href="https://twitter.com/DevinDematto"><Twitter size={48}/></a>
+            <a target="new" href="https://twitter.com/DevinDematto"><X size={48}/></a>
             <a target="new" href="https://www.linkedin.com/in/devin-dematto-60a48718b/"><LinkedIn size={48}/></a>
         </ProfileLinks>
         <Info>

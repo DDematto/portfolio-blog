@@ -39,7 +39,7 @@ const VerticalListLazy = dynamic(() => import("../VerticalList"), {ssr: false, s
 const IconGalleryLazy = dynamic(() => import("../IconGallery"), {ssr: false, suspense: true});
 
 export default function Skills() {
-    const titles = ["02 - Skills - Languages", "02 - Skills - Frameworks", "02 - Skills - Tools", "02 - Skills - Databases", "02 - Skills - Other"];
+    const titles = ["02 - Skills - Languages", "02 - Skills - Frameworks", "02 - Skills - Tools", "02 - Skills - Databases"];
     const categories = ["Languages", "Frameworks", "Tools", "Databases", "Other"];
     const [category, setCategory] = useState(categories[0]);
 

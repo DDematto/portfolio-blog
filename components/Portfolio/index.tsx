@@ -34,16 +34,11 @@ const Container = styled.div<{ height: string }>`
   padding: 0 2rem;
   width: 100%;
   min-height: ${({height}) => height};
-  scroll-margin-top: 6rem;
   margin-bottom: 3rem;
 
   display: flex;
   flex-direction: column;
   gap: 1rem;
-
-  @media (max-width: 700px) {
-    scroll-margin-top: 15rem;
-  }
 `
 
 export const TextContainer = styled.span`

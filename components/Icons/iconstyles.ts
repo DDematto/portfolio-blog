@@ -16,12 +16,12 @@ export const CircleInner = styled.circle`
   transition: all .2s;
 `;
 
-export const Icon = styled.path`
+export const Icon = styled.path<{  }>`
   fill: ${({theme}) => theme.colors.secondary};
   transition: all .2s;
 `;
 
-export const SVG = styled.svg<{ width: number, height: number }>`
+export const SVG = styled.svg<{ width: number, height: number, colorOnHover?: string }>`
   width: ${props => props.width}px;
   height: ${props => props.height}px;
 
@@ -38,8 +38,8 @@ export const SVG = styled.svg<{ width: number, height: number }>`
     }
 
     ${Icon} {
-      fill: ${({theme}) => theme.colors.secondary};
       transition: all .45s;
+      fill: ${({colorOnHover}) => colorOnHover};
     }
   }
 `;

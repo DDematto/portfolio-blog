@@ -4,7 +4,7 @@ import {motion} from "framer-motion";
 import {useCallback, useEffect, useRef, useState} from "react";
 import styled, {css} from "styled-components";
 
-const categories = ["about", "skills", "education", "contact"];
+const categories = ["about", "skills", "projects", "education", "contact"];
 
 export default function Navigation() {
     const router = useRouter();
@@ -51,8 +51,8 @@ export default function Navigation() {
 
             window.addEventListener("scroll", categoryLogic);
         } else {
-            setActive("projects");
             setProgress(0);
+            setActive('projects')
         }
 
         return () => window.removeEventListener("scroll", categoryLogic);
@@ -60,14 +60,15 @@ export default function Navigation() {
 
     const variants = {hidden: {y: -65, transition: {duration: 0.1}}, visible: {y: 0, transition: {duration: 0.1}}}
 
+
     return <Nav ref={navRef} variants={variants} animate="visible" initial='hidden'>
         <Wrapper ref={wrapperRef}>
             <SectionLink id="about" title="01 - About" active={active == "about"}/>
             <SectionLink id="skills" title="02 - Skills" active={active == "skills"}/>
-            <SectionLink id="education" title="03 - Education" active={active == "education"}/>
-            <SectionLink id="contact" title="04 - Contact" active={active == "contact"}/>
+            <SectionLink id="projects" title="03 - Projects" active={active == "projects"}/>
+            <SectionLink id="education" title="04 - Education" active={active == "education"}/>
+            <SectionLink id="contact" title="05 - Contact" active={active == "contact"}/>
         </Wrapper>
-        <LinkStyled scroll={true} href='/projects' active={active == "projects" ? 1 : 0}>Projects</LinkStyled>
         <Line style={{
             left: `${wrapperRef.current?.getBoundingClientRect().left}px`,
             width: `${progress}px`
@@ -135,8 +136,21 @@ const Wrapper = styled.div`
 function SectionLink(props: { title: string, id: string, active: boolean }) {
     const {title, id, active} = props;
 
+    function handleScrollToSection(e: any, id: any) {
+        e.preventDefault();
+        const sectionElement = document.getElementById(id);
+        if (sectionElement) {
+            const offsetTop = sectionElement.offsetTop - 90;
+            window.scrollTo({
+                top: offsetTop,
+                behavior: 'smooth'
+            });
+        }
+    }
+
     return <div>
-        <LinkStyled scroll={true} href={`/#${id}`} active={active ? 1 : 0}>
+        <LinkStyled scroll={true} href={`/#${id}`} active={active ? 1 : 0}
+                    onClick={(e) => handleScrollToSection(e, id)}>
             {title}
         </LinkStyled>
     </div>
@@ -161,5 +175,4 @@ const LinkStyled = styled(Link)<{ active: number }>`
     border-radius: 5px;
     padding: 0.5rem 1rem;
   `}
-
 `
