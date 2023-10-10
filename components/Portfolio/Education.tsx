@@ -2,9 +2,9 @@ import SectionContainer from "./index";
 import {AnimatedDIV} from "../AnimatedContainers";
 
 export default function Education() {
-    const titles = ["03 - Education - Always Learning", "03 - Education - Something New Everyday"];
+    const titles = ["04 - Education - Always Learning", "04 - Education - Something New Everyday"];
 
-    return <SectionContainer defaultText="03 - Education" titles={titles} height="50vh" id="education">
+    return <SectionContainer defaultText="04 - Education" titles={titles} height="50vh" id="education">
         <AnimatedDIV>
             <p>
                 As a CSE student at Michigan State University, I am always looking for new opportunities to learn and

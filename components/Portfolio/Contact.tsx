@@ -22,7 +22,7 @@ const initialForm = {
 }
 
 export default function Contact() {
-    const titles = ["04 - Contact - Lets Talk!"];
+    const titles = ["05 - Contact - Lets Talk!"];
     const [response, setResponse] = useState("");
     const [data, setData] = useState(initialForm);
     const [isError, setIsError] = useState(true);
@@ -51,7 +51,7 @@ export default function Contact() {
         exit: {opacity: 0, scale: 0.8, transition: {duration: 1.5}},
     }
 
-    return <SectionContainer titles={titles} defaultText="04 - Contact" height="80vh" id="contact">
+    return <SectionContainer titles={titles} defaultText="05 - Contact" height="80vh" id="contact">
         <AnimatedDIV>
             <p>
                 Thank you for visiting my website! I hope you have enjoyed learning more about me and my skills and

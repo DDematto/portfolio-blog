@@ -5,7 +5,7 @@ import SectionContainer from "./index";
 import profilePic from "../../public/images/DevinDeMatto.jpg";
 import GitHub from "components/Icons/Github";
 import LinkedIn from "components/Icons/LinkedIn";
-import Twitter from "components/Icons/Twitter";
+import X from "../Icons/X";
 
 export default function About() {
     const titles = ["01 - About Me, Hey I'm Devin!", "01 - About Me, I Enjoy: Games"]
@@ -30,7 +30,7 @@ export default function About() {
 
                 <ProfileLinks>
                     <a target="new" href="https://github.com/DDematto"><GitHub size={64}/></a>
-                    <a target="new" href="https://twitter.com/DevinDematto"><Twitter size={64}/></a>
+                    <a target="new" href="https://twitter.com/DevinDematto"><X size={64}/></a>
                     <a target="new" href="https://www.linkedin.com/in/devin-dematto-60a48718b/"><LinkedIn
                         size={64}/></a>
                 </ProfileLinks>

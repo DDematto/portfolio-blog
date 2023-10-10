@@ -7,7 +7,7 @@ export default function CopyText({message, text}: { message?: string, text: stri
 }
 
 
-export const CopyTextStyle = styled.button`
+const CopyTextStyle = styled.button`
   background: none;
   border: none;
   padding: 0;
