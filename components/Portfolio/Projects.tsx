@@ -12,13 +12,14 @@ export default function Projects() {
 
     return <Section defaultText="03 - Projects" titles={titles} height="50vh" id="projects">
         <Container>
+            <Button href='/projects'>
+                <AiFillProject/> View All Projects
+            </Button>
             <TopRow>
                 {showGithub && <div>Github</div>}
                 {showLeetCode && <div>LeetCode</div>}
             </TopRow>
-            <Button href='/projects'>
-                <AiFillProject/> View All Projects
-            </Button>
+
         </Container>
     </Section>
 }
@@ -27,9 +28,11 @@ const Container = styled.div`
   display: flex;
   gap: 1rem;
   flex-direction: column;
+  justify-content: flex-start;
   height: 100%;
   min-height: 50vh;
 `;
+
 
 const pulse = keyframes`
   0% {
@@ -70,5 +73,4 @@ const TopRow = styled.div`
   justify-content: space-between;
   flex: 1;
 `;
-
 

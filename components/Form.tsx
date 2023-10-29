@@ -115,7 +115,6 @@ export default function Form({data, setData, setResponse, isError}: any) {
 }
 
 const Container = styled(motion.form)`
-
   display: flex;
   flex-direction: column;
   gap: 1rem;

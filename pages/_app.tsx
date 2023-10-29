@@ -1,7 +1,7 @@
 import type {AppProps} from 'next/app'
 import styled, {DefaultTheme, ThemeProvider} from 'styled-components'
 import GlobalStyle from "../components/globalstyles";
-import {Fira_Code} from '@next/font/google'
+import {Fira_Code} from "next/font/google"
 import Script from 'next/script';
 import Head from 'next/head';
 import {Analytics} from '@vercel/analytics/react';
@@ -22,7 +22,6 @@ const theme: DefaultTheme = {
     }
 }
 
-
 const roboto = Fira_Code({subsets: ['latin']})
 
 export default function App({Component, pageProps}: AppProps) {
@@ -31,7 +30,9 @@ export default function App({Component, pageProps}: AppProps) {
 
         <Container className={roboto.className}>
             <Navigation/>
-            <Component {...pageProps} />
+            <MainContent>
+                <Component {...pageProps} />
+            </MainContent>
             <Footer/>
         </Container>
 
@@ -65,8 +66,13 @@ const WebsiteInfo = () => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
   align-items: center;
   justify-content: center;
   max-width: 1920px;
   margin: auto;
+`
+const MainContent = styled.div`
+  flex-grow: 1;
+  padding-top: 100px;
 `

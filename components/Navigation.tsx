@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import {useRouter} from 'next/router'
 import {motion} from "framer-motion";
-import {useCallback, useEffect, useLayoutEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import styled, {css} from "styled-components";
 
 const categories = ["about", "skills", "projects", "education", "contact"];
@@ -51,7 +51,7 @@ export default function Navigation() {
             window.addEventListener("scroll", categoryLogic);
         } else {
             setProgress(0);
-            setActive('projects')
+            setActive("")
         }
 
         return () => window.removeEventListener("scroll", categoryLogic);
@@ -151,7 +151,7 @@ function SectionLink(props: { title: string, id: string, active: boolean }) {
     }
 
     // Adjust scroll on component mount (after everything is loaded)
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (!window.location.hash) return;
         const hashId = window.location.hash.substring(1);
         adjustScroll(hashId);

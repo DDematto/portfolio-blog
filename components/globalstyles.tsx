@@ -1,9 +1,12 @@
 import {createGlobalStyle} from 'styled-components'
 
 const GlobalStyle = createGlobalStyle<{ theme: any }>`
+  html, body, #__next {
+    height: 100%;
+  }
+
   html, body {
     margin: 0;
-    padding-top: 80px;
 
     --scroll-behavior: smooth !important;
     scroll-behavior: smooth !important;
