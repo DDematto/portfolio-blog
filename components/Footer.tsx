@@ -13,7 +13,7 @@ export default function Footer() {
                 Made With Love
                 <AiFillHeart/>
             </IconTextContainer>
-            <ResumeButton href={'/resume.pdf'}>Resume</ResumeButton>
+            <ResumeButton href={'/Resume.pdf'}>Resume</ResumeButton>
         </VerticalContainer>
 
         <ProfileLinks>
