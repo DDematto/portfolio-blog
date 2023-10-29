@@ -1,7 +1,7 @@
 import {Suspense, useEffect, useState} from "react";
 import styled from "styled-components";
-import SectionContainer from "./index";
-import {AnimatedDIV} from "../AnimatedContainers";
+import Section from "./index";
+import {AnimatedContainer} from "../AnimatedContainers";
 import {GiPartyHat, GiPartyPopper} from "react-icons/gi";
 import {MdReportProblem} from "react-icons/md";
 import {AnimatePresence, motion} from "framer-motion";
@@ -51,8 +51,8 @@ export default function Contact() {
         exit: {opacity: 0, scale: 0.8, transition: {duration: 1.5}},
     }
 
-    return <SectionContainer titles={titles} defaultText="05 - Contact" height="80vh" id="contact">
-        <AnimatedDIV>
+    return <Section titles={titles} defaultText="05 - Contact" height="80vh" id="contact">
+        <AnimatedContainer>
             <p>
                 Thank you for visiting my website! I hope you have enjoyed learning more about me and my skills and
                 experience. If you have any questions or would like to get in touch with me, please do not hesitate to
@@ -60,7 +60,7 @@ export default function Contact() {
                 discuss
                 potential opportunities. I look forward to hearing from you! <CopyText text="devindematto@gmail.com"/>
             </p>
-        </AnimatedDIV>
+        </AnimatedContainer>
 
         <Container ref={ref}>
             <AnimatePresence mode='wait'>
@@ -87,11 +87,11 @@ export default function Contact() {
 
             </AnimatePresence>
         </Container>
-    </SectionContainer>
+    </Section>
 }
 
 // Styled Components
-const Container = styled(AnimatedDIV)`
+const Container = styled(AnimatedContainer)`
   width: 100%;
 `;
 

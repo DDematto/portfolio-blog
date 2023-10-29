@@ -4,10 +4,20 @@ import X from "./Icons/X";
 import LinkedIn from "./Icons/LinkedIn";
 import CopyText from "./CopyText";
 import {AiFillHeart} from "react-icons/ai";
+import { Document, Page } from 'react-pdf'
 
 export default function Footer() {
     return <Container>
-        <span><p>Made With Love</p> <AiFillHeart/></span>
+        <div>
+            <MadeWithLove>
+                <p>Made With Love</p>
+                <AiFillHeart/>
+            </MadeWithLove>
+
+            <Document file={''}>
+                <Page />
+            </Document>
+        </div>
 
         <ProfileLinks>
             <a target="new" href="https://github.com/DDematto"><GitHub size={48}/></a>
@@ -32,24 +42,23 @@ const Container = styled.div`
   font-size: 0.9rem;
   background: ${({theme}) => theme.colors.primary};
   border-top: 1px solid ${({theme}) => theme.colors.secondary};
+`
 
-  span {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.5rem;
+const MadeWithLove = styled.span`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  height: 0.8rem;
 
-    svg {
-      color: red;
-      height: 1.5rem;
-      width: 1.5rem;
-    }
+  p {
+    font-size: 0.8rem;
   }
 
-  @media (max-width: 660px) {
-    span {
-      display: none;
-    }
+  svg {
+    color: red;
+    height: 0.8rem;
+    width: 0.8rem;
   }
 `
 

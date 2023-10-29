@@ -53,7 +53,6 @@ const GlobalStyle = createGlobalStyle<{ theme: any }>`
 
   p {
     font-size: 1rem;
-    font-weight: lighter;
     line-height: 2;
     letter-spacing: .05rem;
   }
@@ -73,13 +72,6 @@ const GlobalStyle = createGlobalStyle<{ theme: any }>`
     -moz-user-drag: none;
     -o-user-drag: none;
     user-drag: none;
-  }
-
-
-  @property --angle {
-    syntax: '<angle>';
-    initial-value: 0deg;
-    inherits: false;
   }
 `
 

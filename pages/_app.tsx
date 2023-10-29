@@ -8,19 +8,20 @@ import {Analytics} from '@vercel/analytics/react';
 import Footer from 'components/Footer';
 import Navigation from 'components/Navigation';
 
-
 const theme: DefaultTheme = {
     colors: {
         background: '#111',
         primary: 'rgba(0,0,0,0.5)',
         secondary: 'white',
+        accentStart: '#0050b3',
+        accentEnd: '#0066cc',
     },
     text: {
         primary: 'white',
-        highlight: "#0075e0",
         secondary: "#40a9ff"
     }
 }
+
 
 const roboto = Fira_Code({subsets: ['latin']})
 

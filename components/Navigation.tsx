@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import {useRouter} from 'next/router'
 import {motion} from "framer-motion";
-import {useCallback, useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useLayoutEffect, useRef, useState} from "react";
 import styled, {css} from "styled-components";
 
 const categories = ["about", "skills", "projects", "education", "contact"];
@@ -48,7 +48,6 @@ export default function Navigation() {
     useEffect(() => {
         if (router.pathname == "/") {
             categoryLogic();
-
             window.addEventListener("scroll", categoryLogic);
         } else {
             setProgress(0);
@@ -112,6 +111,7 @@ const Line = styled(motion.div)`
 
 const Wrapper = styled.div`
   width: 80%;
+  height: 20px;
   display: inline-flex;
   flex-direction: row;
   align-items: center;
@@ -132,40 +132,71 @@ const Wrapper = styled.div`
   }
 `
 
-// SectionLink component
+
 function SectionLink(props: { title: string, id: string, active: boolean }) {
     const {title, id, active} = props;
+    const router = useRouter();
 
-    function handleScrollToSection(e: any, id: any) {
-        e.preventDefault();
-        const sectionElement = document.getElementById(id);
-        if (sectionElement) {
-            const offsetTop = sectionElement.offsetTop - 90;
+    function adjustScroll(id: string) {
+        setTimeout(() => {
+            const sectionElement = document.getElementById(id);
+            if (!sectionElement) return;
+
+            const offsetTop = sectionElement.getBoundingClientRect().top + window.scrollY - 100;
             window.scrollTo({
                 top: offsetTop,
                 behavior: 'smooth'
             });
-        }
+        }, 1);
     }
 
+    // Adjust scroll on component mount (after everything is loaded)
+    useLayoutEffect(() => {
+        if (!window.location.hash) return;
+        const hashId = window.location.hash.substring(1);
+        adjustScroll(hashId);
+    }, []);
+
+    // Listen for route changes in Next.js
+    useEffect(() => {
+        function handleRouteChangeComplete(url: string) {
+            if (url.includes('#')) {
+                const hashId = url.split('#')[1];
+                adjustScroll(hashId);
+            }
+        }
+
+        router.events.on('routeChangeComplete', handleRouteChangeComplete);
+        return () => router.events.off('routeChangeComplete', handleRouteChangeComplete);
+    }, [router.events]);
+
+    function handleScrollToSection(e: any, id: any) {
+        e.preventDefault();
+        router.push(`/#${id}`, undefined, {scroll: false}).then(() => adjustScroll(id));
+    }
+
+
     return <div>
-        <LinkStyled scroll={true} href={`/#${id}`} active={active ? 1 : 0}
+        <LinkStyled href={`/#${id}`} scroll={true} active={active ? 1 : 0}
                     onClick={(e) => handleScrollToSection(e, id)}>
             {title}
         </LinkStyled>
     </div>
 }
 
+
 const LinkStyled = styled(Link)<{ active: number }>`
+  height: 100%;
   color: ${({theme}) => theme.text.highlight};
   text-decoration: none;
   transition: all 0.2s ease-in-out;
   white-space: nowrap;
   text-align: center;
   outline: 1px solid transparent;
+  padding: 0.5rem 1rem;
 
   &:hover, &:focus {
-    color: ${({theme}) => theme.text.secondary};;
+    color: ${({theme}) => theme.text.secondary};
   }
 
   ${({active}) => active && css`
@@ -173,6 +204,5 @@ const LinkStyled = styled(Link)<{ active: number }>`
     background-color: ${({theme}) => theme.colors.primary};
     border: 1px solid ${({theme}) => theme.colors.secondary};
     border-radius: 5px;
-    padding: 0.5rem 1rem;
   `}
 `
