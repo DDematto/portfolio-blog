@@ -11,7 +11,7 @@ interface SectionContainerProps {
     height?: string,
 }
 
-export default function SectionContainer(props: SectionContainerProps) {
+export default function Section(props: SectionContainerProps) {
     const {titles, defaultText, children, height, id} = props;
     const {state: {text}} = useAnimatedText({titles, defaultTxt: defaultText});
 

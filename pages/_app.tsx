@@ -1,23 +1,23 @@
 import type {AppProps} from 'next/app'
 import styled, {DefaultTheme, ThemeProvider} from 'styled-components'
 import GlobalStyle from "../components/globalstyles";
-import {Fira_Code} from '@next/font/google'
+import {Fira_Code} from "next/font/google"
 import Script from 'next/script';
 import Head from 'next/head';
 import {Analytics} from '@vercel/analytics/react';
 import Footer from 'components/Footer';
 import Navigation from 'components/Navigation';
 
-
 const theme: DefaultTheme = {
     colors: {
         background: '#111',
         primary: 'rgba(0,0,0,0.5)',
         secondary: 'white',
+        accentStart: '#0050b3',
+        accentEnd: '#0066cc',
     },
     text: {
         primary: 'white',
-        highlight: "#0075e0",
         secondary: "#40a9ff"
     }
 }
@@ -30,7 +30,9 @@ export default function App({Component, pageProps}: AppProps) {
 
         <Container className={roboto.className}>
             <Navigation/>
-            <Component {...pageProps} />
+            <MainContent>
+                <Component {...pageProps} />
+            </MainContent>
             <Footer/>
         </Container>
 
@@ -64,8 +66,13 @@ const WebsiteInfo = () => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
   align-items: center;
   justify-content: center;
   max-width: 1920px;
   margin: auto;
+`
+const MainContent = styled.div`
+  flex-grow: 1;
+  padding-top: 100px;
 `

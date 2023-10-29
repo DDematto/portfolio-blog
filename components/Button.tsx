@@ -15,5 +15,7 @@ export const SubmitButton = styled.button<{ disabled: boolean }>`
   -webkit-box-shadow: 0 0 3px ${({disabled}) => disabled ? "red" : "green"};
   box-shadow: 0 0 3px ${({disabled}) => disabled ? "red" : "green"};
 
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+
   transition: border 500ms ease-in-out;
 `

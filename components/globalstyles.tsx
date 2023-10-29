@@ -1,9 +1,12 @@
 import {createGlobalStyle} from 'styled-components'
 
 const GlobalStyle = createGlobalStyle<{ theme: any }>`
+  html, body, #__next {
+    height: 100%;
+  }
+
   html, body {
     margin: 0;
-    padding-top: 80px;
 
     --scroll-behavior: smooth !important;
     scroll-behavior: smooth !important;
@@ -53,7 +56,6 @@ const GlobalStyle = createGlobalStyle<{ theme: any }>`
 
   p {
     font-size: 1rem;
-    font-weight: lighter;
     line-height: 2;
     letter-spacing: .05rem;
   }
@@ -73,13 +75,6 @@ const GlobalStyle = createGlobalStyle<{ theme: any }>`
     -moz-user-drag: none;
     -o-user-drag: none;
     user-drag: none;
-  }
-
-
-  @property --angle {
-    syntax: '<angle>';
-    initial-value: 0deg;
-    inherits: false;
   }
 `
 

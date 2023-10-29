@@ -1,5 +1,5 @@
-import SectionContainer from "./index";
-import {AnimatedDIV} from "../AnimatedContainers";
+import Section from "./index";
+import {AnimatedContainer} from "../AnimatedContainers";
 import styled from "styled-components";
 import {Suspense, useState} from "react";
 import {motion} from "framer-motion";
@@ -48,7 +48,7 @@ export default function Skills() {
         visible: {opacity: 1, transition: {duration: 1}}
     }
 
-    return <SectionContainer defaultText="02 - Skills" titles={titles} id="skills">
+    return <Section defaultText="02 - Skills" titles={titles} id="skills">
         <SkillsDesc variants={skillVariants} initial="hidden" animate="visible">
             <p>I am always looking for new ways to challenge myself and improve as a software developer. This includes
                 staying up-to-date with the latest technologies and frameworks, as well as seeking out opportunities to
@@ -65,12 +65,12 @@ export default function Skills() {
                 <IconGalleryLazy Icons={Icons(category) || []}/>
             </Suspense>
         </SkillsContainer>
-    </SectionContainer>
+    </Section>
 }
 
 
 // Styled Components
-const SkillsDesc = styled(AnimatedDIV)`
+const SkillsDesc = styled(AnimatedContainer)`
   word-spacing: 0.1rem;
 `
 

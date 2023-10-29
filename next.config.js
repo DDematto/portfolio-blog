@@ -4,7 +4,7 @@ const nextConfig = {
         locales: ["en"], defaultLocale: "en",
     }, reactStrictMode: true, compiler: {
         styledComponents: true
-    },
+    }
 }
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
