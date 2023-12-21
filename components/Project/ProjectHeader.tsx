@@ -8,7 +8,7 @@ interface ArticleHeaderProps {
     date: string;
 }
 
-export default function ArticleHeader({title, tags, date}: ArticleHeaderProps) {
+export default function ProjectHeader({title, tags, date}: ArticleHeaderProps) {
     return <HeaderContainer>
         <Title>{title}</Title>
         <AuthorDate>
@@ -26,6 +26,8 @@ const HeaderContainer = styled.div`
     display: grid;
     gap: 0.25rem;
     text-align: left;
+    margin-bottom: 1.5rem;
+    margin-top: 0.5rem;
 `;
 
 const Title = styled.h1`

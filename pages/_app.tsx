@@ -40,6 +40,13 @@ const WebsiteInfo = () => {
         "I have experience working on projects in a variety of industries, and am always eager to learn and grow as a professional. On my website, " +
         "you can learn more about my skills and experience, view my portfolio, and get in touch with me to discuss potential opportunities. Thank you for visiting!"
 
+    const schemaMarkup = {
+        "@context": "http://schema.org",
+        "@type": "WebPage",
+        "name": "Projects",
+        "url": "https://www.devindematto.dev/projects"
+    };
+
     return <>
         <Head>
             <title>Devin DeMatto | Portfolio</title>
@@ -49,6 +56,9 @@ const WebsiteInfo = () => {
             <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png"/>
             <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png"/>
             <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png"/>
+            <script type="application/ld+json">
+                {JSON.stringify(schemaMarkup)}
+            </script>
         </Head>
         <Script
             src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}`}
@@ -59,12 +69,12 @@ const WebsiteInfo = () => {
 }
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  align-items: center;
-  justify-content: center;
-  max-width: 100vw;
-  margin: auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    max-width: 100vw;
+    margin: auto;
 `
 

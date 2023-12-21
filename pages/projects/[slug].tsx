@@ -6,47 +6,48 @@ import {MDXRemote} from 'next-mdx-remote';
 import styled from 'styled-components'
 import Navigation from "../../components/Project/Navigation";
 import Head from "next/head";
-import ArticleHeader from "../../components/Project/ArticleHeader";
-import Image from 'next/image';
 
-const components = {Image};
+// Project Components
+import ProjectHeader from "../../components/Project/ProjectHeader";
+import BlogImage from "../../components/Project/ProjectImage";
+import ProjectCarousel from "../../components/ProjectCarousel";
+import Section from "../../components/Project/Section";
+import LegendNavbar from "../../components/Project/LegendNavbar";
 
-export default function ProjectPage({source, frontMatter, images, headerImage}: any) {
+const components = {BlogImage, ProjectCarousel, Section};
+
+export default function ProjectPage({source, frontMatter, headerImage}: any) {
     const titleString = `Project ${frontMatter.title ? `| ${frontMatter.title}` : ''}`;
 
-    return <Container>
+    return <>
         <Head>
             <title>{titleString}</title>
         </Head>
 
         <Navigation href='/projects' name='Projects'/>
 
-        {headerImage && <StyledImage
-            src={headerImage}
-            alt={frontMatter.title}
-        />}
+        <Container>
+            <LegendNavbar sections={frontMatter.sections}/>
 
-        <ArticleHeader title={frontMatter.title} tags={frontMatter.tags} date={frontMatter.date}/>
+            {headerImage && <BlogImage src={headerImage} alt={frontMatter.title}/>}
 
-        <MDXRemote {...source} components={components}/>
-    </Container>
+            <ProjectHeader title={frontMatter.title} tags={frontMatter.tags} date={frontMatter.date}/>
+
+            <MDXRemote {...source} components={components}/>
+        </Container>
+    </>
 }
 
 const Container = styled.div`
-    text-align: center;
+    background-color: #1a1a1a;
+    text-align: left;
     width: 100%;
-    max-width: 95%;
-    margin: 0 auto;
-    flex-grow: 1;
-`;
-
-const StyledImage = styled(Image)`
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%; // Image will take the full width of its container
-    height: auto; // Height will scale automatically
-    max-height: 300px; // Limit the maximum height
-    object-fit: cover; // Ensures the image covers the area
+    max-width: 1100px;
+    margin-bottom: 40px;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    flex: 1;
 `;
 
 export async function getStaticPaths() {
@@ -76,23 +77,15 @@ export async function getStaticProps({params}: any) {
         console.error("Error reading image directory:", error);
     }
 
-    const images = imageFiles.map(file => `/images/projects/${params.slug}/${file}`);
-
     // Look for a file named 'header' (or similar) and set headerImage accordingly
-    let headerImage = "";
-    const headerFileName = imageFiles.find(file => file.startsWith('header'));
-    if (headerFileName) {
-        headerImage = `/images/projects/${params.slug}/${headerFileName}`;
-    }
+    const headerImageFile = imageFiles.find(file => file.startsWith('header'));
+    const headerImage = headerImageFile ? params.slug + "/" + headerImageFile : '';
 
     return {
         props: {
             source: mdxRemoteSource,
             frontMatter: data,
-            images,
-            headerImage
+            headerImage,
         },
     };
 }
-
-
