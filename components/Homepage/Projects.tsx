@@ -1,13 +1,11 @@
-import {useState} from 'react';
 import Section from "./index";
 import styled, {keyframes} from 'styled-components';
 import {AiFillProject} from 'react-icons/ai';
 import Link from 'next/link'
+import GitHubStats from "../GithubStats";
+import LeetcodeStats from "../LeetcodeStats";
 
 export default function Projects() {
-    const [showGithub, setShowGithub] = useState(false);
-    const [showLeetCode, setShowLeetCode] = useState(false);
-
     const titles = ["03 - Projects - What I Enjoy", "03 - Projects - Always WIP"];
 
     return <Section defaultText="03 - Projects" titles={titles} height="50vh" id="projects">
@@ -15,9 +13,10 @@ export default function Projects() {
             <Button href='/projects'>
                 <AiFillProject/> View All Projects
             </Button>
+
             <TopRow>
-                {showGithub && <div>Github</div>}
-                {showLeetCode && <div>LeetCode</div>}
+                <GitHubStats/>
+                <LeetcodeStats/>
             </TopRow>
 
         </Container>
@@ -32,7 +31,6 @@ const Container = styled.div`
   height: 100%;
   min-height: 50vh;
 `;
-
 
 const pulse = keyframes`
   0% {

@@ -6,7 +6,7 @@ import axios from "axios";
 
 
 export default function Form({data, setData, setResponse, isError}: any) {
-    const options = ["General Inquiry", "Job Opportunity", "Project Collaboration"];
+    const options = ["General Inquiry", "Job Opportunity", "ProjectCard Collaboration"];
 
     const {phone, email, subject, name, inquiry} = data;
 

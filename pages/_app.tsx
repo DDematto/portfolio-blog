@@ -6,7 +6,6 @@ import Script from 'next/script';
 import Head from 'next/head';
 import {Analytics} from '@vercel/analytics/react';
 import Footer from 'components/Footer';
-import Navigation from 'components/Navigation';
 
 const theme: DefaultTheme = {
     colors: {
@@ -29,10 +28,7 @@ export default function App({Component, pageProps}: AppProps) {
         <WebsiteInfo/>
 
         <Container className={roboto.className}>
-            <Navigation/>
-            <MainContent>
-                <Component {...pageProps} />
-            </MainContent>
+            <Component {...pageProps} />
             <Footer/>
         </Container>
 
@@ -43,7 +39,6 @@ const WebsiteInfo = () => {
     const content = "Welcome to my website! I am a software developer with a strong foundation in a variety of programming languages and frameworks. " +
         "I have experience working on projects in a variety of industries, and am always eager to learn and grow as a professional. On my website, " +
         "you can learn more about my skills and experience, view my portfolio, and get in touch with me to discuss potential opportunities. Thank you for visiting!"
-
 
     return <>
         <Head>
@@ -69,10 +64,7 @@ const Container = styled.div`
   min-height: 100vh;
   align-items: center;
   justify-content: center;
-  max-width: 1920px;
+  max-width: 100vw;
   margin: auto;
 `
-const MainContent = styled.div`
-  flex-grow: 1;
-  padding-top: 100px;
-`
+
