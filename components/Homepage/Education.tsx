@@ -1,5 +1,5 @@
 import Section from "./index";
-import {AnimatedContainer} from "../AnimatedContainers";
+import {AnimatedContainer} from "../General/AnimatedContainers";
 
 export default function Education() {
     const titles = ["04 - Education - Always Learning", "04 - Education - Something New Everyday"];

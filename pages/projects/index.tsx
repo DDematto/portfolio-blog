@@ -5,11 +5,11 @@ import styled from 'styled-components';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import SearchFilter from '../../components/Project/SearchFilter'
-import ProjectCard, {IProject} from '../../components/Project/ProjectCard'
-import Navigation from "../../components/Project/Navigation";
-import GitHubStats from "../../components/GithubStats";
-import LeetcodeStats from "../../components/LeetcodeStats";
+import SearchFilter from '../../components/Projects/SearchFilter'
+import ProjectCard, {IProject} from '../../components/Projects/ProjectCard'
+import Navigation from "../../components/Projects/Navigation";
+import GitHubStats from "../../components/General/GithubStats";
+import LeetcodeStats from "../../components/General/LeetcodeStats";
 
 export default function Projects({projects}: { projects: IProject[] }) {
     const [search, setSearch] = useState("");
@@ -31,26 +31,28 @@ export default function Projects({projects}: { projects: IProject[] }) {
         return filteredByTags;
     }, [search, filters, projects]);
 
-    return <Container>
+    return <>
         <Head>
             <title>Devin DeMatto | Projects</title>
         </Head>
 
-        <TopRow>
-            <GitHubStats/>
-            <LeetcodeStats/>
-        </TopRow>
-
         <Navigation href='/' name='Homepage'/>
 
-        <SearchFilter filters={filters} setFilters={setFilters} setSearch={setSearch}/>
+        <Container>
+            <TopRow>
+                <GitHubStats/>
+                <LeetcodeStats/>
+            </TopRow>
 
-        <List>
-            {filteredProjects.map((project) => (
-                <ProjectCard key={project.slug} project={project}/>
-            ))}
-        </List>
-    </Container>
+            <SearchFilter filters={filters} setFilters={setFilters} setSearch={setSearch}/>
+
+            <List>
+                {filteredProjects.map((project) => (
+                    <ProjectCard key={project.slug} project={project}/>
+                ))}
+            </List>
+        </Container>
+    </>
 }
 
 export const getStaticProps = async () => {
@@ -81,9 +83,14 @@ export const getStaticProps = async () => {
 
 const Container = styled.div`
     text-align: center;
-    width: 100%;
+    width: 80%;
     margin: 0 auto;
     flex-grow: 1;
+
+    @media (max-width: 768px) {
+        width: 100%;
+        flex-direction: column;
+    }
 `;
 
 const List = styled.div`
@@ -97,6 +104,6 @@ const List = styled.div`
 
 const TopRow = styled.div`
     display: flex;
-    justify-content: space-between;
-    flex: 1;
+    justify-content: space-evenly;
+    margin-bottom: 2rem;
 `;

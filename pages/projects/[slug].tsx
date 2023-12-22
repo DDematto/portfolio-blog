@@ -4,15 +4,15 @@ import matter from 'gray-matter';
 import {serialize} from 'next-mdx-remote/serialize';
 import {MDXRemote} from 'next-mdx-remote';
 import styled from 'styled-components'
-import Navigation from "../../components/Project/Navigation";
+import Navigation from "../../components/Projects/Navigation";
 import Head from "next/head";
 
-// Project Components
-import ProjectHeader from "../../components/Project/ProjectHeader";
-import BlogImage from "../../components/Project/ProjectImage";
-import ProjectCarousel from "../../components/ProjectCarousel";
-import Section from "../../components/Project/Section";
-import LegendNavbar from "../../components/Project/LegendNavbar";
+// Projects Components
+import ProjectHeader from "../../components/Projects/Project/ProjectHeader";
+import BlogImage from "../../components/Projects/Project/ProjectImage";
+import ProjectCarousel from "../../components/Projects/Project/ProjectCarousel";
+import Section from "../../components/Projects/Project/Section";
+import LegendNavbar from "../../components/Projects/LegendNavbar";
 
 const components = {BlogImage, ProjectCarousel, Section};
 
@@ -31,7 +31,8 @@ export default function ProjectPage({source, frontMatter, headerImage}: any) {
 
             {headerImage && <BlogImage src={headerImage} alt={frontMatter.title}/>}
 
-            <ProjectHeader title={frontMatter.title} tags={frontMatter.tags} date={frontMatter.date}/>
+            <ProjectHeader title={frontMatter.title} tags={frontMatter.tags} date={frontMatter.date}
+                           github={frontMatter.github}/>
 
             <MDXRemote {...source} components={components}/>
         </Container>

@@ -1,12 +1,12 @@
 import styled from "styled-components"
 import {motion} from "framer-motion";
-import {AnimatedContainer} from "../AnimatedContainers";
+import {AnimatedContainer} from "../General/AnimatedContainers";
 import Image from "next/legacy/image";
 import Section from "./index";
 import profilePic from "../../public/images/DevinDeMatto.jpg";
-import GitHub from "components/Icons/Github";
-import LinkedIn from "components/Icons/LinkedIn";
-import X from "../Icons/X";
+import GitHub from "../General/Icons/Github";
+import LinkedIn from "../General/Icons/LinkedIn";
+import X from "../General/Icons/X";
 
 export default function About() {
     const titles = ["01 - About Me, Hey I'm Devin!", "01 - About Me, I Enjoy: Games"]

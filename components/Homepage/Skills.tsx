@@ -1,5 +1,5 @@
 import Section from "./index";
-import {AnimatedContainer} from "../AnimatedContainers";
+import {AnimatedContainer} from "../General/AnimatedContainers";
 import styled from "styled-components";
 import {Suspense, useState} from "react";
 import {motion} from "framer-motion";
@@ -35,8 +35,8 @@ import {FaGitSquare} from "react-icons/fa";
 import dynamic from "next/dynamic";
 
 // dynamic imports
-const VerticalListLazy = dynamic(() => import("../VerticalList"), {ssr: false, suspense: true});
-const IconGalleryLazy = dynamic(() => import("../IconGallery"), {ssr: false, suspense: true});
+const VerticalListLazy = dynamic(() => import("../General/VerticalList"), {ssr: false, suspense: true});
+const IconGalleryLazy = dynamic(() => import("./IconGallery"), {ssr: false, suspense: true});
 
 export default function Skills() {
     const titles = ["02 - Skills - Languages", "02 - Skills - Frameworks", "02 - Skills - Tools", "02 - Skills - Databases"];

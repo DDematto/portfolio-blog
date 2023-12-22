@@ -1,16 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
-import Tag from './Tag';
+import Tag from "../Tag";
+import GitHub from "../../General/Icons/Github";
 
 interface ArticleHeaderProps {
     title: string;
     tags: string[];
     date: string;
+    github: string;
 }
 
-export default function ProjectHeader({title, tags, date}: ArticleHeaderProps) {
+export default function ProjectHeader({title, tags, date, github}: ArticleHeaderProps) {
     return <HeaderContainer>
         <Title>{title}</Title>
+        {github && <Link target="new" href={github}>GitHub</Link>}
         <AuthorDate>
             <span>Devin DeMatto</span>
             <span>·</span>
@@ -42,4 +45,6 @@ const AuthorDate = styled.div`
     gap: 0.5rem;
 `;
 
-
+const Link = styled.a`
+    color: ${({theme}) => theme.text.secondary};
+`;

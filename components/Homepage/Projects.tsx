@@ -2,8 +2,8 @@ import Section from "./index";
 import styled, {keyframes} from 'styled-components';
 import {AiFillProject} from 'react-icons/ai';
 import Link from 'next/link'
-import GitHubStats from "../GithubStats";
-import LeetcodeStats from "../LeetcodeStats";
+import GitHubStats from "../General/GithubStats";
+import LeetcodeStats from "../General/LeetcodeStats";
 
 export default function Projects() {
     const titles = ["03 - Projects - What I Enjoy", "03 - Projects - Always WIP"];
@@ -18,7 +18,6 @@ export default function Projects() {
                 <GitHubStats/>
                 <LeetcodeStats/>
             </TopRow>
-
         </Container>
     </Section>
 }

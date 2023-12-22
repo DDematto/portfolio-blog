@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import BlogImage from "./Project/ProjectImage";
+import BlogImage from "./ProjectImage";
 
 const CarouselContainer = styled.div`
     position: relative;

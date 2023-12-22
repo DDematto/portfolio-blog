@@ -37,24 +37,23 @@ function truncateDescription(description = '', limit: number) {
 }
 
 const ProjectContainer = styled(Link)`
-  width: 80%;
-  background: ${({theme}) => theme.colors.primary};
-  color: ${({theme}) => theme.text.primary};
-  padding: 0.5rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border: 2px solid white;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-  margin: 0 auto;
-
-  &:hover {
-    transform: scale(1.001);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  }
-
-  @media (max-width: 768px) {
-    flex-direction: column;
+    background: ${({theme}) => theme.colors.primary};
+    color: ${({theme}) => theme.text.primary};
+    padding: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    margin: 0 auto;
     width: 100%;
-  }
+
+    &:hover {
+        transform: scale(1.001);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
 `;
 
 const Title = styled.h2`

@@ -66,7 +66,6 @@ const SearchFilterContainer = styled.div`
     display: flex;
     flex-direction: row;
     gap: 10px;
-    width: 80%;
     margin: 0 auto;
 
     & > * {
@@ -75,7 +74,6 @@ const SearchFilterContainer = styled.div`
 
     @media (max-width: 768px) {
         flex-direction: column;
-        width: 100%;
     }
 `;
 
@@ -120,6 +118,5 @@ const FiltersContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    width: 80%;
     margin: 0 auto;
 `;
