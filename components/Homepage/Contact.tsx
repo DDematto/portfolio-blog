@@ -1,16 +1,16 @@
 import {Suspense, useEffect, useState} from "react";
 import styled from "styled-components";
 import Section from "./index";
-import {AnimatedContainer} from "../AnimatedContainers";
+import {AnimatedContainer} from "../General/AnimatedContainers";
 import {GiPartyHat, GiPartyPopper} from "react-icons/gi";
 import {MdReportProblem} from "react-icons/md";
 import {AnimatePresence, motion} from "framer-motion";
 import {useInView} from "react-intersection-observer";
-import CopyText from "../CopyText";
+import CopyText from "../General/CopyText";
 import dynamic from "next/dynamic";
 
 // dynamic imports
-const FormLazy = dynamic(() => import("../Form"), {ssr: false, suspense: true});
+const FormLazy = dynamic(() => import("./Form"), {ssr: false, suspense: true});
 
 
 const initialForm = {

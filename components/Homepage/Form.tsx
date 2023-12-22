@@ -1,12 +1,12 @@
-import Input from "./Input";
-import {SubmitButton} from "./Button";
+import Input from "../General/Input";
+import {SubmitButton} from "../General/Button";
 import styled from "styled-components";
 import {motion} from "framer-motion";
 import axios from "axios";
 
 
 export default function Form({data, setData, setResponse, isError}: any) {
-    const options = ["General Inquiry", "Job Opportunity", "Project Collaboration"];
+    const options = ["General Inquiry", "Job Opportunity", "ProjectCard Collaboration"];
 
     const {phone, email, subject, name, inquiry} = data;
 

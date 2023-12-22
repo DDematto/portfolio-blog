@@ -1,6 +1,6 @@
-import {Cursor} from "components/AnimatedText/Cursor";
+import {Cursor} from "../General/AnimatedText/Cursor";
 import styled from "styled-components"
-import useAnimatedText from "../AnimatedText";
+import useAnimatedText from "../General/AnimatedText";
 
 
 interface SectionContainerProps {

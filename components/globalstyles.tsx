@@ -5,6 +5,20 @@ const GlobalStyle = createGlobalStyle<{ theme: any }>`
     height: 100%;
   }
 
+  html {
+      font-size: 100%; // 16px
+      @media (max-width: 768px) {
+          font-size: 90%; // 14.4px
+      }
+      @media (max-width: 480px) {
+          font-size: 80%; // 12.8px
+      }
+  }
+
+  body {
+      line-height: 1.6;
+  }
+
   html, body {
     margin: 0;
 

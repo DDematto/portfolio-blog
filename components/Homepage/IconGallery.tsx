@@ -1,7 +1,7 @@
 import {motion} from "framer-motion"
 import {useInView} from "react-intersection-observer";
 import styled from "styled-components"
-import {AnimatedContainer} from "./AnimatedContainers";
+import {AnimatedContainer} from "../General/AnimatedContainers";
 
 export default function IconGallery({Icons}: { Icons: { name: string, SVG: JSX.Element, color: string }[] }) {
     const {ref, inView} = useInView({triggerOnce: true, threshold: 0.5});
