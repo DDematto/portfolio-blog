@@ -21,6 +21,7 @@ export default function Portfolio() {
 }
 
 const MainContent = styled.div`
-  flex-grow: 1;
-  padding-top: 100px;
+    flex-grow: 1;
+    padding-top: 100px;
+    max-width: 1400px;
 `

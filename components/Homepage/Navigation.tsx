@@ -59,7 +59,6 @@ export default function Navigation() {
 
     const variants = {hidden: {y: -65, transition: {duration: 0.1}}, visible: {y: 0, transition: {duration: 0.1}}}
 
-
     return <Nav ref={navRef} variants={variants} animate="visible" initial='hidden'>
         <Wrapper ref={wrapperRef}>
             <SectionLink id="about" title="01 - About" active={active == "about"}/>
@@ -77,26 +76,26 @@ export default function Navigation() {
 
 // styled components
 const Nav = styled(motion.nav)`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  min-height: 80px;
-  background-color: ${({theme}) => theme.colors.background};
-  border-bottom: 1px solid ${({theme}) => theme.colors.secondary};
-  z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    min-height: 80px;
+    background-color: ${({theme}) => theme.colors.background};
+    border-bottom: 1px solid ${({theme}) => theme.colors.secondary};
+    z-index: 1000;
 
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 
 
-  @media (max-width: 700px) {
-    flex-direction: column;
-    gap: 1.5rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-  }
+    @media (max-width: 700px) {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
 `
 
 const Line = styled(motion.div)`
