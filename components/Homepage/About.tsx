@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from "styled-components";
 import {motion} from "framer-motion";
 import {AnimatedContainer} from "../General/AnimatedContainers";
 import Image from "next/legacy/image";
@@ -21,61 +21,61 @@ export default function About() {
         visible: {opacity: 1, y: 0, transition: {duration: 1}}
     }
 
-    return (
-        <Section titles={titles} defaultText="01 - About Me" id="about">
-            <AboutContainer>
-                <ProfileContainer variants={profileVariants} initial="hidden" animate="visible">
-                    <AnimatedDiv>
-                        <Image
-                            src={profilePic}
-                            alt="Picture of Devin DeMatto"
-                            layout='fill'
-                            objectFit='cover'
-                            sizes="100vw"
-                        />
-                    </AnimatedDiv>
+    return <Section titles={titles} defaultText="01 - About Me" id="about">
+        <AboutContainer>
+            
+            <ProfileContainer variants={profileVariants} initial="hidden" animate="visible">
+                <AnimatedDiv>
+                    <Image
+                        src={profilePic}
+                        alt="Picture of Devin DeMatto"
+                        layout='fill'
+                        objectFit='cover'
+                        sizes="100vw"
+                    />
+                </AnimatedDiv>
 
 
-                    <ProfileText>Devin DeMatto</ProfileText>
+                <ProfileText>Devin DeMatto</ProfileText>
 
-                    <ProfileLinks>
-                        <a target="new" href="https://github.com/DDematto"><GitHub size={64}/></a>
-                        <a target="new" href="https://twitter.com/DevinDematto"><X size={64}/></a>
-                        <a target="new" href="https://www.linkedin.com/in/devin-dematto-60a48718b/"><LinkedIn
-                            size={64}/></a>
-                    </ProfileLinks>
-                </ProfileContainer>
+                <ProfileLinks>
+                    <a target="new" href="https://github.com/DDematto"><GitHub size={64}/></a>
+                    <a target="new" href="https://twitter.com/DevinDematto"><X size={64}/></a>
+                    <a target="new" href="https://www.linkedin.com/in/devin-dematto-60a48718b/"><LinkedIn
+                        size={64}/></a>
+                </ProfileLinks>
+            </ProfileContainer>
 
-                <DescContainer variants={DescVariants} initial="hidden" animate="visible">
-                    <Paragraph>
-                        <h2>Professional Background</h2>
-                        <p>I have always been passionate about programming and have been
-                            fortunate enough to turn that
-                            passion
-                            into
-                            a career. I am currently working on my Bachelors in Computer Science Engineering at Michigan
-                            State
-                            University and am looking for more experience in the way of internships and co-ops.</p>
-                    </Paragraph>
+            <DescContainer variants={DescVariants} initial="hidden" animate="visible">
+                <Paragraph>
+                    <h2>Professional Background</h2>
+                    <p>I have always been passionate about programming and have been
+                        fortunate enough to turn that
+                        passion
+                        into
+                        a career. I am currently working on my Bachelors in Computer Science Engineering at Michigan
+                        State
+                        University and am looking for more experience in the way of internships and co-ops.</p>
+                </Paragraph>
 
-                    <Paragraph>
-                        <h2>Interests</h2>
-                        <p>I am a passionate and driven individual with a strong interest in technology and programming.
-                            In
-                            my
-                            free
-                            time, I enjoy playing video games and working on side projects to learn new technologies. I
-                            am
-                            always
-                            looking for ways to challenge myself and grow personally and professionally, and I am
-                            excited to
-                            see
-                            what the future holds. Thank you for visiting my website and learning more about me.</p>
-                    </Paragraph>
-                </DescContainer>
-            </AboutContainer>
-        </Section>
-    );
+                <Paragraph>
+                    <h2>Interests</h2>
+                    <p>I am a passionate and driven individual with a strong interest in technology and programming.
+                        In
+                        my
+                        free
+                        time, I enjoy playing video games and working on side projects to learn new technologies. I
+                        am
+                        always
+                        looking for ways to challenge myself and grow personally and professionally, and I am
+                        excited to
+                        see
+                        what the future holds. Thank you for visiting my website and learning more about me.</p>
+                </Paragraph>
+            </DescContainer>
+
+        </AboutContainer>
+    </Section>
 }
 
 // Main section

@@ -8,7 +8,6 @@ import Contact from "../components/Homepage/Contact";
 import Projects from "../components/Homepage/Projects";
 import Navigation from "../components/Homepage/Navigation";
 
-
 export default function Portfolio() {
     return <MainContent>
         <Navigation/>
