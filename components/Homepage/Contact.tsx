@@ -1,17 +1,17 @@
-import {Suspense, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import styled from "styled-components";
-import Section from "./index";
-import {AnimatedContainer} from "../General/AnimatedContainers";
+import Section from "./Section";
+import {TextContainer} from "../General/TextContainer";
 import {GiPartyHat, GiPartyPopper} from "react-icons/gi";
 import {MdReportProblem} from "react-icons/md";
-import {AnimatePresence, motion} from "framer-motion";
+import {motion} from "framer-motion";
 import {useInView} from "react-intersection-observer";
 import CopyText from "../General/CopyText";
 import dynamic from "next/dynamic";
+import {exitDuration, inViewForAnimate, startDuration} from "../General/Layout";
 
 // dynamic imports
 const FormLazy = dynamic(() => import("./Form"), {ssr: false, suspense: true});
-
 
 const initialForm = {
     phone: {data: "+1", err: "", color: "white"},
@@ -27,7 +27,6 @@ export default function Contact() {
     const [data, setData] = useState(initialForm);
     const [isError, setIsError] = useState(true);
 
-    const {ref, inView} = useInView({triggerOnce: true, threshold: 0.75});
 
     useEffect(() => {
         setData(initialForm);
@@ -45,14 +44,22 @@ export default function Contact() {
         setIsError(errorExists);
     }, [data]);
 
-    const variants = {
-        hidden: {opacity: 0, scale: 0.8, transition: {duration: 1.5}},
-        visible: {opacity: 1, scale: 1, transition: {duration: 1}},
-        exit: {opacity: 0, scale: 0.8, transition: {duration: 1.5}},
-    }
+    const textContainerVariants = {
+        hidden: {opacity: 0, y: 20, transition: {duration: startDuration, ease: "easeOut"}},
+        visible: {opacity: 1, y: 0, transition: {duration: startDuration, ease: "easeOut"}},
+        exit: {opacity: 0, y: 20, transition: {duration: exitDuration, ease: "easeIn"}}
+    };
 
-    return <Section titles={titles} defaultText="05 - Contact" height="80vh" id="contact">
-        <AnimatedContainer>
+    const variants = {
+        hidden: {opacity: 0, scale: 0.8, transition: {duration: startDuration}},
+        visible: {opacity: 1, scale: 1, transition: {duration: startDuration}},
+        exit: {opacity: 0, scale: 0.8, transition: {duration: exitDuration}},
+    };
+
+    const {ref, inView} = useInView({triggerOnce: true, threshold: inViewForAnimate});
+    return <Section titles={titles} defaultText="05 - Contact" height="80vh" id="contact" ref={ref}>
+        <TextContainer variants={textContainerVariants} initial="hidden" animate={inView ? "visible" : "hidden"}
+                       exit="exit">
             <p>
                 Thank you for visiting my website! I hope you have enjoyed learning more about me and my skills and
                 experience. If you have any questions or would like to get in touch with me, please do not hesitate to
@@ -60,61 +67,55 @@ export default function Contact() {
                 discuss
                 potential opportunities. I look forward to hearing from you! <CopyText text="devindematto@gmail.com"/>
             </p>
-        </AnimatedContainer>
+        </TextContainer>
 
-        <Container ref={ref}>
-            <AnimatePresence mode='wait'>
+        <Container>
+            {response &&
+                <Response key="r" variants={variants} initial="hidden" animate="visible" exit="exit">
+                    {response === "Good" ?
+                        <span><GiPartyHat/> <h1>Hooray!</h1> <GiPartyPopper/></span> :
+                        <span><MdReportProblem/> Uh Oh! <MdReportProblem/></span>
+                    }
 
-                {response &&
-                    <Response key="r" variants={variants} initial="hidden" animate="visible" exit="exit">
-                        {response === "Good" ?
-                            <span><GiPartyHat/> <h1>Hooray!</h1> <GiPartyPopper/></span> :
-                            <span><MdReportProblem/> Uh Oh! <MdReportProblem/></span>
-                        }
+                    {response === "Good" ?
+                        <h2>Thank you for your message! I will get back to you as soon as possible.</h2> :
+                        <h2>There was an error sending your message. Please try again later.</h2>
+                    }
+                </Response>
+            }
 
-                        {response === "Good" ?
-                            <h2>Thank you for your message! I will get back to you as soon as possible.</h2> :
-                            <h2>There was an error sending your message. Please try again later.</h2>
-                        }
-                    </Response>
-                }
-
-                {inView && !response &&
-                    <Suspense fallback={<div>Loading...</div>}>
-                        <FormLazy data={data} setData={setData} setResponse={setResponse} isError={isError}/>
-                    </Suspense>
-                }
-
-            </AnimatePresence>
+            {inView && !response &&
+                <FormLazy data={data} setData={setData} setResponse={setResponse} isError={isError}/>
+            }
         </Container>
     </Section>
 }
 
 // Styled Components
-const Container = styled(AnimatedContainer)`
-  width: 100%;
+const Container = styled(TextContainer)`
+    width: 100%;
 `;
 
 
 const Response = styled(motion.div)`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-
-  span {
+    height: 100%;
     display: flex;
-    flex-direction: row;
-    gap: 1rem;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-  }
+    gap: 1rem;
 
-  svg {
-    height: 3rem;
-    width: 3rem;
-  }
+    span {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        align-items: center;
+        justify-content: center;
+    }
+
+    svg {
+        height: 3rem;
+        width: 3rem;
+    }
 `
 

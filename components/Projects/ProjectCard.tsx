@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import Tag from "./Tag"
 import Link from 'next/link';
+import {motion} from 'framer-motion';
+import {exitDuration, startDuration} from "../General/Layout";
 
 export interface IProject {
     title: string,
@@ -9,22 +11,49 @@ export interface IProject {
     slug: string
 }
 
-export default function ProjectCard(props: { project: IProject }) {
+export default function ProjectCard(props: {
+    project: IProject,
+    projects: number,
+    index: number,
+    cardExitDuration: number
+}) {
+    const {projects, index, cardExitDuration} = props;
     const {title, tags, description, slug} = props.project;
     const projectSlug = slug.replace(/\s+/g, '_');
     const truncatedDescription = truncateDescription(description, 30);
 
-    return <ProjectContainer href={`/projects/${projectSlug}`}>
-        <Title>{title}</Title>
-        <TagsContainer>
-            {tags.map(tag => <Tag key={tag} name={tag}/>)}
-        </TagsContainer>
-        {description &&
-            <>
-                <Separator/>
-                <Description>{truncatedDescription}</Description>
-            </>
+    const cardVariants = {
+        hidden: {
+            opacity: 0
+        },
+        show: {
+            opacity: 1,
+            transition: {
+                duration: startDuration,
+            }
+        },
+        exit: {
+            opacity: 0,
+            transition: {
+                duration: cardExitDuration,
+                delay: (projects - index) * (cardExitDuration / projects)
+            }
         }
+    };
+
+    return <ProjectContainer variants={cardVariants} custom={{invertedIndex: projects - 1 - index, total: projects}}>
+        <Link href={`/projects/${projectSlug}`}>
+            <Title>{title}</Title>
+            <TagsContainer>
+                {tags.map(tag => <Tag key={tag} name={tag}/>)}
+            </TagsContainer>
+            {description &&
+                <>
+                    <Separator/>
+                    <Description>{truncatedDescription}</Description>
+                </>
+            }
+        </Link>
     </ProjectContainer>
 }
 
@@ -36,7 +65,7 @@ function truncateDescription(description = '', limit: number) {
     return description;
 }
 
-const ProjectContainer = styled(Link)`
+const ProjectContainer = styled(motion.div)`
     background: ${({theme}) => theme.colors.primary};
     color: ${({theme}) => theme.text.primary};
     padding: 0.5rem;
@@ -57,28 +86,28 @@ const ProjectContainer = styled(Link)`
 `;
 
 const Title = styled.h2`
-  text-align: left;
-  color: ${({theme}) => theme.text.primary};
-  font-size: 1.5rem;
+    text-align: left;
+    color: ${({theme}) => theme.text.primary};
+    font-size: 1.5rem;
 `;
 
 const TagsContainer = styled.div`
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  margin: 0.5rem 0;
-  gap: 0.5rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin: 0.5rem 0;
+    gap: 0.5rem;
 `;
 
 const Separator = styled.hr`
-  border: 0;
-  height: 1px;
-  background: ${({theme}) => theme.colors.secondary};
-  margin: 0.5rem 0;
+    border: 0;
+    height: 1px;
+    background: ${({theme}) => theme.colors.secondary};
+    margin: 0.5rem 0;
 `;
 
 const Description = styled.p`
-  color: ${({theme}) => theme.text.primary};
-  text-align: left;
+    color: ${({theme}) => theme.text.primary};
+    text-align: left;
 `;

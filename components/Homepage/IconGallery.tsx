@@ -1,7 +1,7 @@
 import {motion} from "framer-motion"
 import {useInView} from "react-intersection-observer";
 import styled from "styled-components"
-import {AnimatedContainer} from "../General/AnimatedContainers";
+import {TextContainer} from "../General/TextContainer";
 
 export default function IconGallery({Icons}: { Icons: { name: string, SVG: JSX.Element, color: string }[] }) {
     const {ref, inView} = useInView({triggerOnce: true, threshold: 0.5});
@@ -13,7 +13,7 @@ export default function IconGallery({Icons}: { Icons: { name: string, SVG: JSX.E
     </Container>
 }
 
-const Container = styled(AnimatedContainer)`
+const Container = styled(TextContainer)`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;

@@ -2,7 +2,7 @@ import Image from "next/legacy/image";
 import {motion} from "framer-motion";
 import styled from "styled-components";
 
-export const AnimatedContainer = styled(motion.div)`
+export const TextContainer = styled(motion.div)`
   padding: 1rem;
   position: relative;
   background: ${({theme}) => theme.colors.primary};

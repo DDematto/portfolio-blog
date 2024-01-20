@@ -6,6 +6,7 @@ import {MDXRemote} from 'next-mdx-remote';
 import styled from 'styled-components'
 import Navigation from "../../components/Projects/Navigation";
 import Head from "next/head";
+import {motion} from 'framer-motion'
 
 // Projects Components
 import ProjectHeader from "../../components/Projects/Project/ProjectHeader";
@@ -13,20 +14,39 @@ import BlogImage from "../../components/Projects/Project/ProjectImage";
 import ProjectCarousel from "../../components/Projects/Project/ProjectCarousel";
 import Section from "../../components/Projects/Project/Section";
 import LegendNavbar from "../../components/Projects/LegendNavbar";
+import Layout, {exitDuration, startDuration} from "../../components/General/Layout";
 
 const components = {BlogImage, ProjectCarousel, Section};
 
 export default function ProjectPage({source, frontMatter, headerImage}: any) {
     const titleString = `Project ${frontMatter.title ? `| ${frontMatter.title}` : ''}`;
 
-    return <>
+    const containerVariants = {
+        hidden: {x: '100vw', opacity: 0},
+        visible: {
+            x: 0,
+            opacity: 1,
+            transition: {
+                duration: startDuration,
+            }
+        },
+        exit: {
+            x: '-100vw',
+            opacity: 0,
+            transition: {
+                duration: exitDuration,
+            }
+        }
+    };
+
+    return <Layout>
         <Head>
             <title>{titleString}</title>
         </Head>
 
         <Navigation href='/projects' name='Projects'/>
 
-        <Container>
+        <Container variants={containerVariants} initial="hidden" animate="visible" exit="exit">
             <LegendNavbar sections={frontMatter.sections}/>
 
             {headerImage && <BlogImage src={headerImage} alt={frontMatter.title}/>}
@@ -36,10 +56,10 @@ export default function ProjectPage({source, frontMatter, headerImage}: any) {
 
             <MDXRemote {...source} components={components}/>
         </Container>
-    </>
+    </Layout>
 }
 
-const Container = styled.div`
+const Container = styled(motion.div)`
     background-color: #1a1a1a;
     text-align: left;
     width: 100%;

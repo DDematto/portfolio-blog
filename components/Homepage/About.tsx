@@ -1,30 +1,64 @@
 import styled from "styled-components";
-import {motion} from "framer-motion";
-import {AnimatedContainer} from "../General/AnimatedContainers";
+import {motion, AnimatePresence} from "framer-motion";
+import {TextContainer} from "../General/TextContainer";
 import Image from "next/legacy/image";
-import Section from "./index";
-import profilePic from "../../public/images/DevinDeMatto.jpg";
+import Section from "./Section";
+import profilePic from "../../public/DevinDeMatto.jpg";
 import GitHub from "../General/Icons/Github";
 import LinkedIn from "../General/Icons/LinkedIn";
 import X from "../General/Icons/X";
+import {exitDuration, inViewForAnimate, startDuration} from "../General/Layout";
+import {useInView} from 'react-intersection-observer';
+import {ResumeButton} from "../General/Footer";
 
 export default function About() {
     const titles = ["01 - About Me, Hey I'm Devin!", "01 - About Me, I Enjoy: Games"]
 
     const profileVariants = {
-        hidden: {opacity: 0, x: "-20vw", transition: {duration: 1}},
-        visible: {opacity: 1, x: 0, transition: {duration: 1}}
+        hidden: {opacity: 0, x: "-20vw"},
+        visible: {opacity: 1, x: 0, transition: {duration: startDuration}},
+        exit: {opacity: 0, x: "-20vw", transition: {duration: exitDuration}}
+    };
+
+    const descVariants = {
+        hidden: {opacity: 0, y: -40, scale: 0.90, transition: {duration: startDuration, ease: "easeOut"}},
+        visible: {opacity: 1, y: 0, scale: 1, transition: {duration: startDuration, ease: "easeOut"}},
+        exit: {opacity: 0, y: -40, scale: 0.90, transition: {duration: exitDuration, ease: "easeIn"}}
+    };
+
+    const profileLinksVariants = {
+        visible: {transition: {staggerChildren: 0.2}},
+        exit: {transition: {staggerChildren: 0.1, staggerDirection: -1}}
     }
 
-    const DescVariants = {
-        hidden: {opacity: 0, y: "20vh", transition: {duration: 1}},
-        visible: {opacity: 1, y: 0, transition: {duration: 1}}
-    }
+    const linkVariants = (direction: string, index: number) => {
+        return {
+            hidden: {
+                opacity: 0,
+                x: direction === 'left' ? -50 : 50, // Enter from left or right
+            },
+            visible: {
+                opacity: 1,
+                x: 0,
+                transition: {
+                    type: 'spring',
+                    stiffness: 120,
+                    delay: startDuration + index * 0.1 // Delay each link's animation start
+                }
+            },
+            exit: {
+                opacity: 0,
+                x: direction === 'left' ? 50 : -50, // Exit to left or right
+                transition: { duration: 0.1 }
+            }
+        };
+    };
 
-    return <Section titles={titles} defaultText="01 - About Me" id="about">
+    const [containerRef, inView] = useInView({threshold: inViewForAnimate, triggerOnce: true});
+    return <Section titles={titles} defaultText="01 - About Me" id="about" ref={containerRef}>
         <AboutContainer>
-            
-            <ProfileContainer variants={profileVariants} initial="hidden" animate="visible">
+            <ProfileContainer variants={profileVariants} initial="hidden" animate={inView ? "visible" : "hidden"}
+                              exit='exit'>
                 <AnimatedDiv>
                     <Image
                         src={profilePic}
@@ -32,23 +66,32 @@ export default function About() {
                         layout='fill'
                         objectFit='cover'
                         sizes="100vw"
+                        priority
                     />
                 </AnimatedDiv>
 
-
                 <ProfileText>Devin DeMatto</ProfileText>
 
-                <ProfileLinks>
-                    <a target="new" href="https://github.com/DDematto"><GitHub size={64}/></a>
-                    <a target="new" href="https://twitter.com/DevinDematto"><X size={64}/></a>
-                    <a target="new" href="https://www.linkedin.com/in/devin-dematto-60a48718b/"><LinkedIn
-                        size={64}/></a>
-                </ProfileLinks>
+                <AnimatePresence>
+                    <ProfileLinks variants={profileLinksVariants} initial="hidden" animate="visible" exit="exit">
+                        <motion.a variants={linkVariants("left", 0)} target="_blank" href="https://github.com/DDematto">
+                            <GitHub size={64}/>
+                        </motion.a>
+                        <motion.a variants={linkVariants("right", 1)} target="_blank" href="https://twitter.com/DevinDematto">
+                            <X size={64}/>
+                        </motion.a>
+                        <motion.a variants={linkVariants("left", 2)} target="_blank" href="https://www.linkedin.com/in/devin-dematto-60a48718b/">
+                            <LinkedIn size={64}/>
+                        </motion.a>
+                    </ProfileLinks>
+                </AnimatePresence>
+
             </ProfileContainer>
 
-            <DescContainer variants={DescVariants} initial="hidden" animate="visible">
+            <DescContainer variants={descVariants} initial="hidden" animate={inView ? "visible" : "hidden"} exit='exit'>
                 <Paragraph>
-                    <h2>Professional Background</h2>
+                    <h2>Professional Background - <ResumeButton style={{fontSize: "18px"}}
+                                                                href={'/Resume.pdf'}>Resume</ResumeButton></h2>
                     <p>I have always been passionate about programming and have been
                         fortunate enough to turn that
                         passion
@@ -72,6 +115,7 @@ export default function About() {
                         see
                         what the future holds. Thank you for visiting my website and learning more about me.</p>
                 </Paragraph>
+
             </DescContainer>
 
         </AboutContainer>
@@ -100,7 +144,7 @@ const ProfileContainer = styled(motion.div)`
 `;
 
 
-const AnimatedDiv = styled(AnimatedContainer)`
+const AnimatedDiv = styled(TextContainer)`
     width: 200px; // Fixed width
     height: 200px; // Fixed height
     margin: 0 auto;
@@ -114,7 +158,7 @@ const ProfileText = styled.h2`
     margin: 0 auto;
 `;
 
-const ProfileLinks = styled.div`
+const ProfileLinks = styled(motion.div)`
     width: 80%;
     padding: .5rem;
     margin: 0 auto;
@@ -128,7 +172,7 @@ const ProfileLinks = styled.div`
 
 
 // Description section
-const DescContainer = styled(AnimatedContainer)`
+const DescContainer = styled(TextContainer)`
     display: flex;
     flex-direction: column;
     gap: 2rem;

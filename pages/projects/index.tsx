@@ -10,6 +10,8 @@ import ProjectCard, {IProject} from '../../components/Projects/ProjectCard'
 import Navigation from "../../components/Projects/Navigation";
 import GitHubStats from "../../components/General/GithubStats";
 import LeetcodeStats from "../../components/General/LeetcodeStats";
+import Layout, {exitDuration, startDuration} from "../../components/General/Layout";
+import {AnimatePresence, motion} from 'framer-motion';
 
 export default function Projects({projects}: { projects: IProject[] }) {
     const [search, setSearch] = useState("");
@@ -31,14 +33,60 @@ export default function Projects({projects}: { projects: IProject[] }) {
         return filteredByTags;
     }, [search, filters, projects]);
 
-    return <>
+    const cardExitDuration = exitDuration / 5;
+    const containerVariants = {
+        hidden: {x: '100vw', opacity: 0},
+        visible: {
+            x: 0,
+            opacity: 1,
+            transition: {
+                duration: startDuration,
+            }
+        },
+        exit: {
+            x: '-100vw',
+            opacity: 0,
+            transition: {
+                duration: exitDuration,
+                // Calculate the delay based on the total duration of children's exit animations
+                delay: cardExitDuration + (cardExitDuration / filteredProjects.length) * (filteredProjects.length - 1)
+            }
+        }
+    };
+
+    const listVariants = {
+        hidden: {
+            x: '100vw',
+            opacity: 0
+        },
+        show: {
+            x: 0,
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.05,
+                when: "beforeChildren", // Make sure the children animate after the list is in place
+                duration: startDuration,
+            }
+        },
+        exit: {
+            opacity: 0,
+            transition: {
+                staggerChildren: exitDuration / (2 * projects.length),
+                staggerDirection: -1,
+                when: "afterChildren",
+                duration: exitDuration / 2,
+            }
+        }
+    };
+
+    return <Layout>
         <Head>
             <title>Devin DeMatto | Projects</title>
         </Head>
 
         <Navigation href='/' name='Homepage'/>
 
-        <Container>
+        <Container variants={containerVariants} initial="hidden" animate="visible" exit="exit">
             <TopRow>
                 <GitHubStats/>
                 <LeetcodeStats/>
@@ -46,13 +94,15 @@ export default function Projects({projects}: { projects: IProject[] }) {
 
             <SearchFilter filters={filters} setFilters={setFilters} setSearch={setSearch}/>
 
-            <List>
-                {filteredProjects.map((project) => (
-                    <ProjectCard key={project.slug} project={project}/>
-                ))}
+            <List variants={listVariants} initial="hidden" animate="show" exit="exit">
+                <AnimatePresence mode='wait'>
+                    {filteredProjects.map((project, index) => (
+                        <ProjectCard key={project.slug} project={project} projects={filteredProjects.length}
+                                     index={index} cardExitDuration={cardExitDuration}/>))}
+                </AnimatePresence>
             </List>
         </Container>
-    </>
+    </Layout>
 }
 
 export const getStaticProps = async () => {
@@ -81,7 +131,7 @@ export const getStaticProps = async () => {
 };
 
 
-const Container = styled.div`
+const Container = styled(motion.div)`
     text-align: center;
     width: 80%;
     margin: 0 auto;
@@ -94,7 +144,7 @@ const Container = styled.div`
     }
 `;
 
-const List = styled.div`
+const List = styled(motion.div)`
     display: flex;
     flex-direction: column;
     align-items: center;
