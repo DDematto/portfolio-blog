@@ -1,11 +1,11 @@
 import type {AppProps} from 'next/app'
-import styled, {DefaultTheme, ThemeProvider} from 'styled-components'
+import {DefaultTheme, ThemeProvider} from 'styled-components'
 import GlobalStyle from "../components/globalstyles";
-import {Fira_Code} from "next/font/google"
 import Script from 'next/script';
 import Head from 'next/head';
 import {Analytics} from '@vercel/analytics/react';
 import Footer from '../components/General/Footer';
+import {AnimatePresence} from 'framer-motion';
 
 const theme: DefaultTheme = {
     colors: {
@@ -21,17 +21,12 @@ const theme: DefaultTheme = {
     }
 }
 
-const roboto = Fira_Code({subsets: ['latin']})
-
-export default function App({Component, pageProps}: AppProps) {
+export default function App({Component, pageProps, router}: AppProps) {
     return <ThemeProvider theme={theme}>
         <WebsiteInfo/>
-
-        <Container className={roboto.className}>
-            <Component {...pageProps} />
-            <Footer/>
-        </Container>
-
+        <AnimatePresence mode='wait' onExitComplete={() => window.scrollTo(0, 0)}>
+            <Component {...pageProps} key={router.route}/>
+        </AnimatePresence>
     </ThemeProvider>
 }
 
@@ -52,10 +47,10 @@ const WebsiteInfo = () => {
             <title>Devin DeMatto | Portfolio</title>
             <meta name="description" content={content}/>
             <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-            <link rel="shortcut icon" href="/images/favicon.ico"/>
-            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png"/>
-            <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png"/>
-            <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png"/>
+            <link rel="shortcut icon" href="/favicon.ico"/>
+            <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+            <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+            <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
             <script type="application/ld+json">
                 {JSON.stringify(schemaMarkup)}
             </script>
@@ -67,14 +62,4 @@ const WebsiteInfo = () => {
         <GlobalStyle/>
     </>
 }
-
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    align-items: center;
-    justify-content: center;
-    max-width: 100vw;
-    margin: auto;
-`
 

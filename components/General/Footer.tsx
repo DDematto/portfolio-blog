@@ -5,9 +5,12 @@ import LinkedIn from "./Icons/LinkedIn";
 import CopyText from "./CopyText";
 import {AiFillHeart} from "react-icons/ai";
 import Link from "next/link";
+import {Fira_Code} from "next/font/google"
+
+const roboto = Fira_Code({subsets: ['latin']})
 
 export default function Footer() {
-    return <Container>
+    return <Container className={roboto.className}>
         <VerticalContainer>
             <IconTextContainer>
                 Made With Love
@@ -30,68 +33,67 @@ export default function Footer() {
 }
 
 const Container = styled.div`
-  width: 100%;
-  height: 5rem;
-  padding: 1rem;
+    height: 5rem;
+    padding: 1rem;
 
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 
-  font-size: 0.9rem;
-  background: ${({theme}) => theme.colors.primary};
-  border-top: 1px solid ${({theme}) => theme.colors.secondary};
+    font-size: 0.9rem;
+    background: ${({theme}) => theme.colors.primary};
+    border-top: 1px solid ${({theme}) => theme.colors.secondary};
 `
 
 const VerticalContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    gap: 0.5rem;
 
-  @media (max-width: 660px) {
-    display: none;
-  }
+    @media (max-width: 660px) {
+        display: none;
+    }
 `
 
-const ResumeButton = styled(Link)`
-  background: none;
-  border: none;
-  padding: 0;
-  font: inherit;
-  cursor: pointer;
-  outline: inherit;
+export const ResumeButton = styled(Link)`
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
 
-  font-style: italic;
-  color: ${({theme}) => theme.text.secondary};
+    font-style: italic;
+    color: ${({theme}) => theme.text.secondary};
 
-  &:hover {
-    color: ${({theme}) => theme.text.highlight};
-  }
+    &:hover {
+        color: ${({theme}) => theme.text.highlight};
+    }
 `
 
 const IconTextContainer = styled.h4`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.5rem;
-  height: 0.8rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    height: 0.8rem;
 
-  svg {
-    color: red;
-    height: 1rem;
-    width: 1rem;
-  }
+    svg {
+        color: red;
+        height: 1rem;
+        width: 1rem;
+    }
 `
 
 const ProfileLinks = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  gap: 1rem;
-  margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    gap: 1rem;
+    margin: 0 auto;
 `
 
 

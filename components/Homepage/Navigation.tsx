@@ -3,6 +3,7 @@ import {useRouter} from 'next/router'
 import {motion} from "framer-motion";
 import {useCallback, useEffect, useRef, useState} from "react";
 import styled, {css} from "styled-components";
+import {exitDuration, startDuration} from "../General/Layout";
 
 const categories = ["about", "skills", "projects", "education", "contact"];
 
@@ -46,20 +47,25 @@ export default function Navigation() {
     }, []);
 
     useEffect(() => {
-        if (router.pathname == "/") {
-            categoryLogic();
-            window.addEventListener("scroll", categoryLogic);
-        } else {
-            setProgress(0);
-            setActive("")
-        }
-
+        categoryLogic();
+        window.addEventListener("scroll", categoryLogic);
         return () => window.removeEventListener("scroll", categoryLogic);
     }, [categoryLogic, router.pathname]);
 
-    const variants = {hidden: {y: -65, transition: {duration: 0.1}}, visible: {y: 0, transition: {duration: 0.1}}}
+    // Set up Animation for Nav
+    const variants = {
+        hidden: {
+            y: -150,
+            transition: {duration: exitDuration}
+        },
+        visible: {
+            y: 0,
+            transition: {duration: startDuration}
+        },
+        exit: {y: -150, transition: {duration: exitDuration}}
+    };
 
-    return <Nav ref={navRef} variants={variants} animate="visible" initial='hidden'>
+    return <Nav ref={navRef} variants={variants} animate="visible" initial='hidden' exit='exit'>
         <Wrapper ref={wrapperRef}>
             <SectionLink id="about" title="01 - About" active={active == "about"}/>
             <SectionLink id="skills" title="02 - Skills" active={active == "skills"}/>
@@ -99,39 +105,39 @@ const Nav = styled(motion.nav)`
 `
 
 const Line = styled(motion.div)`
-  position: absolute;
-  bottom: 2px;
-  height: 2px;
-  border-radius: 2px;
-  background-color: white;
-  backdrop-filter: blur(10px);
-  z-index: -1;
+    position: absolute;
+    bottom: 2px;
+    height: 2px;
+    border-radius: 2px;
+    background-color: white;
+    backdrop-filter: blur(10px);
+    z-index: -1;
 `
 
 const Wrapper = styled.div`
-  width: 80%;
-  height: 20px;
-  display: inline-flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  text-align: center;
+    width: 80%;
+    height: 20px;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
 
-  & > * {
-    width: 100%;
-  }
+    & > * {
+        width: 100%;
+    }
 
-  @media (max-width: 700px) {
-    margin-top: 0.5rem;
+    @media (max-width: 700px) {
+        margin-top: 0.5rem;
 
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    flex-direction: column;
-    gap: 1.5rem;
-  }
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        flex-direction: column;
+        gap: 1.5rem;
+    }
 `
 
-
+// Section Link Component
 function SectionLink(props: { title: string, id: string, active: boolean }) {
     const {title, id, active} = props;
     const router = useRouter();
@@ -148,6 +154,36 @@ function SectionLink(props: { title: string, id: string, active: boolean }) {
             });
         }, 1);
     }
+
+
+    type KeySectionMap = {
+        [key: string]: string;
+    };
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            // Define your key-section mapping with type
+            const keySectionMap: KeySectionMap = {
+                '1': 'about',
+                '2': 'skills',
+                '3': 'projects',
+                '4': 'education',
+                '5': 'contact',
+            };
+
+            // Check if the pressed key is in your map
+            const sectionId = keySectionMap[e.key];
+            if (sectionId) {
+                adjustScroll(sectionId);
+            }
+        };
+
+        // Add event listener
+        window.addEventListener('keydown', handleKeyDown);
+
+        // Cleanup
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
 
     // Adjust scroll on component mount (after everything is loaded)
     useEffect(() => {
@@ -183,25 +219,24 @@ function SectionLink(props: { title: string, id: string, active: boolean }) {
     </div>
 }
 
-
 const LinkStyled = styled(Link)<{ active: number }>`
-  height: 100%;
-  color: ${({theme}) => theme.text.highlight};
-  text-decoration: none;
-  transition: all 0.2s ease-in-out;
-  white-space: nowrap;
-  text-align: center;
-  outline: 1px solid transparent;
-  padding: 0.5rem 1rem;
+    height: 100%;
+    color: ${({theme}) => theme.text.highlight};
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    white-space: nowrap;
+    text-align: center;
+    outline: 1px solid transparent;
+    padding: 0.5rem 1rem;
 
-  &:hover, &:focus {
-    color: ${({theme}) => theme.text.secondary};
-  }
+    &:hover, &:focus {
+        color: ${({theme}) => theme.text.secondary};
+    }
 
-  ${({active}) => active && css`
-    color: ${({theme}) => theme.text.primary};
-    background-color: ${({theme}) => theme.colors.primary};
-    border: 1px solid ${({theme}) => theme.colors.secondary};
-    border-radius: 5px;
-  `}
+    ${({active}) => active && css`
+        color: ${({theme}) => theme.text.primary};
+        background-color: ${({theme}) => theme.colors.primary};
+        border: 1px solid ${({theme}) => theme.colors.secondary};
+        border-radius: 5px;
+    `}
 `
