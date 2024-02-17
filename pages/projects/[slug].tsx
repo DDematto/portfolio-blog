@@ -15,9 +15,9 @@ import ProjectCarousel from "../../components/Projects/Project/ProjectCarousel";
 import Section from "../../components/Projects/Project/Section";
 import LegendNavbar from "../../components/Projects/LegendNavbar";
 import Layout, {exitDuration, startDuration} from "../../components/General/Layout";
-import YoutubeEmbed from "../../components/Projects/Project/YoutubeEmbed";
+import YouTubeEmbed from "../../components/Projects/Project/YoutubeEmbed";
 
-const components = {BlogImage, ProjectCarousel, Section, YoutubeEmbed};
+const components = {BlogImage, ProjectCarousel, Section, YouTubeEmbed};
 
 export default function ProjectPage({source, frontMatter, headerImage}: any) {
     const titleString = `Project ${frontMatter.title ? `| ${frontMatter.title}` : ''}`;
@@ -99,9 +99,8 @@ export async function getStaticProps({params}: any) {
         console.error("Error reading image directory:", error);
     }
 
-    // Look for a file named 'header' (or similar) and set headerImage accordingly
     const headerImageFile = imageFiles.find(file => file.startsWith('header'));
-    const headerImage = headerImageFile ? params.slug + "/" + headerImageFile : '';
+    const headerImage = headerImageFile ? `/projects/${params.slug}/${headerImageFile}` : '';
 
     return {
         props: {

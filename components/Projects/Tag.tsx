@@ -4,13 +4,14 @@ export const TagColors: { [key: string]: string } = {
     react: "#61dafb",
     python: "#3776ab",
     javascript: "#f7df1e",
+    "c++": "#004482",
     typescript: "#3178c6",
     html5: "#e34f26",
     css3: "#1572b6",
     nextjs: "#7a6767",
     vercel: "#0070F3",
     unity: "#000000",
-    unreal: "#0e1128",
+    unreal: "#157de5",
 };
 
 
