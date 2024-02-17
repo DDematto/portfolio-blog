@@ -5,7 +5,7 @@ import React from "react";
 import Footer from "./Footer";
 
 // Text
-const roboto = Fira_Code({subsets: ['latin']})
+const roboto = Fira_Code({subsets: ['latin'], weight: "400", style: 'normal'})
 
 // Animation Timings
 export const startDuration = 1 // Max duration for animating in
@@ -35,5 +35,4 @@ const LayoutContainer = styled(motion.div)`
     margin: auto;
     flex-grow: 1;
     max-width: 1400px;
-    overflow-x: hidden;
 `

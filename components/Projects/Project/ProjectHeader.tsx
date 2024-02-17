@@ -12,16 +12,20 @@ interface ArticleHeaderProps {
 
 export default function ProjectHeader({title, tags, date, github}: ArticleHeaderProps) {
     return <HeaderContainer>
-        <Title>{title}</Title>
-        {github && <Link target="new" href={github}>GitHub</Link>}
-        <AuthorDate>
-            <span>Devin DeMatto</span>
+    <Title>{title}</Title>
+    <AuthorDate>
+        <span>Devin DeMatto</span>
+        <span>·</span>
+        <span>{date}</span>
+        {github && <>
             <span>·</span>
-            <span>{date}</span>
-        </AuthorDate>
-        <div>
-            {tags.map(tag => <Tag key={tag} name={tag}/>)}
-        </div>
+            <Link target="new" href={github}>GitHub</Link>
+        </>
+        }
+    </AuthorDate>
+    <div>
+        {tags.map(tag => <Tag key={tag} name={tag}/>)}
+    </div>
     </HeaderContainer>
 }
 

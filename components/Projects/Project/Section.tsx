@@ -1,7 +1,7 @@
 import styled, {css} from 'styled-components';
 
 const SectionHeaderContainer = styled.div<{ isSubSection: boolean }>`
-    padding: 0.5rem 0; // Adjusted padding
+    padding: 0.5rem 0;
     border-bottom: 2px solid ${({theme}) => theme.colors.accentEnd}; // More visible border using accent color
     display: flex;
     align-items: center;
@@ -9,15 +9,13 @@ const SectionHeaderContainer = styled.div<{ isSubSection: boolean }>`
     margin-bottom: 1rem;
 
     ${({isSubSection}) => isSubSection && css`
-        margin-left: 1rem; // Subtle indentation for subsections
-        padding-left: 1rem; // Padding to align text within the subsection
-        background: ${({theme}) => theme.colors.background}; // Slight background difference
-        border-left: 4px solid ${({theme}) => theme.colors.accentStart}; // Vertical line to indicate subsection
+        padding-left: 1rem;
+        background: ${({theme}) => theme.colors.background};
+        border-left: 4px solid ${({theme}) => theme.colors.accentStart};
     `}
 `;
 
 const SectionTitle = styled.h2<{ isSubSection: boolean }>`
-    font-family: 'Your Header Font', sans-serif;
     color: ${({theme}) => theme.colors.accentStart};
     font-size: 1.75em; // Larger font-size for main sections
     font-weight: bold;

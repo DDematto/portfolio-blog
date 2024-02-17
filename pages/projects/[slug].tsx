@@ -15,8 +15,9 @@ import ProjectCarousel from "../../components/Projects/Project/ProjectCarousel";
 import Section from "../../components/Projects/Project/Section";
 import LegendNavbar from "../../components/Projects/LegendNavbar";
 import Layout, {exitDuration, startDuration} from "../../components/General/Layout";
+import YouTubeEmbed from "../../components/Projects/Project/YoutubeEmbed";
 
-const components = {BlogImage, ProjectCarousel, Section};
+const components = {BlogImage, ProjectCarousel, Section, YouTubeEmbed};
 
 export default function ProjectPage({source, frontMatter, headerImage}: any) {
     const titleString = `Project ${frontMatter.title ? `| ${frontMatter.title}` : ''}`;
@@ -63,7 +64,7 @@ const Container = styled(motion.div)`
     background-color: #1a1a1a;
     text-align: left;
     width: 100%;
-    max-width: 1100px;
+    max-width: 1366px;
     margin-bottom: 40px;
     padding: 2rem;
     border-radius: 10px;
@@ -90,7 +91,7 @@ export async function getStaticProps({params}: any) {
     const mdxRemoteSource = await serialize(content);
 
     // Images are now assumed to be in a folder following the pattern 'public/images/projects/slug'
-    const imageDirectory = path.join(process.cwd(), 'public', 'images', 'projects', params.slug);
+    const imageDirectory = path.join(process.cwd(), 'public', 'projects', params.slug);
     let imageFiles: string[] = [];
     try {
         imageFiles = fs.readdirSync(imageDirectory);
@@ -98,9 +99,8 @@ export async function getStaticProps({params}: any) {
         console.error("Error reading image directory:", error);
     }
 
-    // Look for a file named 'header' (or similar) and set headerImage accordingly
     const headerImageFile = imageFiles.find(file => file.startsWith('header'));
-    const headerImage = headerImageFile ? params.slug + "/" + headerImageFile : '';
+    const headerImage = headerImageFile ? `/projects/${params.slug}/${headerImageFile}` : '';
 
     return {
         props: {

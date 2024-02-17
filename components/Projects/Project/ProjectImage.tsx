@@ -1,15 +1,25 @@
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import styled from 'styled-components';
 
 const StyledImageContainer = styled.div`
-    width: 100%;
-    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    width: calc(100% - 4rem); // You can adjust this for a wider image
+    height: 450px; // Increased height for a larger display area
     position: relative;
-    overflow: hidden; // To maintain border-radius or any other styles
+    overflow: hidden;
+    margin: 0 auto;
+    margin-top: 1rem;
+    background-color: #000; // Optional, for letterboxing appearance
 `;
 
 const StyledImage = styled(Image)`
-    object-fit: cover; // Ensures the image covers the area
+    object-fit: contain;
+    width: 100%; // This ensures the image is responsive within the container
+    height: 100%; // The image will scale to fit the height, maintaining its aspect ratio
+    position: absolute;
 `;
 
 interface IBlogImage {
@@ -18,12 +28,9 @@ interface IBlogImage {
 }
 
 export default function BlogImage({src, alt}: IBlogImage) {
-    const [slug, imageFileName] = src.split('/');
-    const fullSrc = `/images/projects/${slug}/${imageFileName}`;
-
     return <StyledImageContainer>
         <StyledImage
-            src={fullSrc}
+            src={src}
             alt={alt}
             layout='fill'
             priority
