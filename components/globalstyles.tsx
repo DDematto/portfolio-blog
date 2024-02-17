@@ -17,6 +17,7 @@ const GlobalStyle = createGlobalStyle<{ theme: any }>`
 
     body {
         line-height: 1.6;
+        overflow-x: hidden;
     }
 
     html, body {

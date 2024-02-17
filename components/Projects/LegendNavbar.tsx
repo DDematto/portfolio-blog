@@ -2,14 +2,12 @@ import styled from 'styled-components';
 
 const StickyHeader = styled.header`
     position: sticky;
-    top: 0; // Stick to the top of the viewport
-    left: 0; // Align to the left side
-    width: 100%; // Full width to cover the top
+    top: 0;
     background-color: rgba(0, 0, 0, 0.7);
     padding: 0.5rem 1rem;
-    z-index: 1000; // Ensure it's above other elements
+    z-index: 1000;
     display: flex;
-    justify-content: space-between; // Adjusted for spacing between elements
+    justify-content: space-evenly; // Adjusted for spacing between elements
     align-items: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 `;
@@ -21,11 +19,11 @@ const LegendButton = styled.a`
     cursor: pointer;
     color: ${({theme}) => theme.text.secondary};
     transition: color 0.2s, background-color 0.2s;
+    border-radius: 6px;
 
     &:hover {
         color: ${({theme}) => theme.colors.background};
         background-color: ${({theme}) => theme.text.secondary};
-        border-radius: 6px;
     }
 `;
 

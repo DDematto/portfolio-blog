@@ -7,7 +7,7 @@ import {AiFillHeart} from "react-icons/ai";
 import Link from "next/link";
 import {Fira_Code} from "next/font/google"
 
-const roboto = Fira_Code({subsets: ['latin']})
+const roboto = Fira_Code({subsets: ['latin'], weight: "400", style: 'normal'})
 
 export default function Footer() {
     return <Container className={roboto.className}>
