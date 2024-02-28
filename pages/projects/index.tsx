@@ -150,7 +150,7 @@ const List = styled(motion.div)`
     align-items: center;
     margin-top: 20px;
     gap: 1.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 `;
 
 const TopRow = styled.div`
