@@ -70,6 +70,11 @@ const Container = styled(motion.div)`
     border-radius: 10px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
     flex: 1;
+
+
+    @media (max-width: 768px) {
+        width: 80%;
+    }
 `;
 
 export async function getStaticPaths() {
