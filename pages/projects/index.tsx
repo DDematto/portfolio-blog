@@ -136,10 +136,8 @@ const Container = styled(motion.div)`
     width: 80%;
     margin: 0 auto;
     flex-grow: 1;
-    max-width: 1100px;
 
     @media (max-width: 768px) {
-        width: 100%;
         flex-direction: column;
     }
 `;
@@ -148,7 +146,6 @@ const List = styled(motion.div)`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
     gap: 1.5rem;
     margin-bottom: 2rem;
 `;

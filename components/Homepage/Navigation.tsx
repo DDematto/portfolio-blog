@@ -96,11 +96,8 @@ const Nav = styled(motion.nav)`
     justify-content: space-around;
 
 
-    @media (max-width: 700px) {
-        flex-direction: column;
-        gap: 1.5rem;
-        padding-top: 1rem;
-        padding-bottom: 1rem;
+    @media (max-width: 800px) {
+        display: none;
     }
 `
 
