@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0a0a0a;
+  --color-foreground: #ededed;
+
+  /* Primary Theme Palette (Orangish-Red from Neural Component) */
+  --color-theme-50: #fff3ec;
+  --color-theme-100: #ffe4d3;
+  --color-theme-200: #ffc4a0;
+  --color-theme-300: #ff9d66;
+  --color-theme-400: #ff7832;
+  --color-theme-500: #f95606;
+  --color-theme-600: #ea3e00;
+  --color-theme-700: #c22902;
+  --color-theme-800: #9a220a;
+  --color-theme-900: #7c200e;
+  --color-theme-950: #430d05;
+}
+
+
+@layer base {
+  :root {
+    --background: #000000;
+    --foreground: #ffffff;
+  }
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Custom scrollbar for webkit */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

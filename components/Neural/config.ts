@@ -1,0 +1,60 @@
+export const NEURAL_CONFIG = {
+    // Limits
+    MAX_SIGNALS: 250,
+    TRAIL_LENGTH: 5,
+    MAX_GHOST_MARKS: 600,
+
+    // Timings (ms)
+    REWIRE_INTERVAL: 2500,
+    GHOST_TTL: 15000,
+    SPARK_TTL: 800,
+    REFRACTORY_PERIOD: 1200,
+
+    // Generation
+    DENSITY_FACTOR: 300,
+    MAX_EDGE_MULT: 2.8,
+    CLUSTER_MAX_DIST_MULT: 3.5,
+    WORMHOLE_FRAC: 0.03,
+
+    // Firing behavior
+    SYNAPSE_FIRE_CHANCE: 0.4,
+    SYNAPSE_FALLBACK_CHANCE: 0.5,
+    BACKGROUND_FIRE_CHANCE: 0.015,
+    BURST_FIRE_CHANCE: 0.2,
+    SPONTANEOUS_INTERVAL_MIN: 8000,
+    SPONTANEOUS_INTERVAL_MAX: 12000,
+    SPONTANEOUS_BURST_MIN: 5,
+    SPONTANEOUS_BURST_MAX: 10,
+    SPONTANEOUS_PULSE_CHANCE: 0.4,
+
+    // Physics & Interaction
+    PULSE_RADIUS: 80,
+    SCROLL_SMOOTHING: 0.08,
+    SCROLL_PARALLAX_MULT: 0.15,
+    SCROLL_ZOOM_MULT: 0.0002,
+
+    // Visuals
+    BACKGROUND_COLOR: '#0a0a0a',
+
+    // Extra metrics for bounds & rendering
+    NODE_RADIUS_MIN: 0.8,
+    NODE_RADIUS_MAX: 2.5,
+    MAX_EDGE_DIST_MULT: 2.8,
+    CLUSTER_ALLOWED_DIST_MULT: 3.5,
+    WORMHOLE_CHANCE: 0.03,
+    DRAW_MAX_EDGE: 800,
+
+    // Colors
+    EDGE_BASE_R: 60,
+    EDGE_ACT_R: 255,
+    EDGE_BASE_G: 80,
+    EDGE_ACT_G: 180,
+    EDGE_BASE_B: 160,
+    EDGE_ACT_B: 60,
+    BASE_R: 40,
+    ACTIVE_R: 255,
+    BASE_G: 80,
+    ACTIVE_G: 220,
+    BASE_B: 150,
+    ACTIVE_B: 50,
+};
