@@ -8,7 +8,7 @@ import About from '@/components/App/About';
 
 export default function Home() {
     return (
-        <main className="w-full flex flex-col items-center select-none overflow-x-hidden">
+        <main className="w-full flex flex-col items-center overflow-x-hidden">
             <Hero />
             <About />
             <Projects />
